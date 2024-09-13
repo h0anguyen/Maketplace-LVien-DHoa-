@@ -1,0 +1,21 @@
+extends ./userview/layout
+  
+block content
+  .page-wrapper
+    main.main
+      nav.breadcrumb-nav.border-0.mb-0(aria-label='breadcrumb')
+        .container
+          ol.breadcrumb
+            li.breadcrumb-item
+              a(href='/') Home
+            li.breadcrumb-item
+              a(href='#') Pages
+            li.breadcrumb-item.active(aria-current='page') 404
+      .error-content.text-center(style='background-image: url(assets/images/backgrounds/error-bg.jpg)')
+        .container
+          h1.error-title Error 404
+          p We are sorry, the page you&apos;ve requested is not available.
+          a.btn.btn-outline-primary-2.btn-minwidth-lg(href='/')
+            span BACK TO HOMEPAGE
+            i.icon-long-arrow-right
+    include ./userview/partials/footer

@@ -1,0 +1,184 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  fullName    String?
+  birthday    DateTime?
+  address     String?
+  numberPhone String?
+  email       String?
+  password    Bytes?
+  avatar      String?
+
+  roleUsers     RoleUser[]
+  searchHistory SearchHistory[]
+  cart          Cart[]
+  products      Products[]
+  comments      Comments[]
+  order         Orders[]
+  promotion     Promotions[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Roles {
+  id    Int    @id @default(autoincrement())
+  value String
+
+  roleUsers RoleUser[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RoleUser {
+  id      Int @id @default(autoincrement())
+  userId  Int
+  rolesId Int
+
+  user User  @relation(fields: [userId], references: [id])
+  role Roles @relation(fields: [rolesId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SearchHistory {
+  id      Int    @id @default(autoincrement())
+  content String
+  userId  Int
+
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Cart {
+  id        Int @id @default(autoincrement())
+  userId    Int
+  productId Int
+  quantity  Int
+
+  user    User     @relation(fields: [userId], references: [id])
+  product Products @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Products {
+  id          Int     @id @default(autoincrement())
+  productName String
+  description String?
+  information String?
+  price       Decimal
+  view        Int
+  sold        Int
+  inventory   Int
+  mainImage   Bytes
+  categoryId  Int
+  userId      Int
+
+  cart        Cart[]
+  comments    Comments[]
+  image       Images[]
+  orderDetail OrderDetail[]
+
+  categories Categories @relation(fields: [categoryId], references: [id])
+  user       User       @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Categories {
+  id           Int     @id @default(autoincrement())
+  categoryName String
+  description  String?
+
+  products Products[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comments {
+  id        Int     @id @default(autoincrement())
+  content   String?
+  image     Bytes?
+  star      Int
+  productId Int
+  userId    Int
+
+  user    User     @relation(fields: [userId], references: [id])
+  product Products @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Images {
+  id           Int   @id @default(autoincrement())
+  imageAddress Bytes
+  productId    Int
+  bannerId     Int?
+
+  product Products @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderDetail {
+  id            Int     @id @default(autoincrement())
+  quantity      Int
+  unitPrice     Decimal
+  productId     Int
+  orderId       Int
+  promotionCode Int
+
+  product   Products   @relation(fields: [productId], references: [id])
+  order     Orders     @relation(fields: [orderId], references: [id])
+  promotion Promotions @relation(fields: [promotionCode], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Orders {
+  id                   Int    @id @default(autoincrement())
+  recipientName        String
+  recipientAddress     String
+  recipientNumberPhone String
+  status               Int
+  userId               Int
+
+  OrdersDetail OrderDetail[]
+  user         User          @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Promotions {
+  id            Int      @id @default(autoincrement())
+  value         Float
+  dateEffective DateTime
+  dateExpire    DateTime
+  userId        Int
+
+  orderdetail OrderDetail[]
+  user        User          @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
