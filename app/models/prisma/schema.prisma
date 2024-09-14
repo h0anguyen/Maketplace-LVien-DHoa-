@@ -14,8 +14,8 @@ model User {
   address     String?
   numberPhone String?
   email       String?
-  password    Bytes?
-  avatar      String?
+  password    String?
+  avatar      Bytes?
 
   roleUsers     RoleUser[]
   searchHistory SearchHistory[]
