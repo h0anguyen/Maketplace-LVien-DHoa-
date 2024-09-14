@@ -30,7 +30,7 @@ header.header.header-14.border-bottom-0
                       span.user-name.fw-bold.text-primary=user.fullName
                       small.text-muted.d-block seller
                   .dropdown-menu
-                    a.dropdown-item.inforuser(href='/profile') Thông tin tài khoản
+                    a.dropdown-item.inforuser(href='/user') Thông tin tài khoản
                     form.dropdown-item.inforuser(action=`/auth/${user.id}?_method=DELETE`, method='post').logout
                       button(type='submit') Đăng xuất
               - else

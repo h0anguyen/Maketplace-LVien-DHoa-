@@ -1,0 +1,85 @@
+extends ../layout2
+
+block content
+  .page-wrapper
+    include ../partials/header
+    main
+      .my-5
+      .container.pd
+        #layoutSidenav.rounded-3.overflow-hidden
+          #layoutSidenav_nav
+            nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark.border.rounded.shadow-sm(style='font-size: 1.8rem;')
+              .sb-sidenav-menu
+                .nav
+                  a.nav-link.active(href='/profile')
+                    .sb-nav-link-icon.active
+                      i.fas.fa-user.fa-fw
+                    |                                         Thông tin tài khoản
+                  a.nav-link(href='/history.html')
+                    .sb-nav-link-icon
+                      i.fas.fa-shopping-cart.fa-fw
+                    |                                         Đơn hàng
+                  a.nav-link(href='/seller')
+                    .sb-nav-link-icon
+                      i.fas.fa-store.fa-fw
+                    |                                         Kênh người bán
+          #layoutSidenav_content
+            main
+              .container-fluid.px-4
+                .border.p-4.mb-4.rounded.shadow-lg.bg-white
+                  .border-bottom.pb-3.mb-4.text-center
+                    h1.h3.mb-1.text-primary Hồ sơ của tôi
+                    p.text-muted.mb-0 Quản lí thông tin
+                  .row.g-4
+                    .col-12
+                      .border.rounded-3.p-4.bg-white.shadow-sm
+                        form(action=`/user/${user.id}?_method=PUT` method="post" enctype="multipart/form-data").row
+                          .col-8
+                            .mb-4.row.align-items-center
+                              label.col-sm-3.col-form-label.fw-bold(for='name') Tên :
+                              .col-sm-9
+                                - if(user.fullName)
+                                    input#name.form-control(type='text' name='fullName' value=`${user.fullName}` required='')
+                                - else
+                                    input#name.form-control(type='text'  name='fullName' value=`` placeholder="Chưa chưa cập nhật tên người dùng" required='')
+                            .mb-4.row.align-items-center
+                              label.col-sm-3.col-form-label.fw-bold(for='phone') Số điện thoại :
+                              .col-sm-9
+                                - if(user.numberPhone)
+                                    input#name.form-control(type='text' name='numberPhone' value=`${user.numberPhone}` required='')
+                                - else
+                                    input#name.form-control(type='text' name='numberPhone' value=`` placeholder="Chưa cập nhật số điện thoại" required='')
+                            .mb-4.row.align-items-center
+                              label.col-sm-3.col-form-label.fw-bold(for='email') Email:
+                              .col-sm-9
+                                - if(user.email)
+                                    input#name.form-control(type='email' name='email' value=`${user.email}` required='')
+                                - else
+                                    input#name.form-control(type='email' name='email' value=`` placeholder="Chưa cập nhật email" required='')
+                            .mb-4.row.align-items-center
+                              label.col-sm-3.col-form-label.fw-bold(for='email') Địa chỉ:
+                              .col-sm-9
+                                - if(user.address)
+                                    input#name.form-control(type='text' name='address' value=`${user.address}` required='')
+                                - else
+                                    input#name.form-control(type='text' name='address' value=`` placeholder="Chưa cập nhật địa chỉ" required='')
+                            .mb-4.row.align-items-center
+                          .col-4.rounded-3.p-4.bg-white.text-center
+                              - if(user.avatar)
+                                  img#avatar.img-thumbnail.rounded-circle.mb-3.shadow.mx-auto.d-block(src=`data:image/png;base64,${user.avatar.toString('base64')}` alt='Ảnh đại diện' style='width: 150px; height: 150px; object-fit: cover;')
+                              - else
+                                  img#avatar.img-thumbnail.rounded-circle.mb-3.shadow.mx-auto.d-block(src='images/avatar_user_null.png' alt='Avatar' style='width: 150px; height: 150px; object-fit: cover;')
+                              div
+                                label.btn.btn-outline-primary.rounded-pill(for='uploadAvatar')
+                                  i.fas.fa-camera.me-2
+                                  | Chọn Ảnh
+                                  input#uploadAvatar.d-none(type='file' name='avatar')
+
+                          .text-center
+                            button.btn.btn-primary.px-4.me-2.rounded-pill(type='submit')
+                              i.fas.fa-edit.me-2
+                              | Lưu thông tin
+                            a.btn.btn-outline-secondary.px-4.rounded-pill(href="/user/editPassword")
+                              i.fas.fa-key.me-2
+                              | Đổi mật khẩu
+    include ../partials/footer

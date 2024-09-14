@@ -1,0 +1,57 @@
+extends ../layout
+
+block content
+  .page-wrapper
+    main.main
+      .login-page.bg-image.pt-8.pb-8.pt-md-12.pb-md-12.pt-lg-17.pb-lg-17(style="background-image: url('assets/images/backgrounds/login-bg.jpg')")
+        .container
+          .form-box
+            .form-tab
+              ul.nav.nav-pills.nav-fill(role='tablist')
+                li.nav-item
+                  a#signin-tab-2.nav-link.active(data-toggle='tab' href='#signin-2' role='tab' aria-controls='signin-2' aria-selected='false') Sign In
+              .tab-content
+                #signin-2.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='signin-tab-2')
+                  form(action='/auth/login' method="post")
+                    .form-group
+                      label(for='singin-email-2') Email or numberPhone *
+                      input#singin-email-2.form-control(type='text' name='username' required='')
+                    // End .form-group
+                    .form-group
+                      label(for='singin-password-2') Password *
+                      input#singin-password-2.form-control(type='password' name='password' required='')
+                    // End .form-group
+                    .form-footer
+                      button.btn.btn-outline-primary-2(type='submit')
+                        span LOG IN
+                        i.icon-long-arrow-right
+                      //- .custom-control.custom-checkbox
+                      //-   input#signin-remember-2.custom-control-input(type='checkbox')
+                      //-   label.custom-control-label(for='signin-remember-2') Remember Me
+                      // End .custom-checkbox
+                      a.forgot-link(href='#') Forgot Your Password?
+                    // End .form-footer
+                  .form-choice
+                    p.text-center or sign in with
+                    .row
+                      .col-sm-12
+                        a.btn.btn-login.btn-g(href='/auth/google')
+                          i.icon-google
+                          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;    &#x9;&#x9;&#x9;&#x9;Login With Google
+                    p.text-center.mt-3
+                      a.text-center.text-dark(href='/auth/signup') 
+                        u Signup
+
+                      // End .col-6
+
+                    // End .row
+                  // End .form-choice
+                // .End .tab-pane
+              // End .tab-content
+            // End .form-tab
+          // End .form-box
+        // End .container
+      // End .login-page section-bg
+    // End .main
+
+    include ../partials/footer
