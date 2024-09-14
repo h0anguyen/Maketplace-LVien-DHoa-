@@ -1,0 +1,66 @@
+extends ../layout
+
+block content
+  .page-wrapper
+    main.main
+      .login-page.bg-image.pt-8.pb-8.pt-md-12.pb-md-12.pt-lg-17.pb-lg-17(style="background-image: url('assets/images/backgrounds/login-bg.jpg')")
+        .container
+          .form-box
+            .form-tab
+              ul.nav.nav-pills.nav-fill(role='tablist')
+                li.nav-item
+                  a#register-tab-2.nav-link.active(data-toggle='tab' href='#register-2' role='tab' aria-controls='register-2' aria-selected='true') Register
+              .tab-content
+                #register-2.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='register-tab-2')
+                  form(action='/user/' method="post")
+                    .form-group
+                      label(for='register-email-2') Tên * (từ 5 -> 50 kí tự)
+                      input#register-email-2.form-control(type='text' name='fullName' required='' placeholder="")
+                    .form-group
+                      label(for='register-email-2') Email * (__@gmail.com)
+                      input#register-email-2.form-control(type='email' name='email' required='')
+                    .form-group
+                      label(for='register-email-2') Số điện thoại * 
+                      input#register-email-2.form-control(type='text' name='numberPhone' required='')
+                    // End .form-group
+                    .form-group
+                      label(for='register-password-2') Mật khẩu * (từ 6 -> 30 kí tự )
+                      input#register-password-2.form-control(type='password' name='password' required='')
+                    .form-group
+                      label(for='register-password-2') Nhập lại mật khẩu *
+                      input#register-password-2.form-control(type='password' name='confirmPassword' required='')
+                    // End .form-group
+                    .form-footer
+                      button.btn.btn-outline-primary-2(type='submit')
+                        span SIGN UP
+                        i.icon-long-arrow-right
+                      .custom-control.custom-checkbox
+                        input#register-policy-2.custom-control-input(type='checkbox' required='')
+                        label.custom-control-label(for='register-policy-2')
+                          | I agree to the 
+                          a(href='#') privacy policy
+                          |  *
+                      // End .custom-checkbox
+                    // End .form-footer
+                  .form-choice
+                    p.text-center or sign in with
+                    .row
+                      .col-sm-12
+                        a.btn.btn-login.btn-g(href='#')
+                          i.icon-google
+                          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;    &#x9;&#x9;&#x9;&#x9;Login With Google
+                      // End .col-6
+                    p.text-center.mt-3
+                      a.text-center.text-dark(href='/auth/signin') 
+                        u Signin
+                    // End .row
+                  // End .form-choice
+                // .End .tab-pane
+              // End .tab-content
+            // End .form-tab
+          // End .form-box
+        // End .container
+      // End .login-page section-bg
+    // End .main
+
+    include ../partials/footer

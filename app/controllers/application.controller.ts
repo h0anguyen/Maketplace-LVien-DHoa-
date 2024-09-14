@@ -15,7 +15,7 @@ export class ApplicationController {
 
     if (existingUser) {
       req.flash("errors", {
-        msg: "User or number phone previously registered",
+        msg: "Số điện thoại hoặc email đã được đăng kí từ trước",
       });
       return res.redirect("/auth/signup");
     }
