@@ -80,7 +80,7 @@ model Products {
   productName String
   description String?
   information String?
-  price       Decimal
+  price       Decimal @db.Decimal(10, 3)
   view        Int
   sold        Int
   inventory   Int
@@ -141,7 +141,7 @@ model Images {
 model OrderDetail {
   id            Int     @id @default(autoincrement())
   quantity      Int
-  unitPrice     Decimal
+  unitPrice     Decimal @db.Decimal(10, 3)
   productId     Int
   orderId       Int
   promotionCode Int

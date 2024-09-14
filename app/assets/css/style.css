@@ -19895,16 +19895,13 @@ button:focus {
 .header {
     padding: 0 30px;
 }
-/* .sb-sidenav-menu{
-    display: flex;
-    padding: 20% 1%;
-}
-.nav {
-    flex-direction: column;
-
-}
-.nav-link {
-
+.sidebarr {
+    background-color: #212529;
+    padding: 20px;
 }
 
-*/
+.sidebarr .nav-link {
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}

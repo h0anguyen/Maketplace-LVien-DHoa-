@@ -8,6 +8,11 @@ export class AuthRoute {
   private static authController = new AuthController();
 
   public static draw() {
+    this.path.route("/google").get(this.authController.loginWithGoogle);
+    this.path
+      .route("/google/callback")
+      .get(this.authController.loginWithGoogleRedirect);
+      
     this.path.route("/signup").get(this.authController.signup);
     this.path.route("/signin").get(this.authController.signin);
     this.path.route("/login").post(this.authController.login);
