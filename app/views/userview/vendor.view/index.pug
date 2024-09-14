@@ -1,4 +1,4 @@
-extends ../layout2
+extends ../layout
 
 block content
   .page-wrapper
@@ -9,15 +9,15 @@ block content
         .position-sticky
           ul.nav.flex-column
             li.nav-item
-              a.nav-link.active(href='#product-manager' data-bs-toggle='tab')
+              a.nav-link.active(href='/vendor' )
                 i.fas.fa-box.me-2
                 |                                 Sản phẩm
             li.nav-item
-              a.nav-link(href='#order-manager' data-bs-toggle='tab')
+              a.nav-link(href='/vendor/orderlist' )
                 i.fas.fa-shopping-cart.me-2
                 |                                Đơn hàng
             li.nav-item
-              a.nav-link(href='#marketing' data-bs-toggle='tab')
+              a.nav-link(href='/marketing' )
                 i.fas.fa-percentage.me-2
                 |                                 Kênh marketing
       main.col-md-9.ms-sm-auto.col-lg-10.px-md-4
@@ -31,7 +31,7 @@ block content
             .d-flex.justify-content-between.align-items-center.mb-3
               button.btn.btn-primary(href='/addProduct.html')
                 i.fas.fa-plus.me-2
-                | Bày bán sản phẩm mới
+                | Thêm sản phẩm mới
               .input-group.w-50
                 input.form-control(type='text' placeholder='Tìm kiếm sản phẩm...')
                 button.btn.btn-outline-secondary(type='button')
@@ -66,108 +66,4 @@ block content
                       button.btn.btn-danger.btn-sm
                         i.fas.fa-trash.me-1
                         | X&oacute;a
-          #order-manager.tab-pane.fade(role='tabpanel')
-            h2.mb-4.pb-2.border-bottom.text-center Qu&#x1EA3;n l&yacute; &dstrok;&#x1A1;n h&agrave;ng
-            .table-responsive
-              table.table.table-striped.table-hover.border.table-bordered
-                thead.table-primary
-                  tr.text-center
-                    th M&atilde; &dstrok;&#x1A1;n h&agrave;ng
-                    th Kh&aacute;ch h&agrave;ng
-                    th T&#x1ED5;ng ti&#x1EC1;n
-                    th Tr&#x1EA1;ng th&aacute;i
-                    th H&agrave;nh &dstrok;&#x1ED9;ng
-                tbody
-                  tr.text-center
-                    td #12345
-                    td Nguy&#x1EC5;n V&abreve;n A
-                    td 500.000&dstrok;
-                    td
-                      span.badge.bg-warning &Dstrok;ang x&#x1EED; l&yacute;
-                    td
-                      button.btn.btn-info.btn-sm
-                        i.fas.fa-eye.me-1
-                        | Chi ti&#x1EBF;t
-                      button.btn.btn-success.btn-sm
-                        i.fas.fa-check.me-1
-                        | X&aacute;c nh&#x1EAD;n
-          #marketing.tab-pane.fade(role='tabpanel')
-            h2.mb-4.pb-2.border-bottom.text-center K&ecirc;nh marketing
-            .mb-3
-              button.btn.btn-primary(data-bs-toggle='modal' data-bs-target='#createCouponModal') T&#x1EA1;o m&atilde; gi&#x1EA3;m gi&aacute; m&#x1EDB;i
-            .table-responsive
-              table.table.table-striped.table-hover.border.table-bordered
-                thead.table-primary
-                  tr.text-center
-                    th M&atilde; gi&#x1EA3;m gi&aacute;
-                    th Gi&aacute; tr&#x1ECB;
-                    th Ng&agrave;y h&#x1EBF;t h&#x1EA1;n
-                    th S&#x1ED1; l&#x1B0;&#x1EE3;ng
-                    th Tr&#x1EA1;ng th&aacute;i
-                    th H&agrave;nh &dstrok;&#x1ED9;ng
-                tbody
-                  tr.text-center
-                    td SUMMER2023
-                    td 20%
-                    td 31/08/2023
-                    td 100
-                    td
-                      span.badge.bg-success &Dstrok;ang ho&#x1EA1;t &dstrok;&#x1ED9;ng
-                    td
-                      button.btn.btn-info.btn-sm
-                        i.fas.fa-edit.me-1
-                        | S&#x1EED;a
-                      button.btn.btn-danger.btn-sm
-                        i.fas.fa-trash.me-1
-                        | X&oacute;a
-          // Modal tạo mã giảm giá mới
-          #createCouponModal.modal.fade(tabindex='-1' aria-labelledby='createCouponModalLabel' aria-hidden='true')
-            .modal-dialog.modal-lg
-              .modal-content
-                .modal-header.bg-primary.text-white.text-center
-                  h5#createCouponModalLabel.modal-title
-                    i.fas.fa-tags.me-2
-                    | T&#x1EA1;o m&atilde; gi&#x1EA3;m gi&aacute; m&#x1EDB;i
-                .modal-body.px-2
-                  form
-                    .mb-4
-                      label.form-label.fw-bold(for='programName')
-                        i.fas.fa-bookmark.me-2
-                        | T&ecirc;n ch&#x1B0;&#x1A1;ng tr&igrave;nh
-                      input#programName.form-control.form-control-lg(type='text' placeholder='Nhập tên chương trình' required='')
-                    .mb-4
-                      label.form-label.fw-bold(for='couponCode')
-                        i.fas.fa-ticket-alt.me-2
-                        | M&atilde; gi&#x1EA3;m gi&aacute;
-                      input#couponCode.form-control.form-control-lg(type='text' placeholder='Nhập mã giảm giá' required='')
-                    .row.mb-4
-                      .col-md-6
-                        label.form-label.fw-bold(for='discountPercent')
-                          i.fas.fa-percent.me-2
-                          | M&#x1EE9;c gi&#x1EA3;m (%)
-                        input#discountPercent.form-control.form-control-lg(type='number' min='0' max='100' placeholder='Nhập % giảm giá' required='')
-                      .col-md-6
-                        label.form-label.fw-bold(for='maxDiscount')
-                          i.fas.fa-money-bill-wave.me-2
-                          | M&#x1EE9;c gi&#x1EA3;m t&#x1ED1;i &dstrok;a
-                        input#maxDiscount.form-control.form-control-lg(type='number' min='0' placeholder='Nhập số tiền tối đa' required='')
-                    .mb-4
-                      label.form-label.fw-bold(for='minOrder')
-                        i.fas.fa-shopping-cart.me-2
-                        | &Dstrok;&#x1A1;n h&agrave;ng t&#x1ED1;i thi&#x1EC3;u
-                      input#minOrder.form-control.form-control-lg(type='number' min='0' placeholder='Nhập giá trị đơn hàng tối thiểu' required='')
-                    .mb-4
-                      label.form-label.fw-bold(for='expirationDate')
-                        i.fas.fa-calendar-alt.me-2
-                        | Th&#x1EDD;i gian h&#x1EBF;t h&#x1EA1;n
-                      input#expirationDate.form-control.form-control-lg(type='datetime-local' required='')
-                    .mb-4
-                      label.form-label.fw-bold(for='quantity')
-                        i.fas.fa-cubes.me-2
-                        | S&#x1ED1; l&#x1B0;&#x1EE3;ng
-                      input#quantity.form-control.form-control-lg(type='number' min='1' placeholder='Nhập số lượng mã giảm giá' required='')
-                .modal-footer
-                  button.btn.btn-secondary.btn-lg(type='button' data-bs-dismiss='modal') &Dstrok;&oacute;ng
-                  button.btn.btn-primary.btn-lg(type='button') T&#x1EA1;o m&atilde; gi&#x1EA3;m gi&aacute;
-
     include ../partials/footer

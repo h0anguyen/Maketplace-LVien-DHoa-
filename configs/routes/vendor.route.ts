@@ -8,6 +8,8 @@ export class VendorRoute {
   private static vendorController = new VendorController();
 
   public static draw() {
+    this.path.route("/orderlist").get(this.vendorController.vieworders);
+
     Route.resource(this.path, this.vendorController, {
       only: [RestActions.Destroy, RestActions.Index, RestActions.Create],
     });

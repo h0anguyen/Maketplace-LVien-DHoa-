@@ -73,7 +73,6 @@
     "registry": "https://registry.npmjs.org"
   },
   "prisma": {
-    "schema": "app/models/prisma/schema.prisma",
-    "seed": "node app/models/seed.ts"
+    "schema": "app/models/prisma/schema.prisma"
   }
 }

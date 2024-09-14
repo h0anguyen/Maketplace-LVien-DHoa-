@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { ApplicationController } from ".";
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
+const moment = require("moment");
 
 export class VendorController extends ApplicationController {
   public async index(req: Request, res: Response) {
@@ -84,6 +85,40 @@ export class VendorController extends ApplicationController {
     } else {
     }
   }
+  public async vieworders(req: Request, res: Response) {
+    // req.session.userId = 2;
 
+    if (req.session.userId) {
+      const user = await prisma.user.findFirst({
+        where: {
+          id: req.session.userId,
+        },
+      });
+      const orders = await prisma.orders.findMany({
+        where: {
+          OrdersDetail: {
+            some: {
+              product: {
+                userId: req.session.userId, // Assuming you want products belonging to user ID 2
+              },
+            },
+          },
+        },
+        include: {
+          OrdersDetail: {
+            include: {
+              product: true,
+            },
+          },
+        },
+      });
+      res.render("userview/vendor.view/managerorder", { orders, user });
+    } else {
+      req.flash("errors", {
+        msg: "Vui lòng đăng nhập trước khi sử dụng trang này",
+      });
+      res.redirect("/auth/signup");
+    }
+  }
   public async destroy(req: Request, res: Response) {}
 }

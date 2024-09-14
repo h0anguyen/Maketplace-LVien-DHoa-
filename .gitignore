@@ -4,5 +4,5 @@ db/schema/*.db
 uploads
 app/assets/javascripts/generated
 .env
-
+app/models/prisma/migrations
 yarn-error.log

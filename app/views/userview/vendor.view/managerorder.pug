@@ -1,0 +1,68 @@
+extends ../layout
+
+block content
+  .page-wrapper
+    include ../partials/header
+    .container-fluid
+    .row
+      nav.col-md-3.col-lg-2.d-md-block.sidebarr.collapse.mt-3
+        .position-sticky
+          ul.nav.flex-column
+            li.nav-item
+              a.nav-link(href='/vendor' )
+                i.fas.fa-box.me-2
+                |                                 Sản phẩm
+            li.nav-item
+              a.nav-link(href='/managerorder' )
+                i.fas.fa-shopping-cart.me-2
+                |                                Đơn hàng
+            li.nav-item
+              a.nav-link(href='/maketing' )
+                i.fas.fa-percentage.me-2
+                |                                 Kênh marketing
+      main.col-md-9.ms-sm-auto.col-lg-10.px-md-4
+        .d-md-none
+          button.btn.btn-primary.mb-3(type='button' data-bs-toggle='collapse' data-bs-target='.sidebarr' aria-expanded='false' aria-controls='sidebarr')
+            i.fas.fa-bars
+            |  Menu
+        #v-pills-tabContent.tab-content.border.rounded.p-4.mt-3
+          #order-manager
+            h2.mb-4.pb-2.border-bottom.text-center Quản lí đơn hàng
+            .table-responsive
+              table.table.table-striped.table-hover.border.table-bordered
+                - if(orders)
+                    thead.table-primary
+                      tr.text-center
+                        th Đơn hàng
+                        th Khách hàng
+                        th Địa chỉ
+                        th Tổng tiền
+                        th Thời gian
+                        th Trạng thái
+                        th 
+                    tbody
+                    each order in orders
+                      tr.text-center
+                        td= order.id
+                        td= order.recipientName
+                        td= order.recipientAddress
+                        td 12.000 đ
+                        td= order.createdAt
+                        td
+                          - if(order.status==1)
+                            form(action="", method="post") 
+                              button(type="submit" ).badge.bg-warning Chờ xác nhận
+                          - if(order.status==2)
+                              form(action="", method="post") 
+                                button(type="submit" disabled).badge.bg-warning Đang chuyển giao vận chuyển
+                          - if(order.status==0)
+                              form(action="", method="post") 
+                                button(type="submit" disabled).badge.bg-warning Đã hủy
+                        td
+                          form(action="" method="") 
+                            button(type="submit").btn.btn-info.btn-sm
+                              i.fas.fa-eye.me-1
+                              | Chi tiết
+                - else
+                    .text-center Chưa có đơn hàng nào
+    include ../partials/footer
