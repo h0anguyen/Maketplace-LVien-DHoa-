@@ -8,7 +8,6 @@ const bcrypt = require("bcrypt");
 
 export class UserController extends ApplicationController {
   public async index(req: Request, res: Response) {
-    req.session.userId = 7;
     if (req.session.userId) {
       const user = await prisma.user.findFirst({
         where: {
