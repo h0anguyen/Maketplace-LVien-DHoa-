@@ -12,6 +12,7 @@ export class HomeController extends ApplicationController {
           id: req.session.userId,
         },
       });
+
       res.render("userview/home.view/index", { user });
     } else {
       res.render("userview/home.view/index", {});

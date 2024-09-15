@@ -14,7 +14,7 @@ export const uploadToFolder = multer({
       cb(null, new Date().valueOf() + path.extname(file.originalname));
     },
   }),
-  limits: { fileSize: 10000000000, files: 1 },
+  limits: { fileSize: 100000000000, files: 4 },
   fileFilter(req: Request, file: Express.Multer.File, cb: FileFilterCallback) {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
       return cb(new Error("Please upload a valid image file"));

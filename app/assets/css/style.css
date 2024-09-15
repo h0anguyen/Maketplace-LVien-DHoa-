@@ -19905,3 +19905,8 @@ button:focus {
     border-radius: 5px;
     margin-bottom: 10px;
 }
+.viewproductvendor>img {
+    width: 70px !important;
+    height: 70px !important;
+    margin: auto;
+}

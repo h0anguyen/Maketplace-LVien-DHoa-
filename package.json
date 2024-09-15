@@ -1,15 +1,15 @@
 {
-  "name": "irwin-framework",
+  "name": "maketplace",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Peter Pham",
+  "author": "Hoa-vien",
   "license": "MIT",
   "scripts": {
+    "db:migrate": "npx prisma migrate dev",
     "build": "yarn build-client && npx tsc && node dist/index.js",
     "serverless": "yarn build-client && npx tsc && npx serverless offline --noPrependStageInUrl",
     "start": "yarn build-client && node dist/index.js",
     "dev": "nodemon -e js,ts,pug,vue index.ts",
-    "db:migrate": "bash .bash/db_migrate.bash",
     "db:seed": "ts-node db/seed.ts",
     "build-client": "npx browserify -t vueify -e app/assets/javascripts/main.ts -o app/assets/javascripts/generated/bundle.js",
     "git": "sh .vscode/git.sh",
@@ -42,7 +42,6 @@
     "nodemailer": "6.9.14",
     "prisma": "^5.5.2",
     "pug": "3.0.2",
-    "sequelize": "4.28.4",
     "serverless": "3.36.0",
     "serverless-http": "3.2.0",
     "serverless-offline": "13.2.1",
@@ -62,17 +61,12 @@
     "@types/multer": "1.4.11",
     "@types/node": "22.1.0",
     "@types/nodemailer": "6.4.15",
-    "@types/sequelize": "4.28.4",
     "@types/validator": "10.11.3",
     "nodemon": "3.0.1",
-    "sequelize-cli-typescript": "3.2.0-c",
     "ts-node": "10.9.1",
     "typescript": "4.7.2"
   },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
-  },
   "prisma": {
-    "schema": "app/models/prisma/schema.prisma"
+    "schema": "app/models/schema.prisma"
   }
 }

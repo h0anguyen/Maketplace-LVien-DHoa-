@@ -1,0 +1,73 @@
+extends ../layout
+
+block content
+  .page-wrapper
+    include ../partials/header
+    .my-5
+    .page-content.bg-light.py-5
+      .container
+        h2.text-center.mb-4.text-primary Chỉnh sửa sản phẩm 
+        form(action=`/vendorproduct/${product.id}?_method=PATCH` method="post" enctype="multipart/form-data").bg-white.p-4.rounded.shadow-sm.border.border-success
+          .row
+            .col-md-6
+              .form-group.mb-3
+                label.fw-bold Hình ảnh: 
+                  b.text-danger
+                    |(Vui lòng chọn lại toàn bộ ảnh rồii hãy ấn lưu. Để ảnh không bị xáo trọn.Ảnh phải nhỏ hơn 1000kb)
+                .row
+                  .col-12.mb-3
+                    .image-upload-container.main-image(style='width: 100%; height: 300px; border: 2px dashed #c96; display: flex; justify-content: center; align-items: center; cursor: pointer; background-color: #f8f9fa;' onclick="document.getElementById('mainImageInput').click();")
+                      input#mainImageInput(type='file' name='imageMain' accept='image/*' multiple style='display: none;' onchange="previewImage(this, 'mainImagePreview')")
+                      img#mainImagePreview(src=`data:image/png;base64,${product.mainImage.toString('base64')}` alt='Ảnh chính' style='max-width: 100%; max-height: 100%; ')
+                  .col-4.mb-3
+                    .image-upload-container(style='width: 100%; height: 150px; border: 2px dashed #c96; display: flex; justify-content: center; align-items: center; cursor: pointer; background-color: #f8f9fa;' onclick="document.getElementById('subImage1Input').click();")
+                      input#subImage1Input(type='file' name='imageMain' accept='image/*' multiple style='display: none;' onchange="previewImage(this, 'subImage1Preview')")
+                      img#subImage1Preview(src=`data:image/png;base64,${product.image[0].imageAddress.toString('base64') || null}` alt='Ảnh phụ 1' style='max-width: 100%; max-height: 100%;')
+                  .col-4.mb-3
+                    .image-upload-container(style='width: 100%; height: 150px; border: 2px dashed #c96; display: flex; justify-content: center; align-items: center; cursor: pointer; background-color: #f8f9fa;' onclick="document.getElementById('subImage2Input').click();")
+                      input#subImage2Input(type='file' name='imageMain' accept='image/*' multiple style='display: none;' onchange="previewImage(this, 'subImage2Preview')" )
+                      img#subImage2Preview(src=`data:image/png;base64,${product.image[1].imageAddress.toString('base64') || null}` alt='Ảnh phụ 2' style='max-width: 100%; max-height: 100%;')
+                  .col-4.mb-3
+                    .image-upload-container(style='width: 100%; height: 150px; border: 2px dashed #c96; display: flex; justify-content: center; align-items: center; cursor: pointer; background-color: #f8f9fa;' onclick="document.getElementById('subImage3Input').click();")
+                      input#subImage3Input(type='file' name='imageMain' accept='image/*' multiple style='display: none;' onchange="previewImage(this, 'subImage3Preview')")
+                      img#subImage3Preview(src=`data:image/png;base64,${product.image[2].imageAddress.toString('base64') || null}` alt='Ảnh phụ 3' style='max-width: 100%; max-height: 100%;')
+              script.
+                function previewImage(input, previewId) {
+                const file = input.files[0];
+                if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                const preview = document.getElementById(previewId);
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                document.getElementById(previewId.replace('Preview', 'Icon')).style.display = 'none';
+                }
+                reader.readAsDataURL(file);
+                }
+                }
+              .form-group.mb-3
+            .col-md-6
+              .form-group.mb-3
+                label.fw-bold(for='productName') Tên sản phẩm:
+                input#productName.form-control.border-success(type='text' required='' name="productName" value=`${product.productName}`)
+              .form-group.mb-3
+                label.fw-bold(for='productPrice') Giá:
+                input#productPrice.form-control.border-success(type='number' min="0" required='' name="price"  value=`${product.price}`)
+              .form-group.mb-3
+                label.fw-bold(for='productCategory') Doanh mục:
+                select#productCategory.form-control.border-success(required='' name="categoryId")
+                  each category in categories 
+                    option(value=`${category.id}`)= category.categoryName
+              .form-group.mb-3
+                label.fw-bold(for='productDescription') Mô tả chung:
+                textarea#productDescription.form-control.border-success(rows='4' name="description")= product.description 
+              .form-group.mb-3
+                label.fw-bold(for='productQuantity') Số lượng:
+                input#productQuantity.form-control.border-success(type='number' min='0' required='' name="inventory" value=`${product.inventory}`)
+          .text-center.mt-4
+            button(type='submit').btn.btn-primary.btn-lg.px-5 Lưu
+      // End .container
+    // End .page-content
+    .my-5
+
+    include ../partials/footer

@@ -19,8 +19,16 @@ export class VendorController extends ApplicationController {
           id: req.session.userId,
         },
       });
+      const products = await prisma.products.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          categories: true,
+        },
+      });
       if (checkRole) {
-        res.render("userview/vendor.view/index", { user });
+        res.render("userview/vendor.view/index", { user, products });
       } else {
         res.render("userview/vendor.view/new", { user });
       }
@@ -32,6 +40,7 @@ export class VendorController extends ApplicationController {
     }
   }
   public async create(req: Request, res: Response) {
+
     const { fullName, address, numberPhone, email } = req.body;
     const id = req.session.userId;
     if (id) {
