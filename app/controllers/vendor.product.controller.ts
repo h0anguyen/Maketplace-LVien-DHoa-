@@ -30,7 +30,6 @@ export class VendorProductController extends ApplicationController {
   }
 
   public async new(req: Request, res: Response) {
-    req.session.userId = 1;
     if (req.session.userId) {
       const user = await prisma.user.findFirst({
         where: {
