@@ -1,3 +1,4 @@
+import { VendorOrderRoute } from "@configs/routes/vendor.order.route";
 import { Router } from "express";
 import { HomeController } from "../../app/controllers/home.controller";
 import { RestActions } from "../enum";
@@ -14,7 +15,8 @@ export class Route {
     this.path.use("/auth", AuthRoute.draw());
     this.path.use("/user", UserRoute.draw());
     this.path.use("/vendor", VendorRoute.draw());
-    this.path.use("/:id", VendorProductRoute.draw());
+    this.path.use("/vendorproduct", VendorProductRoute.draw());
+    this.path.use("/vendororder", VendorOrderRoute.draw());
 
     Route.resource(this.path, this.homeController, {
       only: [RestActions.Index],

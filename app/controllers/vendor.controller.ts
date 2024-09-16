@@ -40,7 +40,6 @@ export class VendorController extends ApplicationController {
     }
   }
   public async create(req: Request, res: Response) {
-
     const { fullName, address, numberPhone, email } = req.body;
     const id = req.session.userId;
     if (id) {
@@ -95,8 +94,6 @@ export class VendorController extends ApplicationController {
     }
   }
   public async vieworders(req: Request, res: Response) {
-    // req.session.userId = 2;
-
     if (req.session.userId) {
       const user = await prisma.user.findFirst({
         where: {
