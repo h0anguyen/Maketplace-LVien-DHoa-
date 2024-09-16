@@ -1,6 +1,4 @@
-generator client {
-  provider = "prisma-client-js"
-}
+
 
 datasource db {
   provider = "mysql"
@@ -84,7 +82,7 @@ model Products {
   view        Int
   sold        Int
   inventory   Int
-  mainImage   Bytes
+  mainImage   Bytes?
   categoryId  Int
   userId      Int
 
@@ -115,7 +113,7 @@ model Comments {
   id        Int     @id @default(autoincrement())
   content   String?
   image     Bytes?
-  star      Int
+  star      Int?
   productId Int
   userId    Int
 
@@ -127,10 +125,11 @@ model Comments {
 }
 
 model Images {
-  id           Int   @id @default(autoincrement())
-  imageAddress Bytes
+  id           Int    @id @default(autoincrement())
+  imageAddress Bytes?
   productId    Int
   bannerId     Int?
+  location     Int?
 
   product Products @relation(fields: [productId], references: [id])
 
@@ -155,10 +154,10 @@ model OrderDetail {
 }
 
 model Orders {
-  id                   Int    @id @default(autoincrement())
-  recipientName        String
-  recipientAddress     String
-  recipientNumberPhone String
+  id                   Int     @id @default(autoincrement())
+  recipientName        String?
+  recipientAddress     String?
+  recipientNumberPhone String?
   status               Int
   userId               Int
 
@@ -181,4 +180,8 @@ model Promotions {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+generator client {
+  provider = "prisma-client-js"
 }
