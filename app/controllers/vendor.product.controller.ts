@@ -60,7 +60,7 @@ export class VendorProductController extends ApplicationController {
         data: {
           productName,
           price,
-          categoryId: 1,
+          categoryId: parseInt(categoryId),
           description,
           inventory: parseInt(inventory),
           view: 0,

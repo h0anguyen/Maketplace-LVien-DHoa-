@@ -1,9 +1,8 @@
 import { convertFileToBase64 } from "@configs/fileUpload";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@models";
 import { Request, Response } from "express";
 import * as yup from "yup";
 import { ApplicationController } from ".";
-const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 
 export class UserController extends ApplicationController {

@@ -1,29 +1,25 @@
 import { faker } from "@faker-js/faker";
 import { PrismaClient } from "@prisma/client";
-import fs from "fs";
+import { readFileSync } from "fs";
 import path from "path";
-
 //     npx ts-node db/seed.ts
 // chú ý userId
 
 const prisma = new PrismaClient();
 
-function getImagesFromAssets(): Buffer[] {
-  const imagesPath = path.join(
-    __dirname,
-    "../app/assets/images/demos/demo-17/products"
-  );
-  const imageFiles = fs.readdirSync(imagesPath);
+function convertFilesToBase64(): Buffer[] {
+  let fileimage: Buffer[] = [];
+  for (let i = 2; i <= 9; i++) {
+    const filePath = path.join(
+      __dirname,
+      `../app/assets/images/demos/demo-17/products/product-${i}.jpg`
+    );
+    const fileReaded = readFileSync(filePath);
+    const encodeFile = fileReaded.toString("base64");
+    fileimage.push(Buffer.from(encodeFile, "base64"));
+  }
 
-  return imageFiles
-    .map((file) => {
-      // Kiểm tra nếu file không phải là null trước khi trả về
-      if (file) {
-        return Buffer.from(file); // Chuyển đổi file thành Buffer
-      }
-      return null; // Trả về null nếu file là null
-    })
-    .filter((file): file is Buffer => file instanceof Buffer); // Lọc bỏ các giá trị null
+  return fileimage;
 }
 async function seedCategories() {
   const categories = [
@@ -61,7 +57,7 @@ async function main() {
 
   await seedCategories();
 
-  const images = getImagesFromAssets();
+  const images = convertFilesToBase64();
   const imageCount = images.length;
 
   const allCategories = await prisma.categories.findMany();

@@ -1,9 +1,8 @@
 import env from "@configs/env";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@models";
 import axios from "axios";
 import { Request, Response } from "express";
 import { ApplicationController } from ".";
-const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 
 export class AuthController extends ApplicationController {

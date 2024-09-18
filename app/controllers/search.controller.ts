@@ -1,8 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@models";
 import { Request, Response } from "express";
 import { ApplicationController } from ".";
-
-const prisma = new PrismaClient();
 
 export class SearchController extends ApplicationController {
   public async index(req: Request, res: Response) {
