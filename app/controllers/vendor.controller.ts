@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@models";
 import { Request, Response } from "express";
 import * as yup from "yup";
 import { ApplicationController } from ".";
-const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 
