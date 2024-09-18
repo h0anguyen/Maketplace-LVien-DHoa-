@@ -3,18 +3,18 @@ header.header.header-14.border-bottom-0
     .container-fluid
       .row.align-items-center
         .col-auto.col-lg-3.col-xl-3.col-xxl-2
-          a.logo(href='index.html')
+          a.logo(href='/')
             img(src='images/demos/demo-14/logo.png' alt='Logo Molla' width='105' height='25')
         .col.col-lg-9.col-xl-9.col-xxl-10.header-middle-right
           .row.align-items-center
-            .col-lg-8.col-xxl-4-5col
+            .col-lg-8
               .header-search.header-search-extended.header-search-visible.header-search-no-radius
                 a.search-toggle(href='#' role='button')
                   i.icon-search
-                form.d-none.d-lg-block(action='#' method='get')
+                form.d-none.d-lg-block(action='/search' method='get')
                   .header-search-wrapper.search-wrapper-wide
                     label.sr-only(for='q') T&igrave;m ki&#x1EBF;m
-                    input#q.form-control(type='search' name='q' placeholder='Tìm kiếm sản phẩm ...' required='')
+                    input#q.form-control(type='text' name='q' placeholder='Tìm kiếm sản phẩm ...')
                     button.btn.btn-primary(type='submit')
                       i.icon-search
             .col-lg-1

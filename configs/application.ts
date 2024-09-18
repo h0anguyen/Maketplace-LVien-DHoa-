@@ -8,7 +8,6 @@ import methodOverride from "method-override";
 import { join, resolve } from "path";
 import serverless from "serverless-http";
 import { Route } from "./routes";
-import jwt  from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 type RouteInfo = {
