@@ -98,67 +98,67 @@ block content
                 thead
                   tr
                     th.text-center(colspan='6')
-                      strong Danh m&#x1EE5;c
+                      strong Danh mục
                 tbody
                   tr.row.mx-0
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/thoi-trang-nam')
+                      a.text-decoration-none(href='/category/1')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-tshirt.fa-2x.mb-2
                           p.mb-0 Th&#x1EDD;i trang nam
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/thoi-trang-nu')
+                      a.text-decoration-none(href='/category/2')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-female.fa-2x.mb-2
                           p.mb-0 Th&#x1EDD;i trang n&#x1EEF;
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/dien-thoai-va-phu-kien')
+                      a.text-decoration-none(href='/category/3')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-mobile-alt.fa-2x.mb-2
                           p.mb-0 &#x110;i&#x1EC7;n tho&#x1EA1;i v&agrave; ph&#x1EE5; ki&#x1EC7;n
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/may-tinh-va-laptop')
+                      a.text-decoration-none(href='/category/4')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-laptop.fa-2x.mb-2
                           p.mb-0 M&aacute;y t&iacute;nh v&agrave; Laptop
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/dien-tu-gia-dung')
+                      a.text-decoration-none(href='/category/5')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-blender.fa-2x.mb-2
                           p.mb-0 &#x110;i&#x1EC7;n t&#x1EED; gia d&#x1EE5;ng
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/sach-va-van-phong-pham')
+                      a.text-decoration-none(href='/category/6')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-book.fa-2x.mb-2
                           p.mb-0 S&aacute;ch v&agrave; v&#x103;n ph&ograve;ng ph&#x1EA9;m
                   tr.row.mx-0
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/do-choi-tre-em')
+                      a.text-decoration-none(href='/category/7')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-puzzle-piece.fa-2x.mb-2
                           p.mb-0 &#x110;&#x1ED3; ch&#x1A1;i tr&#x1EBB; em
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/do-dung-the-thao')
+                      a.text-decoration-none(href='/category/8')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-futbol.fa-2x.mb-2
                           p.mb-0 &#x110;&#x1ED3; d&ugrave;ng th&#x1EC3; thao
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/suc-khoe-va-lam-dep')
+                      a.text-decoration-none(href='/category/9')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-heart.fa-2x.mb-2
                           p.mb-0 S&#x1EE9;c kh&#x1ECF;e v&agrave; l&agrave;m &#x111;&#x1EB9;p
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/nha-cua-va-doi-song')
+                      a.text-decoration-none(href='/category/10')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-home.fa-2x.mb-2
                           p.mb-0 Nh&agrave; c&#x1EED;a v&agrave; &#x111;&#x1EDD;i s&#x1ED1;ng
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/o-to-va-xe-may')
+                      a.text-decoration-none(href='/category/11')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-car.fa-2x.mb-2
                           p.mb-0 &Ocirc; t&ocirc; v&agrave; xe m&aacute;y
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/do-dien-va-cong-nghe')
+                      a.text-decoration-none(href='/category/12')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-plug.fa-2x.mb-2
                           p.mb-0 &#x110;&#x1ED3; &#x111;i&#x1EC7;n v&agrave; c&ocirc;ng ngh&#x1EC7;
@@ -1863,50 +1863,40 @@ block content
                       // End .product-cat
                       h3.product-title
                         a(href='product.html') MacBook Pro 13&quot; Display, i5
-                      // End .product-title
                       .product-price
                         | $1,199.99
-                      // End .product-price
                       .ratings-container
                         .ratings
                           .ratings-val(style='width: 100%;')
-                          // End .ratings-val
-                        // End .ratings
                         span.ratings-text ( 4 Reviews )
-                      // End .rating-container
-                    // End .product-body
-                  // End .product
-                // End .owl-carousel
-              // End .col-xl-9
-            // End .row cat-banner-row
             .mb-3
-            // End .mb-3
             .container
               .heading.heading-center.mb-3
                 h2.title Gợi ý cho bạn
-                // End .title
-              // End .heading
               .tab-content.mb-5
                 #top-all-tab.tab-pane.p-0.fade.show.active(role='tabpanel' aria-labelledby='top-all-link')
                   .products
                     .row.justify-content-center
                       each product in products
-                        .col-md-4.col-lg-2.shadow
+                        .col-md-4.col-lg-2.shadow-sm
                           .product.text-center.fancy-product
                             figure.product-media
-                              a.product-image-link(href=`product.html?id=${product.id}`)
+                              a.product-image-link(href=`/product/${product.id}`)
                                 img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
                               .product-action
-                                form(action='/cart/add' method='POST')
+                                 a.btn-product.btn-cart(href='/cart/add' method='post')
                                   input(type='hidden' name='productId' value=product.id)
-                                  input(type='hidden' name='quantity' value='1')
-                                  button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
-                                    span Thêm vào giỏ hàng
+                                  input(type='hidden' name='quantity' value=1)
+                                  span
+                                    | add to
+                                    | cart
                             .product-body
                               h3.product-title
-                                a(href=`product.html?id=${product.id}`)= product.productName
+                                a(href=`/product/${product.id}`)= product.productName
                               .product-price
                                 span= `${product.price.toLocaleString('vi-VN')} ₫`
+                              .sold.text-warning
+                                | Đã bán: #{product.sold}
             .icon-boxes-container
               .container-fluid
                 .row
@@ -1916,33 +1906,21 @@ block content
                         i.icon-rocket
                       .icon-box-content
                         h3.icon-box-title Free Shipping
-                        // End .icon-box-title
                         p Orders $50 or more
-                      // End .icon-box-content
-                    // End .icon-box
-                  // End .col-sm-6 col-lg-3
                   .col-sm-6.col-lg-3
                     .icon-box.icon-box-side
                       span.icon-box-icon.text-dark
                         i.icon-rotate-left
                       .icon-box-content
                         h3.icon-box-title Free Returns
-                        // End .icon-box-title
                         p Within 30 days
-                      // End .icon-box-content
-                    // End .icon-box
-                  // End .col-sm-6 col-lg-3
                   .col-sm-6.col-lg-3
                     .icon-box.icon-box-side
                       span.icon-box-icon.text-dark
                         i.icon-info-circle
                       .icon-box-content
                         h3.icon-box-title Get 20% Off 1 Item
-                        // End .icon-box-title
                         p When you sign up
-                      // End .icon-box-content
-                    // End .icon-box
-                  // End .col-sm-6 col-lg-3
                   .col-sm-6.col-lg-3
                     .icon-box.icon-box-side
                       span.icon-box-icon.text-dark

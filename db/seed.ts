@@ -21,6 +21,7 @@ function convertFilesToBase64(): Buffer[] {
 
   return fileimage;
 }
+
 async function seedCategories() {
   const categories = [
     "Thời trang nam",
@@ -56,11 +57,12 @@ async function main() {
   console.log("Start seeding...");
 
   await seedCategories();
-
+  
   const images = convertFilesToBase64();
   const imageCount = images.length;
 
   const allCategories = await prisma.categories.findMany();
+
 
   for (let i = 0; i < 100; i++) {
     const mainImage = images[i % imageCount];
