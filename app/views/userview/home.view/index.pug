@@ -13,25 +13,45 @@ block content
                 .row
                   .col-md-6
                     .banner.banner-overlay
-                      a(href='#')
-                        img(src='images/demos/demo-14/banners/banner-2.jpg' alt='Banner img desc')
-                      .banner-content
-                        h4.banner-subtitle.text-white.d-none.d-sm-block
-                          a(href='#')
-                            | Hottest
-                            | Deals
-                        h3.banner-title.text-white
-                          a(href='#')
-                            | Detox And Beautify 
-                            br
-                            | For
-                            |                                                     Spring 
-                            br
-                            span Up To 20% Off
-                        // End .banner-title
-                        a.banner-link(href='#')
-                          | Shop Now 
-                          i.icon-long-arrow-right
+                      #carouselExampleCaptions.carousel.slide(data-ride='carousel')
+                        ol.carousel-indicators
+                          li.active(data-target='#carouselExampleCaptions' data-slide-to='0')
+                          li(data-target='#carouselExampleCaptions' data-slide-to='1')
+                          li(data-target='#carouselExampleCaptions' data-slide-to='2')
+                          li(data-target='#carouselExampleCaptions' data-slide-to='3')
+                          li(data-target='#carouselExampleCaptions' data-slide-to='4')
+                          li(data-target='#carouselExampleCaptions' data-slide-to='5')
+                          li(data-target='#carouselExampleCaptions' data-slide-to='6')
+                          li(data-target='#carouselExampleCaptions' data-slide-to='7')
+
+                        .carousel-inner
+                          .carousel-item.active
+                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
+                            //- .carousel-caption.d-none.d-md-block
+                            //-   h5 First slide label
+                            //-   p Some representative placeholder content for the first slide.
+                          .carousel-item
+                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
+                           
+                          .carousel-item
+                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
+                           
+                          .carousel-item
+                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
+                          .carousel-item
+                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
+                          .carousel-item
+                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
+                          .carousel-item
+                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
+                        button.carousel-control-prev(type='button' data-target='#carouselExampleCaptions' data-slide='prev')
+                          span.carousel-control-prev-icon(aria-hidden='true')
+                          span.sr-only Previous
+                        button.carousel-control-next(type='button' data-target='#carouselExampleCaptions' data-slide='next')
+                          span.carousel-control-next-icon(aria-hidden='true')
+                          span.sr-only Next
+
+
                   .col-md-6
                     .banner.banner-overlay
                       a(href='#')
@@ -165,21 +185,13 @@ block content
             .bg-lighter.trending-products
               .heading.heading-flex.mb-3
                 .heading-left
-                  h2.title Trending Today
+                  h2.title Được mua nhiều
                   // End .title
                 // End .heading-left
                 .heading-right
-                  ul.nav.nav-pills.justify-content-center(role='tablist')
+                  ul.nav.nav-pills.justify-content-start(role='tablist')
                     li.nav-item
                       a#trending-all-link.nav-link.active(data-toggle='tab' href='#trending-all-tab' role='tab' aria-controls='trending-all-tab' aria-selected='true') All
-                    li.nav-item
-                      a#trending-elec-link.nav-link(data-toggle='tab' href='#trending-elec-tab' role='tab' aria-controls='trending-elec-tab' aria-selected='false') Electronics
-                    li.nav-item
-                      a#trending-furn-link.nav-link(data-toggle='tab' href='#trending-furn-tab' role='tab' aria-controls='trending-furn-tab' aria-selected='false') Furniture
-                    li.nav-item
-                      a#trending-cloth-link.nav-link(data-toggle='tab' href='#trending-cloth-tab' role='tab' aria-controls='trending-cloth-tab' aria-selected='false') Clothes
-                    li.nav-item
-                      a#trending-acc-link.nav-link(data-toggle='tab' href='#trending-acc-tab' role='tab' aria-controls='trending-acc-tab' aria-selected='false') Accessories
                 // End .heading-right
               // End .heading
               .tab-content.tab-content-carousel
@@ -191,13 +203,13 @@ block content
                   "loop": false,\
                   "responsive": {\
                   "0": {\
-                  "items":1\
+                  "items":5\
                   },\
                   "480": {\
-                  "items":2\
+                  "items":5\
                   },\
                   "768": {\
-                  "items":4\
+                  "items":5\
                   },\
                   "992": {\
                   "items":5\
@@ -208,1677 +220,122 @@ block content
                   }\
                   }\
                   }')
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-sale Sale
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-1.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Furniture
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html') Butler Stool Ladder
-                        // End .product-title
-                        .product-price
-                          span.new-price $251.99
-                          span.old-price Was $290.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 2 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-sale Sale
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-2.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Electronics
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Bose - SoundSport wireless
-                            | headphones
-                        // End .product-title
-                        .product-price
-                          span.new-price $179.99
-                          span.old-price Was $199.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                        .product-nav.product-nav-dots
-                          a.active(href='#' style='background: #69b4ff;')
-                            span.sr-only Color name
-                          a(href='#' style='background: #ff887f;')
-                            span.sr-only
-                              | Color
-                              | name
-                          a(href='#' style='background: #333333;')
-                            span.sr-only
-                              | Color
-                              | name
-                        // End .product-nav
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-3.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Furniture
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Can 2-Seater Sofa frame
-                            | charcoal
-                        // End .product-title
-                        .product-price
-                          | $3,050.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 60%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 8 Reviews )
-                        // End .rating-container
-                        .product-nav.product-nav-dots
-                          a.active(href='#' style='background: #b58555;')
-                            span.sr-only Color name
-                          a(href='#' style='background: #93a6b0;')
-                            span.sr-only
-                              | Color
-                              | name
-                        // End .product-nav
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-4.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Clothes
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html') Tan suede biker jacket
-                        // End .product-title
-                        .product-price
-                          | $240.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 80%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-top Top
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-5.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Electronics
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Sony - Class LED 2160p
-                            | Smart 
-                            br
-                            | 4K Ultra HD
-                        // End .product-title
-                        .product-price
-                          | $1,699.99
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 80%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 10 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-top Top
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-6.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Laptops
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | MacBook Pro 13&quot; Display,
-                            | i5
-                        // End .product-title
-                        .product-price
-                          | $1,199.99
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                  // End .owl-carousel
-                // .End .tab-pane
-                #trending-elec-tab.tab-pane.p-0.fade(role='tabpanel' aria-labelledby='trending-elec-link')
-                  .owl-carousel.owl-simple.carousel-equal-height.carousel-with-shadow(data-toggle='owl' data-owl-options='{\
-                  "nav": false, \
-                  "dots": true,\
-                  "margin": 20,\
-                  "loop": false,\
-                  "responsive": {\
-                  "0": {\
-                  "items":1\
-                  },\
-                  "480": {\
-                  "items":2\
-                  },\
-                  "768": {\
-                  "items":3\
-                  },\
-                  "992": {\
-                  "items":4\
-                  },\
-                  "1200": {\
-                  "items":3,\
-                  "nav": true\
-                  },\
-                  "1600": {\
-                  "items":5,\
-                  "nav": true\
-                  }\
-                  }\
-                  }')
-                    .product.text-center
-                      figure.product-media
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-3.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Furniture
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Can 2-Seater Sofa frame
-                            | charcoal
-                        // End .product-title
-                        .product-price
-                          | $3,050.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 60%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 8 Reviews )
-                        // End .rating-container
-                        .product-nav.product-nav-dots
-                          a.active(href='#' style='background: #b58555;')
-                            span.sr-only Color name
-                          a(href='#' style='background: #93a6b0;')
-                            span.sr-only
-                              | Color
-                              | name
-                        // End .product-nav
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-4.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Clothes
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html') Tan suede biker jacket
-                        // End .product-title
-                        .product-price
-                          | $240.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 80%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-sale Sale
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-1.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Furniture
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html') Butler Stool Ladder
-                        // End .product-title
-                        .product-price
-                          span.new-price $251.99
-                          span.old-price Was $290.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 2 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-sale Sale
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-2.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Electronics
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Bose - SoundSport wireless
-                            | headphones
-                        // End .product-title
-                        .product-price
-                          span.new-price $179.99
-                          span.old-price Was $199.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                        .product-nav.product-nav-dots
-                          a.active(href='#' style='background: #69b4ff;')
-                            span.sr-only Color name
-                          a(href='#' style='background: #ff887f;')
-                            span.sr-only
-                              | Color
-                              | name
-                          a(href='#' style='background: #333333;')
-                            span.sr-only
-                              | Color
-                              | name
-                        // End .product-nav
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-top Top
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-6.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Laptops
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | MacBook Pro 13&quot; Display,
-                            | i5
-                        // End .product-title
-                        .product-price
-                          | $1,199.99
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-top Top
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-5.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Electronics
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Sony - Class LED 2160p
-                            | Smart 
-                            br
-                            | 4K Ultra HD
-                        // End .product-title
-                        .product-price
-                          | $1,699.99
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 80%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 10 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                  // End .owl-carousel
-                // .End .tab-pane
-                #trending-furn-tab.tab-pane.p-0.fade(role='tabpanel' aria-labelledby='trending-furn-link')
-                  .owl-carousel.owl-simple.carousel-equal-height.carousel-with-shadow(data-toggle='owl' data-owl-options='{\
-                  "nav": false, \
-                  "dots": true,\
-                  "margin": 20,\
-                  "loop": false,\
-                  "responsive": {\
-                  "0": {\
-                  "items":1\
-                  },\
-                  "480": {\
-                  "items":2\
-                  },\
-                  "768": {\
-                  "items":3\
-                  },\
-                  "992": {\
-                  "items":4\
-                  },\
-                  "1200": {\
-                  "items":3,\
-                  "nav": true\
-                  },\
-                  "1600": {\
-                  "items":5,\
-                  "nav": true\
-                  }\
-                  }\
-                  }')
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-top Top
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-6.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Laptops
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | MacBook Pro 13&quot; Display,
-                            | i5
-                        // End .product-title
-                        .product-price
-                          | $1,199.99
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-sale Sale
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-2.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Electronics
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Bose - SoundSport wireless
-                            | headphones
-                        // End .product-title
-                        .product-price
-                          span.new-price $179.99
-                          span.old-price Was $199.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                        .product-nav.product-nav-dots
-                          a.active(href='#' style='background: #69b4ff;')
-                            span.sr-only Color name
-                          a(href='#' style='background: #ff887f;')
-                            span.sr-only
-                              | Color
-                              | name
-                          a(href='#' style='background: #333333;')
-                            span.sr-only
-                              | Color
-                              | name
-                        // End .product-nav
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-3.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Furniture
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Can 2-Seater Sofa frame
-                            | charcoal
-                        // End .product-title
-                        .product-price
-                          | $3,050.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 60%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 8 Reviews )
-                        // End .rating-container
-                        .product-nav.product-nav-dots
-                          a.active(href='#' style='background: #b58555;')
-                            span.sr-only Color name
-                          a(href='#' style='background: #93a6b0;')
-                            span.sr-only
-                              | Color
-                              | name
-                        // End .product-nav
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-sale Sale
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-1.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Furniture
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html') Butler Stool Ladder
-                        // End .product-title
-                        .product-price
-                          span.new-price $251.99
-                          span.old-price Was $290.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 2 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-top Top
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-5.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Electronics
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Sony - Class LED 2160p
-                            | Smart 
-                            br
-                            | 4K Ultra HD
-                        // End .product-title
-                        .product-price
-                          | $1,699.99
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 80%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 10 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-4.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Clothes
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html') Tan suede biker jacket
-                        // End .product-title
-                        .product-price
-                          | $240.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 80%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                  // End .owl-carousel
-                // .End .tab-pane
-                #trending-cloth-tab.tab-pane.p-0.fade(role='tabpanel' aria-labelledby='trending-cloth-link')
-                  .owl-carousel.owl-simple.carousel-equal-height.carousel-with-shadow(data-toggle='owl' data-owl-options='{\
-                  "nav": false, \
-                  "dots": true,\
-                  "margin": 20,\
-                  "loop": false,\
-                  "responsive": {\
-                  "0": {\
-                  "items":1\
-                  },\
-                  "480": {\
-                  "items":2\
-                  },\
-                  "768": {\
-                  "items":3\
-                  },\
-                  "992": {\
-                  "items":4\
-                  },\
-                  "1200": {\
-                  "items":3,\
-                  "nav": true\
-                  },\
-                  "1600": {\
-                  "items":5,\
-                  "nav": true\
-                  }\
-                  }\
-                  }')
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-sale Sale
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-1.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Furniture
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html') Butler Stool Ladder
-                        // End .product-title
-                        .product-price
-                          span.new-price $251.99
-                          span.old-price Was $290.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 2 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-top Top
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-5.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Electronics
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Sony - Class LED 2160p
-                            | Smart 
-                            br
-                            | 4K Ultra HD
-                        // End .product-title
-                        .product-price
-                          | $1,699.99
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 80%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 10 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-top Top
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-6.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Laptops
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | MacBook Pro 13&quot; Display,
-                            | i5
-                        // End .product-title
-                        .product-price
-                          | $1,199.99
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-sale Sale
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-2.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Electronics
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Bose - SoundSport wireless
-                            | headphones
-                        // End .product-title
-                        .product-price
-                          span.new-price $179.99
-                          span.old-price Was $199.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                        .product-nav.product-nav-dots
-                          a.active(href='#' style='background: #69b4ff;')
-                            span.sr-only Color name
-                          a(href='#' style='background: #ff887f;')
-                            span.sr-only
-                              | Color
-                              | name
-                          a(href='#' style='background: #333333;')
-                            span.sr-only
-                              | Color
-                              | name
-                        // End .product-nav
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-3.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Furniture
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Can 2-Seater Sofa frame
-                            | charcoal
-                        // End .product-title
-                        .product-price
-                          | $3,050.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 60%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 8 Reviews )
-                        // End .rating-container
-                        .product-nav.product-nav-dots
-                          a.active(href='#' style='background: #b58555;')
-                            span.sr-only Color name
-                          a(href='#' style='background: #93a6b0;')
-                            span.sr-only
-                              | Color
-                              | name
-                        // End .product-nav
-                      // End .product-body
-                    // End .product
-                  // End .owl-carousel
-                // .End .tab-pane
-                #trending-acc-tab.tab-pane.p-0.fade(role='tabpanel' aria-labelledby='trending-acc-link')
-                  .owl-carousel.owl-simple.carousel-equal-height.carousel-with-shadow(data-toggle='owl' data-owl-options='{\
-                  "nav": false, \
-                  "dots": true,\
-                  "margin": 20,\
-                  "loop": false,\
-                  "responsive": {\
-                  "0": {\
-                  "items":1\
-                  },\
-                  "480": {\
-                  "items":2\
-                  },\
-                  "768": {\
-                  "items":3\
-                  },\
-                  "992": {\
-                  "items":4\
-                  },\
-                  "1200": {\
-                  "items":3,\
-                  "nav": true\
-                  },\
-                  "1600": {\
-                  "items":5,\
-                  "nav": true\
-                  }\
-                  }\
-                  }')
-                    .product.text-center
-                      figure.product-media
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-4.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Clothes
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html') Tan suede biker jacket
-                        // End .product-title
-                        .product-price
-                          | $240.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 80%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-3.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Furniture
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Can 2-Seater Sofa frame
-                            | charcoal
-                        // End .product-title
-                        .product-price
-                          | $3,050.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 60%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 8 Reviews )
-                        // End .rating-container
-                        .product-nav.product-nav-dots
-                          a.active(href='#' style='background: #b58555;')
-                            span.sr-only Color name
-                          a(href='#' style='background: #93a6b0;')
-                            span.sr-only
-                              | Color
-                              | name
-                        // End .product-nav
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-sale Sale
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-2.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Electronics
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Bose - SoundSport wireless
-                            | headphones
-                        // End .product-title
-                        .product-price
-                          span.new-price $179.99
-                          span.old-price Was $199.00
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                        .product-nav.product-nav-dots
-                          a.active(href='#' style='background: #69b4ff;')
-                            span.sr-only Color name
-                          a(href='#' style='background: #ff887f;')
-                            span.sr-only
-                              | Color
-                              | name
-                          a(href='#' style='background: #333333;')
-                            span.sr-only
-                              | Color
-                              | name
-                        // End .product-nav
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-top Top
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-5.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Electronics
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | Sony - Class LED 2160p
-                            | Smart 
-                            br
-                            | 4K Ultra HD
-                        // End .product-title
-                        .product-price
-                          | $1,699.99
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 80%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 10 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
-                    .product.text-center
-                      figure.product-media
-                        span.product-label.label-top Top
-                        a(href='product.html')
-                          img.product-image(src='images/demos/demo-14/products/product-6.jpg' alt='Product image')
-                        .product-action-vertical
-                          a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                            span add to wishlist
-                          a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                            span Quick view
-                          a.btn-product-icon.btn-compare(href='#' title='Compare')
-                            span Compare
-                        // End .product-action-vertical
-                        .product-action
-                          a.btn-product.btn-cart(href='#' title='Add to cart')
-                            span
-                              | add
-                              | to cart
-                        // End .product-action
-                      // End .product-media
-                      .product-body
-                        .product-cat
-                          a(href='#') Laptops
-                        // End .product-cat
-                        h3.product-title
-                          a(href='product.html')
-                            | MacBook Pro 13&quot; Display,
-                            | i5
-                        // End .product-title
-                        .product-price
-                          | $1,199.99
-                        // End .product-price
-                        .ratings-container
-                          .ratings
-                            .ratings-val(style='width: 100%;')
-                            // End .ratings-val
-                          // End .ratings
-                          span.ratings-text ( 4 Reviews )
-                        // End .rating-container
-                      // End .product-body
-                    // End .product
+                    each product in productsSold
+                      .product.text-center.shadow
+                        figure.product-media
+                          a.product-image-link(href=`product.html?id=${product.id}`)
+                            img.product-image(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
+                          .product-action
+                            form(action='/cart/add' method='POST').addtocart
+                              input(type='hidden' name='productId' value=product.id)
+                              input(type='hidden' name='quantity' value='1')
+                              button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
+                                span Thêm vào giỏ hàng
+                        .product-body
+                          h3.product-title
+                            a(href=`product.html?id=${product.id}`)= product.productName
+                          .product-price
+                            span= `${product.price.toLocaleString('vi-VN')} ₫`
                   // End .owl-carousel
                 // .End .tab-pane
               // End .tab-content
             // End .bg-lighter
             .mb-5
             // End .mb-5
-            .row.cat-banner-row.electronics
-              .col-xl-3.col-xxl-4
-                .cat-banner.row.no-gutters
-                  .cat-banner-list.col-sm-6.d-xl-none.d-xxl-flex(style='background-image: url(images/demos/demo-14/banners/banner-bg-1.jpg);')
-                    .banner-list-content
-                      h2
-                        a(href='#') Electronics
-                      ul
-                        li
-                          a(href='#') Cell Phones
-                        li
-                          a(href='#') Computers
-                        li
-                          a(href='#') TV &amp; Video
-                        li
-                          a(href='#') Smart Home
-                        li
-                          a(href='#') Audi
-                        li
-                          a(href='#') Home Audio &amp; Theater
-                        li.list-all-link
-                          a(href='#') See All Departments
-                    // End .banner-list-content
-                  // End .col-sm-6
-                  .col-sm-6.col-xl-12.col-xxl-6
-                    .banner.banner-overlay
-                      a(href='#')
-                        img(src='images/demos/demo-14/banners/banner-5.jpg' alt='Banner img desc')
-                      .banner-content
-                        h4.banner-subtitle.text-white
-                          a(href='#') Best Deals
-                        // End .banner-subtitle
-                        h3.banner-title.text-white
-                          a(href='#')
-                            | Canon EOS 
-                            br
-                            | Mega Sale
-                            br
-                            span Up To 20% Off
-                        // End .banner-title
-                        a.banner-link(href='#')
-                          | Shop Now 
-                          i.icon-long-arrow-right
-                      // End .banner-content
-                    // End .banner
-                  // End .col-sm-6
-                // End .cat-banner
-              // End .col-xl-3
-              .col-xl-9.col-xxl-8
-                .owl-carousel.owl-full.carousel-equal-height.carousel-with-shadow(data-toggle='owl' data-owl-options='{\
-                "nav": true, \
-                "dots": false,\
-                "margin": 20,\
-                "loop": false,\
-                "responsive": {\
-                "0": {\
-                "items":2\
-                },\
-                "480": {\
-                "items":2\
-                },\
-                "768": {\
-                "items":3\
-                },\
-                "992": {\
-                "items":4\
-                },\
-                "1200": {\
-                "items":3\
-                },\
-                "1600": {\
-                "items":4\
-                }\
-                }\
-                }')
-                  .product.text-center
-                    figure.product-media
-                      span.product-label.label-top Top
-                      a(href='product.html')
-                        img.product-image(src='images/demos/demo-14/products/product-6.jpg' alt='Product image')
-                      .product-action-vertical
-                        a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                          span add to wishlist
-                        a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                          span Quick view
-                        a.btn-product-icon.btn-compare(href='#' title='Compare')
-                          span Compare
-                      // End .product-action-vertical
-                      .product-action
-                        a.btn-product.btn-cart(href='#' title='Add to cart')
-                          span
-                            | add to
-                            | cart
-                      // End .product-action
-                    // End .product-media
-                    .product-body
-                      .product-cat
-                        a(href='#') Laptops
-                      // End .product-cat
-                      h3.product-title
-                        a(href='product.html') MacBook Pro 13&quot; Display, i5
-                      // End .product-title
-                      .product-price
-                        | $1,199.99
-                      // End .product-price
-                      .ratings-container
-                        .ratings
-                          .ratings-val(style='width: 100%;')
-                          // End .ratings-val
-                        // End .ratings
-                        span.ratings-text ( 4 Reviews )
-                      // End .rating-container
-                    // End .product-body
-                  // End .product
-                  .product.text-center
-                    figure.product-media
-                      a(href='product.html')
-                        img.product-image(src='images/demos/demo-14/products/product-7.jpg' alt='Product image')
-                      .product-action-vertical
-                        a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                          span add to wishlist
-                        a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                          span Quick view
-                        a.btn-product-icon.btn-compare(href='#' title='Compare')
-                          span Compare
-                      // End .product-action-vertical
-                      .product-action
-                        a.btn-product.btn-cart(href='#' title='Add to cart')
-                          span
-                            | add to
-                            | cart
-                      // End .product-action
-                    // End .product-media
-                    .product-body
-                      .product-cat
-                        a(href='#') Audio
-                      // End .product-cat
-                      h3.product-title
-                        a(href='product.html')
-                          | Bose - SoundLink Bluetooth
-                          | Speaker
-                      // End .product-title
-                      .product-price
-                        | $79.99
-                      // End .product-price
-                      .ratings-container
-                        .ratings
-                          .ratings-val(style='width: 60%;')
-                          // End .ratings-val
-                        // End .ratings
-                        span.ratings-text ( 6 Reviews )
-                      // End .rating-container
-                    // End .product-body
-                  // End .product
-                  .product.text-center
-                    figure.product-media
-                      span.product-label.label-new New
-                      a(href='product.html')
-                        img.product-image(src='images/demos/demo-14/products/product-8.jpg' alt='Product image')
-                      .product-action-vertical
-                        a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                          span add to wishlist
-                        a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                          span Quick view
-                        a.btn-product-icon.btn-compare(href='#' title='Compare')
-                          span Compare
-                      // End .product-action-vertical
-                      .product-action
-                        a.btn-product.btn-cart(href='#' title='Add to cart')
-                          span
-                            | add to
-                            | cart
-                      // End .product-action
-                    // End .product-media
-                    .product-body
-                      .product-cat
-                        a(href='#') Tablets
-                      // End .product-cat
-                      h3.product-title
-                        a(href='product.html')
-                          | Apple - 11 Inch iPad Pro
-                          br
-                          | with Wi-Fi 256GB
-                      // End .product-title
-                      .product-price
-                        | $899.99
-                      // End .product-price
-                      .ratings-container
-                        .ratings
-                          .ratings-val(style='width: 60%;')
-                          // End .ratings-val
-                        // End .ratings
-                        span.ratings-text ( 6 Reviews )
-                      // End .rating-container
-                      .product-nav.product-nav-dots
-                        a(href='#' style='background: #edd2c8;')
-                          span.sr-only
-                            | Color
-                            | name
-                        a(href='#' style='background: #eaeaec;')
-                          span.sr-only
-                            | Color
-                            | name
-                        a.active(href='#' style='background: #333333;')
-                          span.sr-only Color name
-                      // End .product-nav
-                    // End .product-body
-                  // End .product
-                  .product.text-center
-                    figure.product-media
-                      span.product-label.label-top Top
-                      span.product-label.label-sale Sale
-                      a(href='product.html')
-                        img.product-image(src='images/demos/demo-14/products/product-9.jpg' alt='Product image')
-                      .product-action-vertical
-                        a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                          span add to wishlist
-                        a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                          span Quick view
-                        a.btn-product-icon.btn-compare(href='#' title='Compare')
-                          span Compare
-                      // End .product-action-vertical
-                      .product-action
-                        a.btn-product.btn-cart(href='#' title='Add to cart')
-                          span
-                            | add to
-                            | cart
-                      // End .product-action
-                    // End .product-media
-                    .product-body
-                      .product-cat
-                        a(href='#') Cell Phone
-                      // End .product-cat
-                      h3.product-title
-                        a(href='product.html') Google - Pixel 3 XL 128GB
-                      // End .product-title
-                      .product-price
-                        span.new-price $350.00
-                        span.old-price Was $410.00
-                      // End .product-price
-                      .ratings-container
-                        .ratings
-                          .ratings-val(style='width: 80%;')
-                          // End .ratings-val
-                        // End .ratings
-                        span.ratings-text ( 10 Reviews )
-                      // End .rating-container
-                      .product-nav.product-nav-dots
-                        a.active(href='#' style='background: #edd2c8;')
-                          span.sr-only Color name
-                        a(href='#' style='background: #eaeaec;')
-                          span.sr-only
-                            | Color
-                            | name
-                      // End .product-nav
-                    // End .product-body
-                  // End .product
-                  .product.text-center
-                    figure.product-media
-                      span.product-label.label-top Top
-                      a(href='product.html')
-                        img.product-image(src='images/demos/demo-14/products/product-6.jpg' alt='Product image')
-                      .product-action-vertical
-                        a.btn-product-icon.btn-wishlist(href='#' title='Add to wishlist')
-                          span add to wishlist
-                        a.btn-product-icon.btn-quickview(href='popup/quickView.html' title='Quick view')
-                          span Quick view
-                        a.btn-product-icon.btn-compare(href='#' title='Compare')
-                          span Compare
-                      // End .product-action-vertical
-                      .product-action
-                        a.btn-product.btn-cart(href='#' title='Add to cart')
-                          span
-                            | add to
-                            | cart
-                      // End .product-action
-                    // End .product-media
-                    .product-body
-                      .product-cat
-                        a(href='#') Laptops
-                      // End .product-cat
-                      h3.product-title
-                        a(href='product.html') MacBook Pro 13&quot; Display, i5
-                      // End .product-title
-                      .product-price
-                        | $1,199.99
-                      // End .product-price
-                      .ratings-container
-                        .ratings
-                          .ratings-val(style='width: 100%;')
-                          // End .ratings-val
-                        // End .ratings
-                        span.ratings-text ( 4 Reviews )
-                      // End .rating-container
-                    // End .product-body
-                  // End .product
-                // End .owl-carousel
-              // End .col-xl-9
-            // End .row cat-banner-row
+            //- .row.cat-banner-row.electronics
+            //-   .col-xl-3.col-xxl-4
+            //-     .cat-banner.row.no-gutters
+            //-       .cat-banner-list.col-sm-6.d-xl-none.d-xxl-flex(style='background-image: url(images/demos/demo-14/banners/banner-bg-1.jpg);')
+            //-         .banner-list-content
+            //-           h2
+            //-             a(href='#') Electronics
+            //-           ul
+            //-             li
+            //-               a(href='#') Cell Phones
+            //-             li
+            //-               a(href='#') Computers
+            //-             li
+            //-               a(href='#') TV &amp; Video
+            //-             li
+            //-               a(href='#') Smart Home
+            //-             li
+            //-               a(href='#') Audi
+            //-             li
+            //-               a(href='#') Home Audio &amp; Theater
+            //-             li.list-all-link
+            //-               a(href='#') See All Departments
+            //-         // End .banner-list-content
+            //-       // End .col-sm-6
+            //-       .col-sm-6.col-xl-12.col-xxl-6
+            //-         .banner.banner-overlay
+            //-           a(href='#')
+            //-             img(src='images/demos/demo-14/banners/banner-5.jpg' alt='Banner img desc')
+            //-           .banner-content
+            //-             h4.banner-subtitle.text-white
+            //-               a(href='#') Best Deals
+            //-             // End .banner-subtitle
+            //-             h3.banner-title.text-white
+            //-               a(href='#')
+            //-                 | Canon EOS 
+            //-                 br
+            //-                 | Mega Sale
+            //-                 br
+            //-                 span Up To 20% Off
+            //-             // End .banner-title
+            //-             a.banner-link(href='#')
+            //-               | Shop Now 
+            //-               i.icon-long-arrow-right
+            //-           // End .banner-content
+            //-         // End .banner
+            //-       // End .col-sm-6
+            //-     // End .cat-banner
+            //-   // End .col-xl-3
+            //-   .col-xl-9.col-xxl-8
+            //-     .owl-carousel.owl-full.carousel-equal-height.carousel-with-shadow(data-toggle='owl' data-owl-options='{\
+            //-     "nav": true, \
+            //-     "dots": false,\
+            //-     "margin": 20,\
+            //-     "loop": false,\
+            //-     "responsive": {\
+            //-     "0": {\
+            //-     "items":3\
+            //-     },\
+            //-     "480": {\
+            //-     "items":3\
+            //-     },\
+            //-     "768": {\
+            //-     "items":4\
+            //-     },\
+            //-     "992": {\
+            //-     "items":4\
+            //-     },\
+            //-     "1200": {\
+            //-     "items":4\
+            //-     },\
+            //-     "1600": {\
+            //-     "items":4\
+            //-     }\
+            //-     }\
+            //-     }')
+            //-       each product in products
+            //-             .product.text-center.fancy-product.shadow
+            //-               figure.product-media
+            //-                 a.product-image-link(href=`product.html?id=${product.id}`)
+            //-                   img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
+            //-                 .product-action
+            //-                   form(action='/cart/add' method='POST').addtocart
+            //-                     input(type='hidden' name='productId' value=product.id)
+            //-                     input(type='hidden' name='quantity' value='1')
+            //-                     button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
+            //-                       span Thêm vào giỏ hàng
+            //-               .product-body
+            //-                 h3.product-title
+            //-                   a(href=`product.html?id=${product.id}`)= product.productName
+            //-                 .product-price
+            //-                   span= `${product.price.toLocaleString('vi-VN')} ₫`
+            //-   // End .owl-carousel
+            //-   // End .col-xl-9
+            //- // End .row cat-banner-row
             .mb-3
             // End .mb-3
             .container
@@ -1891,13 +348,13 @@ block content
                   .products
                     .row.justify-content-center
                       each product in products
-                        .col-md-4.col-lg-2.shadow
+                        .col-md-3.col-lg-2.shadow.pt-2.mt-1.mb-1.mt-1.mb-1.ml-3.mr-3.col-xs-3
                           .product.text-center.fancy-product
                             figure.product-media
                               a.product-image-link(href=`product.html?id=${product.id}`)
                                 img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
                               .product-action
-                                form(action='/cart/add' method='POST')
+                                form(action='/cart/add' method='POST').addtocart
                                   input(type='hidden' name='productId' value=product.id)
                                   input(type='hidden' name='quantity' value='1')
                                   button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
@@ -1907,6 +364,9 @@ block content
                                 a(href=`product.html?id=${product.id}`)= product.productName
                               .product-price
                                 span= `${product.price.toLocaleString('vi-VN')} ₫`
+                      .col-md-3.col-lg-2.pt-2.mt-1.mb-1.mt-1.mb-1.ml-3.mr-3.col-xs-3
+                        a(href="###").product.text-center.fancy-product.pt-1.pb-1 Xem thêm
+
             .icon-boxes-container
               .container-fluid
                 .row

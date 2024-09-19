@@ -19910,3 +19910,10 @@ button:focus {
     height: 70px !important;
     margin: auto;
 }
+.addtocart {
+    width: 100%;
+}
+
+.addtocart>button {
+    width: 100%;
+}

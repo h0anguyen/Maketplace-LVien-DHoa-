@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { ApplicationController } from ".";
-
 import prisma from "@models";
+import { Request, Response } from "express";
+import _ from "lodash";
+import { ApplicationController } from ".";
 
 export class HomeController extends ApplicationController {
   public async index(req: Request, res: Response) {
@@ -14,14 +14,18 @@ export class HomeController extends ApplicationController {
           },
         });
       }
-      const products = await prisma.products.findMany({
+      const productsDatabase = await prisma.products.findMany();
+      const shuffledProducts = _.shuffle(productsDatabase);
+      const products = shuffledProducts.slice(0, 45);
+
+      const productsSold = await prisma.products.findMany({
         orderBy: {
-          id: "desc",
+          sold: "desc",
         },
-        take: 18,
+        take: 100,
       });
 
-      res.render("userview/home.view/index", { products, user });
+      res.render("userview/home.view/index", { products, user, productsSold });
     } catch (error) {
       res.status(500).json({ message: "Đã xảy ra lỗi khi xử lý yêu cầu" });
     }
