@@ -1,4 +1,3 @@
-export * from "./admin.controller";
 export * from "./application.controller";
 export * from "./auth.controller";
 export * from "./category.controller";

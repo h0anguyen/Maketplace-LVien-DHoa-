@@ -31,25 +31,4 @@ export class ApplicationController {
       });
     }
   }
-  public async checkBan(req: Request, res: Response, next: NextFunction) {
-    const checkBan = await prisma.roleUser.findFirst({
-      where: {
-        AND: [
-          {
-            userId: req.session.userId,
-          },
-          {
-            rolesId: 0,
-          },
-        ],
-      },
-    });
-    if (checkBan) {
-      req.flash("errors", { msg: "Tài khoản của bạn đã bị khóa" });
-      return res.redirect("/auth/signin");
-    }else{
-      next();
-
-    }
-  }
 }
