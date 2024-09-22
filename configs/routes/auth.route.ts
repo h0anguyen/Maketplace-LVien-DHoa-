@@ -12,7 +12,7 @@ export class AuthRoute {
     this.path
       .route("/google/callback")
       .get(this.authController.loginWithGoogleRedirect);
-      
+
     this.path.route("/signup").get(this.authController.signup);
     this.path.route("/signin").get(this.authController.signin);
     this.path.route("/login").post(this.authController.login);

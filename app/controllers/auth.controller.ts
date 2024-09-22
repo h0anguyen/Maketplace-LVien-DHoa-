@@ -71,6 +71,44 @@ export class AuthController extends ApplicationController {
       });
 
       req.session.userId = loginUser.id;
+
+      const checkRole = await prisma.roleUser.findFirst({
+        where: {
+          userId: req.session.userId,
+          rolesId: 0,
+        },
+      });
+      if (checkRole) {
+        req.flash("success", {
+          msg: "bạn đang đăng nhập bằng admin",
+        });
+        return res.render("adminview/admin.home.view/index");
+      }
+    
+
+      const checkBan = await prisma.roleUser.findFirst({
+        where: {
+          AND: [
+            {
+              userId: req.session.userId,
+            },
+            {
+              OR: [
+                {
+                  rolesId: 1,
+                },
+                {
+                  rolesId: 0,
+                },
+              ],
+            },
+          ],
+        },
+      });
+      if (checkBan == null) {
+        req.flash("errors", { msg: "Tài khoản của bạn đã bị khóa" });
+        return res.redirect("/auth/signin");
+      }
     }
 
     req.flash("success", { msg: "Login successfully" });
@@ -101,9 +139,37 @@ export class AuthController extends ApplicationController {
       if (checkUser.password) {
         if (await bcrypt.compare(password, checkUser.password)) {
           req.session.userId = checkUser.id;
+          const checkBan = await prisma.roleUser.findFirst({
+            where: {
+              AND: [
+                {
+                  userId: req.session.userId,
+                },
+                {
+                  OR: [
+                    {
+                      rolesId: 1,
+                    },
+                    {
+                      rolesId: 0,
+                    },
+                  ],
+                },
+              ],
+            },
+          });
 
-          req.flash("success", { msg: "Đăng nhập thành công!" });
-          res.redirect("/");
+          if (checkBan == null) {
+            req.flash("errors", { msg: "Tài khoản của bạn đã bị khóa" });
+            return res.redirect("/auth/signin");
+          }
+          if (req.session.userId == 0) {
+            req.flash("success", { msg: "Đăng nhập Admin thành công!" });
+            res.redirect("/admin");
+          } else {
+            req.flash("success", { msg: "Đăng nhập thành công!" });
+            res.redirect("/");
+          }
         } else {
           req.flash("errors", { msg: "Mật khẩu sai." });
           res.redirect("/auth/signin");
