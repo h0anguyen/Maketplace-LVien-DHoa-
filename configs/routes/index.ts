@@ -20,9 +20,7 @@ export class Route {
     this.path.use("/vendor", VendorRoute.draw());
     this.path.use("/vendorproduct", VendorProductRoute.draw());
     this.path.use("/vendororder", VendorOrderRoute.draw());
-
     this.path.use("/admin", AdminRoute.draw());
-
     this.path.use("/product", ProductRoute.draw());
     this.path.use("/category", CategoryRoute.draw());
 

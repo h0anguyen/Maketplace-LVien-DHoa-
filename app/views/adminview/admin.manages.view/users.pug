@@ -1,0 +1,120 @@
+extends ../layout
+
+block content
+  nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
+    // Navbar Brand
+    a.navbar-brand.ps-3(href='/admin') Molla
+
+    // Sidebar Toggle
+    button#sidebarToggle.btn.btn-link.btn-sm.order-1.order-lg-0.me-4.me-lg-0(href='#!')
+      i.fas.fa-bars
+    // Navbar Search
+    form.d-none.d-md-inline-block.form-inline.ms-auto.me-0.me-md-3.my-2.my-md-0
+      .input-group
+        input.form-control(type='text' placeholder='Search for...' aria-label='Search for...' aria-describedby='btnNavbarSearch')
+        button#btnNavbarSearch.btn.btn-primary(type='button')
+          i.fas.fa-search
+    // Navbar
+    ul.navbar-nav.ms-auto.ms-md-0.me-3.me-lg-4
+      li.nav-item.dropdown
+        a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+          i.fas.fa-user.fa-fw
+        ul.dropdown-menu.dropdown-menu-end(aria-labelledby='navbarDropdown')
+          li
+            a.dropdown-item(href='#!') Settings
+          li
+            a.dropdown-item(href='#!') Activity Log
+          li
+            hr.dropdown-divider
+          li
+            form(action=`/auth/${userId}?_method=DELETE`, method="post") 
+              button(type="submit").dropdown-item Đăng xuất
+  #layoutSidenav
+    #layoutSidenav_nav
+      nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark
+        .sb-sidenav-menu
+          .nav
+            .sb-sidenav-menu-heading Tổng quát
+            a.nav-link(href='/admin')
+              .sb-nav-link-icon
+                i.fas.fa-tachometer-alt
+              |                                 Tổng quát
+            .sb-sidenav-menu-heading Thành phần
+            a.nav-link.collapsed(href='#' data-bs-toggle='collapse' data-bs-target='#collapseLayouts' aria-expanded='false' aria-controls='collapseLayouts')
+              .sb-nav-link-icon
+                i.fas.fa-columns
+              |                                 Quản lý
+              .sb-sidenav-collapse-arrow
+                i.fas.fa-angle-down
+            #collapseLayouts.collapse(aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion')
+              nav.sb-sidenav-menu-nested.nav
+                a.nav-link(href='/admin/users') Người dùng
+                a.nav-link(href='/admin/products') Sản phẩm
+            a.nav-link.collapsed(href='#' data-bs-toggle='collapse' data-bs-target='#collapsePages' aria-expanded='false' aria-controls='collapsePages')
+              .sb-nav-link-icon
+                i.fas.fa-book-open
+              |                                 Phân loại
+              .sb-sidenav-collapse-arrow
+                i.fas.fa-angle-down
+            #collapsePages.collapse(aria-labelledby='headingTwo' data-bs-parent='#sidenavAccordion')
+              nav#sidenavAccordionPages.sb-sidenav-menu-nested.nav.accordion
+                a.nav-link.collapsed(href='#' data-bs-toggle='collapse' data-bs-target='#pagesCollapseAuth' aria-expanded='false' aria-controls='pagesCollapseAuth')
+                  | Doanh mục
+                a.nav-link.collapsed(href='#' data-bs-toggle='collapse' data-bs-target='#pagesCollapseError' aria-expanded='false' aria-controls='pagesCollapseError')
+                  | Role
+            .sb-sidenav-menu-heading Thành phần khác
+            a.nav-link(href='charts.html')
+              .sb-nav-link-icon
+                i.fas.fa-chart-area
+              |                                 Banner
+            a.nav-link(href='tables.html')
+              .sb-nav-link-icon
+                i.fas.fa-table
+              |                                 Phiếu giảm giá
+        .sb-sidenav-footer
+          .small 
+          |                         
+    #layoutSidenav_content
+      main
+        .container-fluid.px-4
+          h1.mt-4 Người dùng
+          ol.breadcrumb.mb-4
+            li.breadcrumb-item.active Người tham gia có tài khoản
+          .card.mb-4
+            .card-header
+              i.fas.fa-table.me-1
+              | Tất cả người dùng
+            .card-body
+              table#datatablesSimple
+                thead
+                  tr
+                    th STT
+                    th Họ và tên
+                    th Số điện thoại
+                    th Gmail
+                    th Địa chỉ
+                    th Thời gian tạo
+                    th Khóa người dùng
+                
+                tbody 
+                  - let STT=0
+                  each user in users
+                        tr  
+                          td= STT=STT+1
+                          td= user.fullName
+                          td= user.numberPhone
+                          td= user.email
+                          td= user.Address
+                          td= array[STT-1]
+                          td 
+                            - if(user.roleUsers.length!=0)
+                              form(action=`/admin/user/${user.id}?_method=PUT`, method="post") 
+                                button(type="submit").btn.btn-danger.btn-sm
+                                  | Khóa 
+                            - else
+                              form(action=`/admin/user/${user.id}?_method=PUT`, method="post") 
+                                button(type="submit" disabled).btn.btn-danger.btn-sm
+                                  | Đã khóa
+                                
+                  
+              
