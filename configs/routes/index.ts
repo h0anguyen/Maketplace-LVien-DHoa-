@@ -2,6 +2,7 @@ import { VendorOrderRoute } from "@configs/routes/vendor.order.route";
 import { Router } from "express";
 import { HomeController } from "../../app/controllers/home.controller";
 import { RestActions } from "../enum";
+import { AdminRoute } from "./admin.route";
 import { AuthRoute } from "./auth.route";
 import { CategoryRoute } from "./category.route";
 import { ProductRoute } from "./product.route";
@@ -19,8 +20,13 @@ export class Route {
     this.path.use("/vendor", VendorRoute.draw());
     this.path.use("/vendorproduct", VendorProductRoute.draw());
     this.path.use("/vendororder", VendorOrderRoute.draw());
+
+    this.path.use("/search", SearchRoute.draw());
+    this.path.use("/admin", AdminRoute.draw());
+
     this.path.use("/product", ProductRoute.draw());
     this.path.use("/category", CategoryRoute.draw());
+
 
     Route.resource(this.path, this.homeController, {
       only: [RestActions.Index],
