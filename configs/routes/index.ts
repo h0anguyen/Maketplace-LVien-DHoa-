@@ -2,12 +2,14 @@ import { VendorOrderRoute } from "@configs/routes/vendor.order.route";
 import { Router } from "express";
 import { HomeController } from "../../app/controllers/home.controller";
 import { RestActions } from "../enum";
+import { AdminRoute } from "./admin.route";
 import { AuthRoute } from "./auth.route";
 import { CategoryRoute } from "./category.route";
 import { ProductRoute } from "./product.route";
 import { UserRoute } from "./user.route";
 import { VendorProductRoute } from "./vendor.product.route";
 import { VendorRoute } from "./vendor.route";
+
 
 export class Route {
   private static path = Router();
