@@ -122,63 +122,63 @@ block content
                 tbody
                   tr.row.mx-0
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/thoi-trang-nam')
+                      a.text-decoration-none(href='/category/1')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-tshirt.fa-2x.mb-2
                           p.mb-0 Th&#x1EDD;i trang nam
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/thoi-trang-nu')
+                      a.text-decoration-none(href='/category/2')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-female.fa-2x.mb-2
                           p.mb-0 Th&#x1EDD;i trang n&#x1EEF;
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/dien-thoai-va-phu-kien')
+                      a.text-decoration-none(href='/category/3')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-mobile-alt.fa-2x.mb-2
                           p.mb-0 &#x110;i&#x1EC7;n tho&#x1EA1;i v&agrave; ph&#x1EE5; ki&#x1EC7;n
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/may-tinh-va-laptop')
+                      a.text-decoration-none(href='/category/4')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-laptop.fa-2x.mb-2
                           p.mb-0 M&aacute;y t&iacute;nh v&agrave; Laptop
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/dien-tu-gia-dung')
+                      a.text-decoration-none(href='/category/5')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-blender.fa-2x.mb-2
                           p.mb-0 &#x110;i&#x1EC7;n t&#x1EED; gia d&#x1EE5;ng
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/sach-va-van-phong-pham')
+                      a.text-decoration-none(href='/category/6')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-book.fa-2x.mb-2
                           p.mb-0 S&aacute;ch v&agrave; v&#x103;n ph&ograve;ng ph&#x1EA9;m
                   tr.row.mx-0
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/do-choi-tre-em')
+                      a.text-decoration-none(href='/category/7')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-puzzle-piece.fa-2x.mb-2
                           p.mb-0 &#x110;&#x1ED3; ch&#x1A1;i tr&#x1EBB; em
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/do-dung-the-thao')
+                      a.text-decoration-none(href='/category/8')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-futbol.fa-2x.mb-2
                           p.mb-0 &#x110;&#x1ED3; d&ugrave;ng th&#x1EC3; thao
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/suc-khoe-va-lam-dep')
+                      a.text-decoration-none(href='/category/9')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-heart.fa-2x.mb-2
                           p.mb-0 S&#x1EE9;c kh&#x1ECF;e v&agrave; l&agrave;m &#x111;&#x1EB9;p
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/nha-cua-va-doi-song')
+                      a.text-decoration-none(href='/category/10')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-home.fa-2x.mb-2
                           p.mb-0 Nh&agrave; c&#x1EED;a v&agrave; &#x111;&#x1EDD;i s&#x1ED1;ng
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/o-to-va-xe-may')
+                      a.text-decoration-none(href='/category/11')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-car.fa-2x.mb-2
                           p.mb-0 &Ocirc; t&ocirc; v&agrave; xe m&aacute;y
                     td.col-4.col-md-2
-                      a.text-decoration-none(href='/do-dien-va-cong-nghe')
+                      a.text-decoration-none(href='/category/12')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-plug.fa-2x.mb-2
                           p.mb-0 &#x110;&#x1ED3; &#x111;i&#x1EC7;n v&agrave; c&ocirc;ng ngh&#x1EC7;
@@ -187,13 +187,10 @@ block content
                 .heading-left
                   h2.title Được mua nhiều
                   // End .title
-                // End .heading-left
                 .heading-right
                   ul.nav.nav-pills.justify-content-start(role='tablist')
                     li.nav-item
                       a#trending-all-link.nav-link.active(data-toggle='tab' href='#trending-all-tab' role='tab' aria-controls='trending-all-tab' aria-selected='true') All
-                // End .heading-right
-              // End .heading
               .tab-content.tab-content-carousel
                 #trending-all-tab.tab-pane.p-0.fade.show.active(role='tabpanel' aria-labelledby='trending-all-link')
                   .owl-carousel.owl-simple.carousel-equal-height.carousel-with-shadow(data-toggle='owl' data-owl-options='{\
@@ -223,25 +220,21 @@ block content
                     each product in productsSold
                       .product.text-center.shadow
                         figure.product-media
-                          a.product-image-link(href=`product.html?id=${product.id}`)
+                          a.product-image-link(href=`/product/${product.id}`)
                             img.product-image(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
                           .product-action
-                            form(action='/cart/add' method='POST').addtocart
-                              input(type='hidden' name='productId' value=product.id)
-                              input(type='hidden' name='quantity' value='1')
-                              button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
-                                span Thêm vào giỏ hàng
+                                 a.btn-product.btn-cart(href='/cart/add' method='post')
+                                  input(type='hidden' name='productId' value=product.id)
+                                  input(type='hidden' name='quantity' value='1')
+                                  span
+                                    | add to
+                                    | cart
                         .product-body
                           h3.product-title
-                            a(href=`product.html?id=${product.id}`)= product.productName
+                            a(href=`/product/${product.id}`)= product.productName
                           .product-price
                             span= `${product.price.toLocaleString('vi-VN')} ₫`
-                  // End .owl-carousel
-                // .End .tab-pane
-              // End .tab-content
-            // End .bg-lighter
             .mb-5
-            // End .mb-5
             //- .row.cat-banner-row.electronics
             //-   .col-xl-3.col-xxl-4
             //-     .cat-banner.row.no-gutters
@@ -354,16 +347,19 @@ block content
                               a.product-image-link(href=`product.html?id=${product.id}`)
                                 img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
                               .product-action
-                                form(action='/cart/add' method='POST').addtocart
+                                 a.btn-product.btn-cart(href='/cart/add' method='post')
                                   input(type='hidden' name='productId' value=product.id)
-                                  input(type='hidden' name='quantity' value='1')
-                                  button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
-                                    span Thêm vào giỏ hàng
+                                  input(type='hidden' name='quantity' value=1)
+                                  span
+                                    | add to
+                                    | cart
                             .product-body
                               h3.product-title
-                                a(href=`product.html?id=${product.id}`)= product.productName
+                                a(href=`/product/${product.id}`)= product.productName
                               .product-price
                                 span= `${product.price.toLocaleString('vi-VN')} ₫`
+                              .sold.text-warning
+                                | Đã bán: #{product.sold}
                       .col-md-3.col-lg-2.pt-2.mt-1.mb-1.mt-1.mb-1.ml-3.mr-3.col-xs-3
                         a(href="###").product.text-center.fancy-product.pt-1.pb-1 Xem thêm
 
