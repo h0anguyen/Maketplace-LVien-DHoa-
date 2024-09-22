@@ -69,10 +69,31 @@ export class AuthController extends ApplicationController {
           avatar: null,
         },
       });
-
       req.session.userId = loginUser.id;
     }
-
+    const checkBan = await prisma.roleUser.findFirst({
+      where: {
+        AND: [
+          {
+            userId: req.session.userId,
+          },
+          {
+            OR: [
+              {
+                rolesId: 1,
+              },
+              {
+                rolesId: 0,
+              },
+            ],
+          },
+        ],
+      },
+    });
+    if (checkBan == null) {
+      req.flash("errors", { msg: "Tài khoản của bạn đã bị khóa" });
+      return res.redirect("/auth/signin");
+    }
     req.flash("success", { msg: "Login successfully" });
 
     res.redirect("/");
@@ -94,6 +115,7 @@ export class AuthController extends ApplicationController {
         OR: [{ email: username.trim() }, { numberPhone: username.trim() }],
       },
     });
+    
     if (!checkUser) {
       req.flash("errors", { msg: "Không tìm thấy tên tài khoản của bạn." });
       res.redirect("/auth/signin");
@@ -101,9 +123,48 @@ export class AuthController extends ApplicationController {
       if (checkUser.password) {
         if (await bcrypt.compare(password, checkUser.password)) {
           req.session.userId = checkUser.id;
-
-          req.flash("success", { msg: "Đăng nhập thành công!" });
-          res.redirect("/");
+          const checkBan = await prisma.roleUser.findFirst({
+            where: {
+              AND: [
+                {
+                  userId: req.session.userId,
+                },
+                {
+                  OR: [
+                    {
+                      rolesId: 1,
+                    },
+                    {
+                      rolesId: 0,
+                    },
+                  ],
+                },
+              ],
+            },
+          });
+          if (checkBan == null) {
+            req.flash("errors", { msg: "Tài khoản của bạn đã bị khóa" });
+            return res.redirect("/auth/signin");
+          }
+          const checkRole = await prisma.roleUser.findFirst({
+            where: {
+              AND: [
+                {
+                  userId: req.session.userId,
+                },
+                {
+                  rolesId: 0,
+                },
+              ],
+            },
+          });
+          if (checkRole) {
+            req.flash("success", { msg: "Đăng nhập thành công!" });
+            return res.redirect("/admin");
+          } else {
+            req.flash("success", { msg: "Đăng nhập thành công!" });
+            res.redirect("/");
+          }
         } else {
           req.flash("errors", { msg: "Mật khẩu sai." });
           res.redirect("/auth/signin");
