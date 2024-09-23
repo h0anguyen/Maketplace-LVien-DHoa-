@@ -115,7 +115,7 @@ export class UserController extends ApplicationController {
             numberPhone: numberPhone,
             email: email,
             address: address || null,
-            avatar: file.toString(),
+            avatar: file,
           },
         });
         req.flash("success", { msg: "Cập nhật thành công" });

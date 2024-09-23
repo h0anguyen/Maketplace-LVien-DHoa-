@@ -347,7 +347,7 @@ export class AdminController {
         const createBanner = await prisma.images.create({
           data: {
             bannerId: +id,
-            imageAddress: file.toString(),
+            imageAddress: file,
             location: +id,
             productId: 0,
             updatedAt: new Date(),
