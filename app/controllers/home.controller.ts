@@ -24,9 +24,6 @@ export class HomeController extends ApplicationController {
         },
         take: 100,
       });
-      const banners = await prisma.images.findMany({
-        where: {
-          bannerId: {
             not: null,
           },
         },
@@ -38,7 +35,6 @@ export class HomeController extends ApplicationController {
         products,
         user,
         productsSold,
-        banners,
       });
     } catch (error) {
       res.status(500).json({ message: "Đã xảy ra lỗi khi xử lý yêu cầu" });
