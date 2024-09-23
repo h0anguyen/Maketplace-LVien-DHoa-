@@ -66,7 +66,7 @@ export class AuthController extends ApplicationController {
         data: {
           fullName: googleUser.name,
           email: googleUser.email,
-          avatar: 1,
+          avatar: null,
         },
       });
 
