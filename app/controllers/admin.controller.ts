@@ -138,7 +138,11 @@ export class AdminController {
         include: {
           categories: true,
         },
+        orderBy: {
+          id: "asc",
+        },
       });
+      products.shift();
       let array = [];
       for (let index = 0; index < products.length; index++) {
         array.push(
@@ -343,7 +347,7 @@ export class AdminController {
         const createBanner = await prisma.images.create({
           data: {
             bannerId: +id,
-            imageAddress: file,
+            imageAddress: file.toString(),
             location: +id,
             productId: 0,
             updatedAt: new Date(),

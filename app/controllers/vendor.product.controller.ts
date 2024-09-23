@@ -65,7 +65,7 @@ export class VendorProductController extends ApplicationController {
           inventory: parseInt(inventory),
           view: 0,
           sold: 0,
-          mainImage,
+          mainImage:mainImage,
           userId: req.session.userId,
         },
       });
@@ -129,17 +129,16 @@ export class VendorProductController extends ApplicationController {
         where: {
           id: parseInt(id),
         },
-        include: {
-          image: {
-            orderBy: {
-              id: "asc",
-            },
-          },
+      });
+      const productImage = await prisma.images.findMany({
+        where: {
+          productId: parseInt(id),
         },
       });
+
       const categories = await prisma.categories.findMany();
 
-      res.render("userview/vendor.view/editproduct", { product, categories });
+      res.render("userview/vendor.view/editproduct", { product, categories, productImage});
     }
   }
 
@@ -168,7 +167,7 @@ export class VendorProductController extends ApplicationController {
           inventory: parseInt(inventory),
           view: 0,
           sold: 0,
-          mainImage,
+          mainImage: mainImage,
           userId: req.session.userId,
         },
       });

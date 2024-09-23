@@ -11,7 +11,7 @@ model User {
   numberPhone String?
   email       String?
   password    String?
-  avatar      Bytes?
+  avatar      Json?
 
   roleUsers     RoleUser[]
   searchHistory SearchHistory[]
@@ -82,7 +82,7 @@ model Products {
   view        Int
   sold        Int
   inventory   Int
-  mainImage   Bytes?
+  mainImage   Json?
   categoryId  Int
   userId      Int
 
@@ -112,7 +112,7 @@ model Categories {
 model Comments {
   id        Int     @id @default(autoincrement())
   content   String?
-  image     Bytes?
+  image     Json?
   star      Int?
   productId Int
   userId    Int
@@ -126,7 +126,7 @@ model Comments {
 
 model Images {
   id           Int    @id @default(autoincrement())
-  imageAddress Bytes?
+  imageAddress Json?
   productId    Int
   bannerId     Int?
   location     Int?

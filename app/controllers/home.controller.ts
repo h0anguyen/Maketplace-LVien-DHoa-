@@ -14,9 +14,14 @@ export class HomeController extends ApplicationController {
           },
         });
       }
-      const productsDatabase = await prisma.products.findMany();
+      const productsDatabase = await prisma.products.findMany({
+        orderBy: {
+          id: "asc",
+        },
+      });
+      productsDatabase.shift();
       const shuffledProducts = _.shuffle(productsDatabase);
-      const products = shuffledProducts.slice(0, 45);
+      const products = shuffledProducts.slice(0, 50);
 
       const productsSold = await prisma.products.findMany({
         orderBy: {
@@ -24,6 +29,10 @@ export class HomeController extends ApplicationController {
         },
         take: 100,
       });
+
+      const banners = await prisma.images.findMany({
+        where: {
+          bannerId: {
             not: null,
           },
         },
@@ -35,6 +44,7 @@ export class HomeController extends ApplicationController {
         products,
         user,
         productsSold,
+        banners,
       });
     } catch (error) {
       res.status(500).json({ message: "Đã xảy ra lỗi khi xử lý yêu cầu" });
