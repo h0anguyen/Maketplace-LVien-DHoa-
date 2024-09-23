@@ -1,0 +1,81 @@
+extends ../layout3
+
+block content
+  .page-wrapper
+    include ../partials/header
+    main.main
+      .page-header.text-center.mb-4(style="background-image: url('assets/images/page-header-bg.jpg')")
+        .container
+          h1.page-title CART
+      .page-content
+        #cart
+          .container
+            .row
+              .col-lg-9
+                form(action='/cart/handleCartActions' method='post')
+                  table.table.table-cart.table-mobile
+                    thead
+                      tr
+                        th Sản phẩm
+                        th Giá
+                        th Số lượng
+                        th Tổng cộng
+                        th
+                    tbody
+                      each cart in carts
+                        tr
+                          td.product-col
+                            .product
+                              figure.product-media
+                                a(href=`/product/${cart.product.id}`)
+                                  img(src=`data:image/png;base64,${cart.product.mainImage.toString('base64')}`, alt=`No image`)
+                              h3.product-title
+                                a(href=`/product/${cart.product.id}`)= cart.product.productName
+                          td.price-col= cart.product.price
+                          td.quantity-col
+                            .cart-product-quantity
+                              input(type='hidden' name='productId' value=cart.productId)
+                              input.form-control(type='number' name='quantity' value=cart.quantity min='1' max=cart.product.inventory step='1' data-decimals='0' required='')
+                          td.total-col= `${(Math.round(cart.product.price * cart.quantity * 10) / 10).toFixed(2)} VNĐ`
+                          td.remove-col
+                               button.btn-remove(type='submit' name='action' value='remove')
+                                i.icon-close
+                  .cart-bottom
+                    .cart-discount
+                      form(action='#')
+                        .input-group
+                          input.form-control(type='text' placeholder='mã giảm giá')
+                          .input-group-append
+                              i.icon-long-arrow-right
+                    button.btn.btn-outline-dark-2(type='submit' name='action' value='update')
+                      span CẬP NHẬT GIỎ HÀNG
+                      i.icon-refresh
+              aside.col-lg-3
+                .summary.summary-cart
+                  h3.summary-title TIẾP TỤC MUA SẮM
+                  table.table.table-summary
+                    tbody
+                      tr.summary-subtotal
+                        td CẬP NHẬT GIỎ HÀNG
+                        td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0).toFixed(2)} VNĐ`
+                      tr.summary-shipping
+                        td Vận chuyển:
+                        td &nbsp;
+                      tr.summary-shipping-row
+                        td
+                          .custom-control.custom-radio
+                            input#free-shipping.custom-control-input(type='radio' name='shipping' required='')
+                            label.custom-control-label(for='free-shipping') Miễn phí vận chuyển
+                        td 0đ
+                      tr.summary-shipping-estimate
+                        td
+                          | Ước tính cho Quốc gia của bạn
+                          br
+                        td &nbsp;
+                      tr.summary-total
+                        td Tổng cộng:
+                        td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0).toFixed(2)} VNĐ`
+                form(action='/checkout' method="POST")
+                  input(type="hidden" name="action" value="checkout")
+                  button.btn.btn-outline-primary-2.btn-order.btn-block(type="submit") TIẾN HÀNH THANH TOÁN
+    include ../partials/footer

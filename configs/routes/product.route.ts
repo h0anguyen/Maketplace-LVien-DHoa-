@@ -10,7 +10,7 @@ export class ProductRoute {
   public static draw() {
     this.path.route("/search").get(this.productController.Search);
     Route.resource(this.path, this.productController, {
-      only: [RestActions.Index,RestActions.Show],
+      only: [RestActions.Index, RestActions.Show],
     });
 
     return this.path;
