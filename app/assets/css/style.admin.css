@@ -13175,3 +13175,28 @@ body {
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
 }
+.newitem .btn-newitem {
+  position: relative;
+}
+
+.newitem .btn-newitem a {
+  bottom: 0;
+  position: absolute;
+  right: 0;
+  margin: 1pc;
+}
+
+.formnew form {
+  margin: 1pc;
+
+}
+
+.formnew form input {
+  width: 100%;
+  margin: 1pc;
+
+}
+
+.formnew form input[type="text"] {
+  padding: .4pc 1pc;
+}
