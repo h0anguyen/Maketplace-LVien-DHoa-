@@ -89,7 +89,7 @@ export class AdminController {
         array.push(
           moment
             .tz(
-              users[index].updatedAt,
+              users[index].createdAt,
               "ddd MMM DD YYYY HH:mm:ss ZZ",
               "Asia/Ho_Chi_Minh"
             )
@@ -143,7 +143,7 @@ export class AdminController {
         array.push(
           moment
             .tz(
-              products[index].updatedAt,
+              products[index].createdAt,
               "ddd MMM DD YYYY HH:mm:ss ZZ",
               "Asia/Ho_Chi_Minh"
             )
@@ -183,6 +183,113 @@ export class AdminController {
         msg: "Lỗi không xác định ",
       });
       return res.render("userview/auth.view/signin");
+    }
+  }
+
+  public async listCategories(req: Request, res: Response) {
+    try {
+      const userId = 0;
+      const categories = await prisma.categories.findMany();
+      let array = [];
+      for (let index = 0; index < categories.length; index++) {
+        array.push(
+          moment
+            .tz(
+              categories[index].createdAt,
+              "ddd MMM DD YYYY HH:mm:ss ZZ",
+              "Asia/Ho_Chi_Minh"
+            )
+            .format("YYYY-MM-DD")
+        );
+      }
+      res.render("adminview/admin.manages.view/categories", {
+        userId,
+        categories,
+        array,
+      });
+    } catch {
+      req.flash("errors", {
+        msg: "Lỗi không xác định ",
+      });
+      return res.render("userview/auth.view/signin");
+    }
+  }
+
+  public async newCategories(req: Request, res: Response) {
+    res.render("adminview/admin.manages.view/newcategories");
+  }
+
+  public async createCategory(req: Request, res: Response) {
+    const { categoryName, description } = req.body;
+    try {
+      const newCategory = await prisma.categories.create({
+        data: {
+          categoryName,
+          description,
+        },
+      });
+      req.flash("success", {
+        msg: "Tạo mới thành công",
+      });
+      res.redirect("/admin/categories");
+    } catch (error) {
+      req.flash("errors", {
+        msg: "Lỗi tạo mới. Thử lại sau ",
+      });
+      res.render("adminview/admin.manages.view/newcategories");
+    }
+  }
+
+  public async listRoles(req: Request, res: Response) {
+    try {
+      const userId = 0;
+      const roles = await prisma.roles.findMany();
+      let array = [];
+      for (let index = 0; index < roles.length; index++) {
+        array.push(
+          moment
+            .tz(
+              roles[index].createdAt,
+              "ddd MMM DD YYYY HH:mm:ss ZZ",
+              "Asia/Ho_Chi_Minh"
+            )
+            .format("YYYY-MM-DD")
+        );
+      }
+      res.render("adminview/admin.manages.view/roles", {
+        userId,
+        roles,
+        array,
+      });
+    } catch {
+      req.flash("errors", {
+        msg: "Lỗi không xác định ",
+      });
+      return res.render("userview/auth.view/signin");
+    }
+  }
+
+  public async newRole(req: Request, res: Response) {
+    res.render("adminview/admin.manages.view/newrole");
+  }
+
+  public async createRole(req: Request, res: Response) {
+    const { value } = req.body;
+    try {
+      const newRole = await prisma.roles.create({
+        data: {
+          value,
+        },
+      });
+      req.flash("success", {
+        msg: "Tạo mới thành công",
+      });
+      res.redirect("/admin/roles");
+    } catch (error) {
+      req.flash("errors", {
+        msg: "Lỗi tạo mới. Thử lại sau ",
+      });
+      res.render("adminview/admin.manages.view/newrole");
     }
   }
 }

@@ -19917,3 +19917,13 @@ button:focus {
 .addtocart>button {
     width: 100%;
 }
+@media screen and (min-width: 768px) {
+    .product-title {
+        height: 35px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

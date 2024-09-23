@@ -48,7 +48,7 @@ block content
             #collapseLayouts.collapse(aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion')
               nav.sb-sidenav-menu-nested.nav
                 a.nav-link(href='/admin/users') Người dùng
-                a.nav-link(href='/admin/products') Sản phẩm
+                a.nav-link(href='/admin/categorys') Sản phẩm
             a.nav-link.collapsed(href='#' data-bs-toggle='collapse' data-bs-target='#collapsePages' aria-expanded='false' aria-controls='collapsePages')
               .sb-nav-link-icon
                 i.fas.fa-book-open
@@ -76,36 +76,26 @@ block content
     #layoutSidenav_content
       main
         .container-fluid.px-4
-          h1.mt-4 Sản phẩm
-          ol.breadcrumb.mb-4
-            li.breadcrumb-item.active Toàn bộ sản phẩm 
+          .row.newitem
+            .col-6
+              h1.mt-4 Roles
+              ol.breadcrumb.mb-4
+                li.breadcrumb-item.active Toàn bộ roles
+            .col-6.btn-newitem
+              a.btn.btn-primary(href="/admin/role/new") Tạo role mới
           .card.mb-4
             .card-header
               i.fas.fa-table.me-1
-              | Tất cả sản phẩm 
+              | Tất cả Roles
             .card-body
               table#datatablesSimple
                 thead
                   tr
-                    th STT
-                    th sản phẩm
-                    th Mô tả
-                    th Giá 
-                    th Lượt xem
-                    th lượt bán
-                    th Doanh mục
-                    th Thời gian tạo
+                    th Id
+                    th Chức năng
                 tbody 
                   - let STT=0
-                    each product in products
+                    each role in roles
                       tr  
-                        td= STT=STT+1
-                        td.row 
-                          b.col-6= product.productName
-                          img.col-6#avatar.img-thumbnail.mb-3.shadow.mx-auto.d-block(src=`data:image/png;base64,${product.mainImage.toString('base64')}` alt='' style='width: 150px; height: 150px; object-fit: cover;')
-                        td= product.description
-                        td= product.price
-                        td= product.view
-                        td= product.sold
-                        td= product.categories.categoryName
-                        td= array[STT-1]
+                        td= role.id 
+                        td= role.value
