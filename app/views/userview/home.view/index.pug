@@ -11,7 +11,7 @@ block content
             .row
               .col-lg-12
                 .row
-                  .col-md-6
+                  .col-md-9
                     .banner.banner-overlay
                       #carouselExampleCaptions.carousel.slide(data-ride='carousel')
                         ol.carousel-indicators
@@ -26,24 +26,17 @@ block content
 
                         .carousel-inner
                           .carousel-item.active
-                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
-                            //- .carousel-caption.d-none.d-md-block
-                            //-   h5 First slide label
-                            //-   p Some representative placeholder content for the first slide.
+                            img.d-block.w-100(src=`data:image/png;base64,${banners[0].imageAddress.toString('base64')}`, alt=`banner1` )
                           .carousel-item
-                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
-                           
+                            img.d-block.w-100(src=`data:image/png;base64,${banners[1].imageAddress.toString('base64')}` alt='banner2')
                           .carousel-item
-                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
-                           
+                            img.d-block.w-100(src=`data:image/png;base64,${banners[2].imageAddress.toString('base64')}`, alt=`banner3` )
                           .carousel-item
-                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
+                            img.d-block.w-100(src=`data:image/png;base64,${banners[3].imageAddress.toString('base64')}`, alt=`banner4` )
                           .carousel-item
-                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
+                            img.d-block.w-100(src=`data:image/png;base64,${banners[4].imageAddress.toString('base64')}`, alt=`banner5` )
                           .carousel-item
-                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
-                          .carousel-item
-                            img.d-block.w-100(src='images/demos/demo-14/banners/banner-3.png' alt='')
+                            img.d-block.w-100(src=`data:image/png;base64,${banners[5].imageAddress.toString('base64')}`, alt=`banner6` )
                         button.carousel-control-prev(type='button' data-target='#carouselExampleCaptions' data-slide='prev')
                           span.carousel-control-prev-icon(aria-hidden='true')
                           span.sr-only Previous
@@ -52,25 +45,14 @@ block content
                           span.sr-only Next
 
 
-                  .col-md-6
+                  .col-md-3.d-flex.flex-wrap.align-items-center.justify-content-around
                     .banner.banner-overlay
-                      a(href='#')
-                        img(src='images/demos/demo-14/banners/banner-3.png' alt='Banner img desc')
-                      .banner-content
-                        h4.banner-subtitle.text-white.d-none.d-sm-block
-                          a(href='#')
-                            | Deal of
-                            | the Day
-                        h3.banner-title.text-white
-                          a(href='#')
-                            | Headphones 
-                            br
-                            span
-                              | Up To
-                              | 30% Off
-                        a.banner-link(href='#')
-                          | Shop Now 
-                          i.icon-long-arrow-right
+                      a(href='/category/4')
+                        img(src=`data:image/png;base64,${banners[6].imageAddress.toString('base64')}` alt='Banner 7')
+                    .banner.banner-overlay
+                      a(href='/category/1')
+                        img(src=`data:image/png;base64,${banners[7].imageAddress.toString('base64')}` alt='Banner 8')
+                      
             .mb-3
             .owl-carousel.owl-simple.brands-carousel(data-toggle='owl' data-owl-options='{\
             "nav": false, \
@@ -140,7 +122,7 @@ block content
                       a.text-decoration-none(href='/category/4')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-laptop.fa-2x.mb-2
-                          p.mb-0 M&aacute;y t&iacute;nh v&agrave; Laptop
+                          p.mb-0 M&aacute;y t&iacute;nh, Laptop
                     td.col-4.col-md-2
                       a.text-decoration-none(href='/category/5')
                         .d-flex.flex-column.align-items-center
@@ -181,7 +163,7 @@ block content
                       a.text-decoration-none(href='/category/12')
                         .d-flex.flex-column.align-items-center
                           i.fas.fa-plug.fa-2x.mb-2
-                          p.mb-0 &#x110;&#x1ED3; &#x111;i&#x1EC7;n v&agrave; c&ocirc;ng ngh&#x1EC7;
+                          p.mb-0 Đồ điện và công nghệ
             .bg-lighter.trending-products
               .heading.heading-flex.mb-3
                 .heading-left

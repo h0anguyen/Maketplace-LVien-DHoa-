@@ -2,6 +2,7 @@ import { RestActions } from "@configs/enum";
 import { AdminController } from "@controllers";
 import { Router } from "express";
 import { Route } from ".";
+import { upload } from "../fileUpload";
 
 export class AdminRoute {
   private static path = Router();
@@ -17,10 +18,12 @@ export class AdminRoute {
     this.path.route("/roles").get(this.adminController.listRoles);
     this.path.route("/role/new").get(this.adminController.newRole);
     this.path.route("/roles").post(this.adminController.createRole);
-
-
-
-
+    this.path.route("/banner").get(this.adminController.listBanner);
+    this.path.put(
+      "/banner",
+      upload.single("banner"),
+      this.adminController.updateBanner
+    );
 
     Route.resource(this.path, this.adminController, {
       only: [RestActions.Index],

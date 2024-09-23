@@ -1,5 +1,6 @@
 import prisma from "@models";
 import { Request, Response } from "express";
+import { convertFileToBase64 } from "../../configs/fileUpload";
 const moment = require("moment-timezone");
 export class AdminController {
   public async index(req: Request, res: Response) {
@@ -290,6 +291,72 @@ export class AdminController {
         msg: "Lỗi tạo mới. Thử lại sau ",
       });
       res.render("adminview/admin.manages.view/newrole");
+    }
+  }
+
+  public async listBanner(req: Request, res: Response) {
+    try {
+      const userId = 0;
+      const banners = await prisma.images.findMany({
+        where: {
+          bannerId: {
+            not: null,
+          },
+        },
+        orderBy: {
+          bannerId: "asc",
+        },
+      });
+      let array = [];
+      for (let index = 0; index < banners.length; index++) {
+        array.push(
+          moment
+            .tz(
+              banners[index].updatedAt,
+              "ddd MMM DD YYYY HH:mm:ss ZZ",
+              "Asia/Ho_Chi_Minh"
+            )
+            .format("YYYY-MM-DD")
+        );
+      }
+      res.render("adminview/admin.manages.view/banner", {
+        userId,
+        banners,
+        array,
+      });
+    } catch {
+      req.flash("errors", {
+        msg: "Lỗi không xác định ",
+      });
+      return res.render("userview/auth.view/signin");
+    }
+  }
+  public async updateBanner(req: Request, res: Response) {
+    const userId = 0;
+    const { id } = req.body;
+    const file = req.file ? convertFileToBase64(req.file) : null;
+    try {
+      if (file != null) {
+        const deleteBanner = await prisma.images.deleteMany({
+          where: { bannerId: +id },
+        });
+        const createBanner = await prisma.images.create({
+          data: {
+            bannerId: +id,
+            imageAddress: file,
+            location: +id,
+            productId: 0,
+            updatedAt: new Date(),
+          },
+        });
+        res.redirect("/admin/banner");
+      } else {
+        return res.redirect("/admin/banner");
+      }
+    } catch (error) {
+      // res.status(500).json({ message: error });
+
+      return res.redirect("/admin/banner");
     }
   }
 }
