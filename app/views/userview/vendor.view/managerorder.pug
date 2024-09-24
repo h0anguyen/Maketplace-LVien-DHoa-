@@ -17,21 +17,22 @@ block content
                 i.fas.fa-shopping-cart.me-2
                 |                                Đơn hàng
             li.nav-item
-              a.nav-link(href='/maketing' )
+              a.nav-link(href='' )
                 i.fas.fa-percentage.me-2
                 |                                 Kênh marketing
-      main.col-md-9.ms-sm-auto.col-lg-10.px-md-4
-        .d-md-none
-          button.btn.btn-primary.mb-3(type='button' data-bs-toggle='collapse' data-bs-target='.sidebarr' aria-expanded='false' aria-controls='sidebarr')
-            i.fas.fa-bars
-            |  Menu
-        #v-pills-tabContent.tab-content.border.rounded.p-4.mt-3
-          #order-manager
-            h2.mb-4.pb-2.border-bottom.text-center Quản lí đơn hàng
-            .table-responsive
-              table.table.table-striped.table-hover.border.table-bordered
-                - if(orders)
-                    thead.table-primary
+      #layoutSidenav_content.col-md-9.col-lg-10
+        main
+          .container-fluid.px-4
+            h1.mt-4 Đơn hàng
+            ol.breadcrumb.mb-4
+              li.breadcrumb-item.active Toàn bộ đơn hàng
+            .card.mb-4
+              .card-header
+                i.fas.fa-table.me-1
+                | Tất cả đơn hàng
+              .card-body
+                table#datatablesSimple
+                  thead
                       tr.text-center
                         th Đơn hàng
                         th Khách hàng
@@ -41,7 +42,16 @@ block content
                         th Trạng thái
                         th 
                         th
-                    tbody
+                  tbody
+                    tr.text-center
+                      td Demo1
+                      td Khách hàng
+                      td Địa chỉ
+                      td Tổng tiền
+                      td Thời gian
+                      td Trạng thái
+                      td 
+                      td
                     each order in orders
                       tr.text-center
                         td= order.id
@@ -68,6 +78,4 @@ block content
                           form(action=`/vendororder/${order.id}/cancel?_method=PUT`, method="post") 
                             button(type="submit").btn.btn-danger.btn-sm
                               | Hủy đơn hàng
-                - else
-                    .text-center Chưa có đơn hàng nào
     include ../partials/footer

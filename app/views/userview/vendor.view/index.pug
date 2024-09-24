@@ -20,28 +20,21 @@ block content
               a.nav-link(href='' )
                 i.fas.fa-percentage.me-2
                 |                                 Kênh marketing
-      main.col-md-9.ms-sm-auto.col-lg-10.px-md-4
-        .d-md-none
-          button.btn.btn-primary.mb-3(type='button' data-bs-toggle='collapse' data-bs-target='.sidebarr' aria-expanded='false' aria-controls='sidebarr')
-            i.fas.fa-bars
-            |  Menu
-        #v-pills-tabContent.tab-content.border.rounded.p-4.mt-3
-          #product-manager.tab-pane.fade.show.active.text-center(role='')
-            h2.mb-4.pb-2.border-bottom Sản phẩm cửa hàng
-            .d-flex.justify-content-between.align-items-center.mb-3
-              a.btn.btn-primary(href='/vendorproduct/new')
-                i.fas.fa-plus.me-2
-                | Thêm sản phẩm mới
-              .input-group.w-50
-                input.form-control(type='text' placeholder='Tìm kiếm sản phẩm...')
-                button.btn.btn-outline-secondary(type='button')
-                  i.fas.fa-search
-            .table-responsive
-              table.table.table-striped.table-hover.border.table-bordered
-                - if(products)
-                  thead.table-primary
-                    tr.text-center
-                      th(colspan="2")
+      #layoutSidenav_content.col-md-9.col-lg-10
+        main
+          .container-fluid.px-4
+            h1.mt-4 Sản phẩm
+            ol.breadcrumb.mb-4
+              li.breadcrumb-item.active Toàn bộ sản phẩm 
+            .card.mb-4
+              .card-header
+                i.fas.fa-table.me-1
+                | Tất cả sản phẩm 
+              .card-body
+                table#datatablesSimple
+                  thead
+                    tr
+                      th
                         | Sản phẩm
                       th
                         | Danh mục
@@ -57,11 +50,10 @@ block content
                         | 
                   tbody
                     each product in products
-                      tr.text-center
-                        td.row 
-                          .col-12.viewproductvendor
-                            img(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
-                        td= product.productName
+                      tr
+                        td.row
+                          b.d-block.mx-auto.col-6= product.productName
+                          img.col-6#avatar.img-thumbnail.mb-3.shadow.mx-auto.d-block(src=`data:image/png;base64,${product.mainImage.toString('base64')}` alt='' style='width: 150px; height: 150px; object-fit: cover;')
                         td= product.categories.categoryName
                         td= product.price
                           |.000đ
@@ -77,6 +69,4 @@ block content
                             button(type="submit").btn.btn-danger.btn-sm
                               i.fas.fa-trash.me-1
                               | Xóa
-                - else
-                  .text-center Chưa có sản phẩm nào 
     include ../partials/footer
