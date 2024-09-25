@@ -6,6 +6,7 @@ import { AdminRoute } from "./admin.route";
 import { AuthRoute } from "./auth.route";
 import { CartRoute } from "./cart.route";
 import { CategoryRoute } from "./category.route";
+import { OrderRoute } from "./order.route";
 import { ProductRoute } from "./product.route";
 import { UserRoute } from "./user.route";
 import { VendorProductRoute } from "./vendor.product.route";
@@ -23,6 +24,7 @@ export class Route {
     this.path.use("/vendororder", VendorOrderRoute.draw());
     this.path.use("/admin", AdminRoute.draw());
     this.path.use("/cart", CartRoute.draw());
+    this.path.use("/checkout", OrderRoute.draw());
 
     this.path.use("/product", ProductRoute.draw());
     this.path.use("/category", CategoryRoute.draw());

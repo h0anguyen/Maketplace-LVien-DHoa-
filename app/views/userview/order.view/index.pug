@@ -1,0 +1,96 @@
+extends ../layout3
+
+block content
+    .page-wrapper
+      include ../partials/header
+      main.main
+        .page-header.text-center(style="background-image: url('assets/images/page-header-bg.jpg')")
+          .container
+            h1.page-title Checkout
+        .page-content
+          .checkout
+            .container
+              form(action="/checkout", method="POST")
+                .row.mt-3 
+                  .col-lg-9
+                    h2.checkout-title Billing Details
+                    .row
+                      .col-sm-12
+                        label Full Name *
+                        input.form-control(type='text' name='recipientName' required='')
+                      .col-sm-12
+                        label Country *
+                        input.form-control(type='text' required='')
+                      .col-12
+                        label Address *
+                        input.form-control(type='text' name='recipientAddress' placeholder='Số hoặc địa chỉ nhà' required='')
+                      .col-6
+                        label T&#x1EC9;nh / Th&agrave;nh ph&#x1ED1; *
+                        input.form-control(type='text' required='')
+                      .col-6
+                        label Huy&#x1EC7;n / Qu&#x1EAD;n *
+                        input.form-control(type='text' required='')
+                      .col-sm-4
+                        label M&atilde; b&#x1B0;u &dstrok;i&#x1EC7;n / ZIP *
+                        input.form-control(type='text' required='')
+                      .col-sm-4
+                        label Phone *
+                        input.form-control(type='tel' name='recipientNumberPhone' required='')
+                      .col-4
+                        label Email *
+                        input.form-control(type='email' required='')
+                      .col-12
+                        label Order notes (optional)
+                        textarea.form-control(cols='30' rows='4' placeholder='Notes about your order, e.g. special notes for delivery')
+                  .col-lg-3.mt-2
+                    .summary
+                      h3.summary-title Your Order
+                      table.table.table-summary
+                        thead
+                          tr
+                            th Product
+                            th Total
+                        tbody
+                          each cart in carts
+                            tr
+                              td
+                                a(href=`/product/${cart.product.id}`)= cart.product.productName
+                              td= `${(Math.round(cart.product.price * cart.quantity * 10) / 10).toFixed(2)} VNĐ`
+                                
+                          tr.summary-subtotal
+                            td Subtotal:
+                            td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0).toFixed(2)} VNĐ`
+                          tr
+                            td Shipping:
+                            td Free shipping
+                          tr.summary-total
+                            td Total:
+                            td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0).toFixed(2)} VNĐ`
+                      #accordion-payment.accordion-summary
+                        .card.mb-1
+                          #heading-3.card-header
+                            h2.card-title
+                              .form-check
+                                input#cashOnDelivery.form-check-input(type='radio' name='paymentMethod' value='cashOnDelivery')
+                                label.form-check-label.mx-2(for='cashOnDelivery')
+                                  | Cash on delivery
+                        .card.mb-1
+                          #heading-4.card-header
+                            h2.card-title
+                              .form-check
+                                input#paypal.form-check-input(type='radio' name='paymentMethod' value='paypal' disabled)
+                                label.form-check-label.mx-2(for='paypal')
+                                  | PayPal( Maintain)
+                                small.float-right.paypal-link What is PayPal?
+                        .card.mb-1
+                          #heading-5.card-header
+                            h2.card-title
+                              .form-check
+                                input#creditCard.form-check-input(type='radio' name='paymentMethod' value='creditCard')
+                                label.form-check-label.mx-2(for='creditCard')
+                                  | Credit Card (Stripe)
+                                img.mt-1(src='images/payments-summary.png' alt='payments cards')
+                      button.btn.btn-outline-primary-2.btn-order.btn-block(type='submit')
+                        span.btn-text Place Order
+                        span.btn-hover-text Proceed to Checkout
+      include ../partials/footer

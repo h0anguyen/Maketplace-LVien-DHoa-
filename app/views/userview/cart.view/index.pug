@@ -64,8 +64,7 @@ block content
                       tr.summary-shipping-row
                         td
                           .custom-control.custom-radio
-                            input#free-shipping.custom-control-input(type='radio' name='shipping' required='')
-                            label.custom-control-label(for='free-shipping') Miễn phí vận chuyển
+                            label(for='free-shipping') Miễn phí vận chuyển
                         td 0đ
                       tr.summary-shipping-estimate
                         td
@@ -75,7 +74,6 @@ block content
                       tr.summary-total
                         td Tổng cộng:
                         td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0).toFixed(2)} VNĐ`
-                form(action='/checkout' method="POST")
-                  input(type="hidden" name="action" value="checkout")
+                form(action='/checkout' method="GET")
                   button.btn.btn-outline-primary-2.btn-order.btn-block(type="submit") TIẾN HÀNH THANH TOÁN
     include ../partials/footer

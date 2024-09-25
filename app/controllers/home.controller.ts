@@ -40,6 +40,7 @@ export class HomeController extends ApplicationController {
           bannerId: "asc",
         },
       });
+
       res.render("userview/home.view/index", {
         products,
         user,
@@ -51,3 +52,4 @@ export class HomeController extends ApplicationController {
     }
   }
 }
+
