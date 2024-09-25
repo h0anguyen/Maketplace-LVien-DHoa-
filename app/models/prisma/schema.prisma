@@ -3,6 +3,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum OrderEventStatus {
+  PENDING
+  ACCEPTED
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
 model User {
   id          Int       @id @default(autoincrement())
   fullName    String?
@@ -70,7 +78,7 @@ model Cart {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-   @@unique([userId, productId])
+  @@unique([userId, productId])
 }
 
 model Products {
@@ -154,11 +162,11 @@ model OrderDetail {
 }
 
 model Orders {
-  id                   Int     @id @default(autoincrement())
+  id                   Int              @id @default(autoincrement())
   recipientName        String?
   recipientAddress     String?
   recipientNumberPhone String?
-  status               Int
+  status               OrderEventStatus @default(PENDING)
   userId               Int
 
   OrdersDetail OrderDetail[]

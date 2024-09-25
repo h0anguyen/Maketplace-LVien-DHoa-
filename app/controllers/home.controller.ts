@@ -24,13 +24,6 @@ export class HomeController extends ApplicationController {
         },
         take: 100,
       });
-            not: null,
-          },
-        },
-        orderBy: {
-          bannerId: "asc",
-        },
-      });
       res.render("userview/home.view/index", {
         products,
         user,
@@ -41,3 +34,4 @@ export class HomeController extends ApplicationController {
     }
   }
 }
+

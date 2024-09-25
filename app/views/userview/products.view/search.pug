@@ -33,12 +33,11 @@ block content
                               a(href=`/product/${product.id}`)
                                  img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
                               .product-action
-                                a.btn-product.btn-cart(href='/cart/add' method='post')
+                                form(action='/cart' method='POST').addtocart
                                   input(type='hidden' name='productId' value=product.id)
-                                  input(type='hidden' name='quantity' value=1)
-                                  span
-                                    | add to
-                                    | cart
+                                  input(type='hidden' name='quantity' value='1')
+                                  button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
+                                    span Thêm vào giỏ hàng
                             .product-body
                               .product-cat
                                 a(href=product.categories) #{product.categories}
