@@ -138,7 +138,11 @@ export class AdminController {
         include: {
           categories: true,
         },
+        orderBy: {
+          id: "asc",
+        },
       });
+      products.shift();
       let array = [];
       for (let index = 0; index < products.length; index++) {
         array.push(

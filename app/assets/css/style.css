@@ -19927,3 +19927,8 @@ button:focus {
         text-overflow: ellipsis;
     }
 }
+#datatablesSimple td,
+#datatablesSimple th {
+    vertical-align: middle;
+    border: groove thin #2525262e;
+}
