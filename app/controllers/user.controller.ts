@@ -62,7 +62,7 @@ export class UserController extends ApplicationController {
           email: email,
           password: hash,
           address: null,
-          avatar: null,
+          avatar: undefined,
           birthday: null,
           fullName: fullName,
           roleUsers: {

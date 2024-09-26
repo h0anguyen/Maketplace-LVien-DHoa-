@@ -43,7 +43,7 @@ export class OrderController extends ApplicationController {
         recipientName,
         recipientAddress,
         recipientNumberPhone,
-        status: 0,
+        status: "PENDING",
       },
     });
 

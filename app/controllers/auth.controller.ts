@@ -45,7 +45,7 @@ export class AuthController extends ApplicationController {
           numberPhone: googleUser.numberPhone,
           fullName: googleUser.name,
           email: googleUser.email,
-          avatar: null,
+          avatar: undefined,
           password: null,
           roleUsers: {
             create: [
@@ -66,7 +66,7 @@ export class AuthController extends ApplicationController {
         data: {
           fullName: googleUser.name,
           email: googleUser.email,
-          avatar: null,
+          avatar: undefined,
         },
       });
 

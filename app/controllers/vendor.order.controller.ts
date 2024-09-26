@@ -44,24 +44,7 @@ export class VendorOrderController extends ApplicationController {
       const confirmOrder = await prisma.orders.update({
         where: { id: parseInt(id) },
         data: {
-          status: 2,
-        },
-      });
-      req.flash("success", { msg: "Xác nhận thành công" });
-      res.redirect("/vendororder");
-    } catch (error) {
-      req.flash("errors", { msg: "Lỗi không xác định thử lại sau" });
-      res.redirect("/vendororder");
-    }
-  }
-
-  public async confirmOrder(req: Request, res: Response) {
-    const { id } = req.params;
-    try {
-      const confirmOrder = await prisma.orders.update({
-        where: { id: parseInt(id) },
-        data: {
-          status: 2,
+          status: "ACCEPTED",
         },
       });
       req.flash("success", { msg: "Xác nhận thành công" });
@@ -78,7 +61,7 @@ export class VendorOrderController extends ApplicationController {
       const cancelOrder = await prisma.orders.update({
         where: { id: parseInt(id) },
         data: {
-          status: 0,
+          status: "CANCELLED",
         },
       });
       req.flash("success", { msg: "Hủy đơn hàng thành công" });

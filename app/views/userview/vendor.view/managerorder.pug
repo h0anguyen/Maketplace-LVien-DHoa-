@@ -43,15 +43,6 @@ block content
                         th 
                         th
                   tbody
-                    tr.text-center
-                      td Demo1
-                      td Khách hàng
-                      td Địa chỉ
-                      td Tổng tiền
-                      td Thời gian
-                      td Trạng thái
-                      td 
-                      td
                     each order in orders
                       tr.text-center
                         td= order.id
@@ -60,13 +51,13 @@ block content
                         td 12.000 đ
                         td= order.createdAt
                         td
-                          - if(order.status==1)
+                          - if(order.status=="PENDING")
                             form(action=`/vendororder/${order.id}?_method=PUT`, method="post") 
                               button(type="submit" ).badge.bg-warning Chờ xác nhận
-                          - if(order.status==2)
+                          - if(order.status=="OUT_FOR_DELIVERY")
                               form(action="", method="post") 
                                 button(type="submit" disabled).badge.bg-warning Đang chuyển giao vận chuyển
-                          - if(order.status==0)
+                          - if(order.status=="CANCELLED")
                               form(action="", method="post") 
                                 button(type="submit" disabled).badge.bg-danger Đã hủy
                         td
