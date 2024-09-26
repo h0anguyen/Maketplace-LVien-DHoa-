@@ -2,6 +2,7 @@ import prisma from "@models";
 import { Request, Response } from "express";
 import _ from "lodash";
 import { ApplicationController } from ".";
+const moment = require("moment-timezone");
 
 export class HomeController extends ApplicationController {
   public async index(req: Request, res: Response) {
