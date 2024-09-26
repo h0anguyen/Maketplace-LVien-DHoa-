@@ -76,6 +76,7 @@ async function main() {
       data: {
         productName: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
+        // information: faker.commerce.productMaterial
         price: parseInt(faker.commerce.price()),
         inventory: faker.number.int({ min: 1, max: 1000 }),
         mainImage,

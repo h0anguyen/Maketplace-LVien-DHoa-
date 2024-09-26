@@ -1,6 +1,9 @@
 import prisma from "@models";
 import { Request, Response } from "express";
+import _ from "lodash";
 import { ApplicationController } from ".";
+
+const moment = require("moment-timezone");
 
 export class ProductController extends ApplicationController {
   public async index(req: Request, res: Response) {
@@ -14,13 +17,51 @@ export class ProductController extends ApplicationController {
   }
   public async show(req: Request, res: Response) {
     const { id } = req.params;
-    const products = await prisma.products.findUnique({
-      where: { id: +id },
+
+    const product = await prisma.products.findUnique({
+      where: {
+        id: +id,
+      },
+      include: {
+        categories: true,
+        user: {
+          include: {
+            roleUsers: true,
+          },
+        },
+      },
     });
-    if (!products) {
-      return res.status(404).send("Product not found");
-    }
-    res.render("userview/products.view/show", { products });
+    const productsByCate = await prisma.products.findMany({
+      where: {
+        categoryId: 1,
+      },
+      orderBy: {
+        id: "asc",
+      },
+    });
+    productsByCate.shift();
+    const shuffledProducts = _.shuffle(productsByCate);
+    const productsCate = shuffledProducts.slice(0, 20);
+
+    const contproduct = await prisma.products.count({
+      where: {
+        userId: product?.userId,
+      },
+    });
+    const time = moment
+      .tz(
+        product?.user.createdAt,
+        "ddd MMM DD YYYY HH:mm:ss ZZ",
+        "Asia/Ho_Chi_Minh"
+      )
+      .format("YYYY-MM-DD");
+
+    res.render("userview/products.view/show", {
+      product,
+      contproduct,
+      time,
+      productsCate,
+    });
   }
   public async Search(req: Request, res: Response) {
     let user = null;

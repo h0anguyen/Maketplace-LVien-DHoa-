@@ -19932,3 +19932,28 @@ button:focus {
     vertical-align: middle;
     border: groove thin #2525262e;
 }
+/* .product-main-image #ima {
+    width: auto;
+    height: 553px;
+} */
+.fadd .btn-cart {
+    padding: .6pc;
+    background: #c96;
+    color: white;
+    border: none;
+}
+
+.fadd .btn-cart:hover {
+    background: #333;
+    color: #c96;
+    border: none;
+}
+
+.fadd .btn-cart span {
+    color: white;
+}
+
+.fadd .btn-cart span:hover {
+    text-decoration: none;
+
+}
