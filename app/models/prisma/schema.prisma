@@ -19,7 +19,7 @@ model User {
   numberPhone String?
   email       String?
   password    String?
-  avatar      Json? || null
+  avatar      Json?
 
   roleUsers     RoleUser[]
   searchHistory SearchHistory[]
