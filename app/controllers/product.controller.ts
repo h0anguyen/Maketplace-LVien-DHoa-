@@ -82,12 +82,12 @@ export class ProductController extends ApplicationController {
       },
       take: 12,
     });
-    console.log(q);
-
+    const categories = await prisma.categories.findMany();
     res.render("userview/products.view/search", {
       products,
       user,
       searchQuery: q,
+      categories,
     });
   }
 }

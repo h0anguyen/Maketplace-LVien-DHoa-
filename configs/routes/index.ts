@@ -1,4 +1,3 @@
-import { VendorOrderRoute } from "@configs/routes/vendor.order.route";
 import { Router } from "express";
 import { HomeController } from "../../app/controllers/home.controller";
 import { RestActions } from "../enum";
@@ -9,7 +8,6 @@ import { CategoryRoute } from "./category.route";
 import { OrderRoute } from "./order.route";
 import { ProductRoute } from "./product.route";
 import { UserRoute } from "./user.route";
-import { VendorProductRoute } from "./vendor.product.route";
 import { VendorRoute } from "./vendor.route";
 
 export class Route {
@@ -20,8 +18,6 @@ export class Route {
     this.path.use("/auth", AuthRoute.draw());
     this.path.use("/user", UserRoute.draw());
     this.path.use("/vendor", VendorRoute.draw());
-    this.path.use("/vendorproduct", VendorProductRoute.draw());
-    this.path.use("/vendororder", VendorOrderRoute.draw());
     this.path.use("/admin", AdminRoute.draw());
     this.path.use("/cart", CartRoute.draw());
     this.path.use("/checkout", OrderRoute.draw());

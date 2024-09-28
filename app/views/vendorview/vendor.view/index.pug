@@ -1,0 +1,211 @@
+extends ../layout
+
+block content
+  nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
+    // Navbar Brand
+    a.navbar-brand.ps-3(href='index.html') Molla
+    // Sidebar Toggle
+    button#sidebarToggle.btn.btn-link.btn-sm.order-1.order-lg-0.me-4.me-lg-0(href='#!')
+      i.fas.fa-bars
+    // Navbar Search
+    form.d-none.d-md-inline-block.form-inline.ms-auto.me-0.me-md-3.my-2.my-md-0
+      .input-group
+        input.form-control(type='text' placeholder='Search for...' aria-label='Search for...' aria-describedby='btnNavbarSearch')
+        button#btnNavbarSearch.btn.btn-primary(type='button')
+          i.fas.fa-search
+    // Navbar
+    ul.navbar-nav.ms-auto.ms-md-0.me-3.me-lg-4
+      li.nav-item.dropdown
+        a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+          i.fas.fa-user.fa-fw
+        ul.dropdown-menu.dropdown-menu-end(aria-labelledby='navbarDropdown')
+          li
+            a.dropdown-item(href='#!') Settings
+          li
+            a.dropdown-item(href='#!') Activity Log
+          li
+            hr.dropdown-divider
+          li
+            form(action=`/auth/${userId}?_method=DELETE`, method="post") 
+              button(type="submit").dropdown-item Đăng xuất
+  #layoutSidenav
+    #layoutSidenav_nav
+      nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark
+        .sb-sidenav-menu
+          .nav
+            .sb-sidenav-menu-heading Tổng quan
+            a.nav-link(href='/vendor')
+              .sb-nav-link-icon
+                i.fas.fa-tachometer-alt
+              |                                 Tổng quan
+            .sb-sidenav-menu-heading Quản lí
+            a.nav-link.collapsed(href='#' data-bs-toggle='collapse' data-bs-target='#collapseLayouts' aria-expanded='false' aria-controls='collapseLayouts')
+              .sb-nav-link-icon
+                i.fas.fa-columns
+              |                                 Đơn hàng
+              .sb-sidenav-collapse-arrow
+                i.fas.fa-angle-down
+            #collapseLayouts.collapse(aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion')
+              nav.sb-sidenav-menu-nested.nav
+                a.nav-link(href='/vendor/orders') Đơn hàng
+                a.nav-link(href='/vendor/orders/canceled') Đơn hàng đã hủy
+            a.nav-link.collapsed(href='#' data-bs-toggle='collapse' data-bs-target='#collapsePages' aria-expanded='false' aria-controls='collapsePages')
+              .sb-nav-link-icon
+                i.fas.fa-book-open
+              |                                 Sản phẩm
+              .sb-sidenav-collapse-arrow
+                i.fas.fa-angle-down
+            #collapsePages.collapse(aria-labelledby='headingTwo' data-bs-parent='#sidenavAccordion')
+              nav#sidenavAccordionPages.sb-sidenav-menu-nested.nav.accordion
+                a.nav-link.collapsed(href='/vendor/products')
+                  | Sản phẩm
+                a.nav-link.collapsed(href='/vendor/product/new')
+                  | Thêm sản phẩm
+            .sb-sidenav-menu-heading Thành phần khác
+            
+            a.nav-link(href='tables.html')
+              .sb-nav-link-icon
+                i.fas.fa-table
+              |                                 Phiếu giảm giá
+        .sb-sidenav-footer
+          .small 
+          |                         
+    #layoutSidenav_content
+      main
+        .container-fluid.px-4
+          h1.mt-4 Tổng quát
+          ol.breadcrumb.mb-4
+            li.breadcrumb-item.active Tổng quát
+          .row
+            .col-xl-6.col-md-6
+              .card.bg-primary.text-white.mb-4
+                .card-body Tổng số đơn hàng
+                  .card-body 
+                    b= orders.length
+                .card-footer.d-flex.align-items-center.justify-content-between
+                  a.small.text-white.stretched-link(href='#') Xem chi tiết
+                  .small.text-white
+                    i.fas.fa-angle-right
+            .col-xl-6.col-md-6
+              .card.bg-primary.text-white.mb-4
+                .card-body Tổng số sản phẩm 
+                  .card-body
+                    b= productsCount
+                .card-footer.d-flex.align-items-center.justify-content-between
+                  a.small.text-white.stretched-link(href='#') Xem chi tiết
+                  .small.text-white
+                    i.fas.fa-angle-right
+            
+          .row
+            .col-xl-6
+              .card.mb-4
+                .card-header
+                  i.fas.fa-chart-area.me-1
+                  |                                         Doanh thu (năm)
+                .card-body
+                  canvas#myAreaChart(width='100%' height='40')
+                  script.
+                    var ctx = document.getElementById('myAreaChart').getContext('2d');
+                    var myLineChart = new Chart(ctx, {
+                      type: "line",
+                      data: {
+                        labels: [
+                          "Mar 1",
+                          "Mar 2",
+                          "Mar 3",
+                          "Mar 4",
+                          "Mar 5",
+                          "Mar 6",
+                          "Mar 7",
+                          "Mar 8",
+                          "Mar 9",
+                          "Mar 10",
+                          "Mar 11",
+                          "Mar 12",
+                        ],
+                         datasets: [
+                          {
+                            label: "Doanh thu",
+                            lineTension: 0.3,
+                            backgroundColor: "rgba(2,117,216,0.2)",
+                            borderColor: "rgba(2,117,216,1)",
+                            pointRadius: 5,
+                            pointBackgroundColor: "rgba(2,117,216,1)",
+                            pointBorderColor: "rgba(255,255,255,0.8)",
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                            pointHitRadius: 50,
+                            pointBorderWidth: 1,
+                            data: [
+                              #{dataPrice}
+                            ],
+                          },
+                        ],
+                      },
+
+                    });
+                
+            .col-xl-6
+              .card.mb-4
+                .card-header
+                  i.fas.fa-chart-area.me-1
+                  |                                         Số lượng đơn hàng (Tháng)
+                .card-body
+                  canvas#myAreaChart2(width='100%' height='40')
+                  script.
+                    var ctx = document.getElementById('myAreaChart2').getContext('2d');
+                    var myLineChart = new Chart(ctx, {
+                      type: "line",
+                      data: {
+                        labels: [
+                          "Week 1",
+                          "Week 2",
+                          "Week 3",
+                          "Week 4",
+                        ],
+                         datasets: [
+                          {
+                            label: "Số lượng",
+                            lineTension: 0.3,
+                            backgroundColor: "rgba(2,117,216,0.2)",
+                            borderColor: "rgba(2,117,216,1)",
+                            pointRadius: 5,
+                            pointBackgroundColor: "rgba(2,117,216,1)",
+                            pointBorderColor: "rgba(255,255,255,0.8)",
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                            pointHitRadius: 50,
+                            pointBorderWidth: 1,
+                            data: [
+                              #{dataOrder}
+                            ],
+                          },
+                        ],
+                      },
+
+                    });
+                
+          .card.mb-4
+            .card-header
+              i.fas.fa-table.me-1
+              | Đơn hàng chờ xác nhận
+            .card-body
+              table#datatablesSimple
+                thead
+                  tr
+                    th Id
+                    th Người nhận
+                    th Địa chỉ
+                    th Số điện thoại
+                    th Trạng thái
+                    th Thời gian đặt hàng
+                - let a=0
+                each order in orders 
+                  tr 
+                    td= order.id
+                    td= order.recipientName
+                    td= order.recipientAddress
+                    td= order.recipientNumberPhone
+                    td= order.status
+                    td= array[a]
+                    - a=a+1

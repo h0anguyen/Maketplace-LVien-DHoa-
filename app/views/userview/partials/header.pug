@@ -1,49 +1,50 @@
 header.header.header-14.border-bottom-0
+  .header.header.border-bottom.d-flex.justify-content-between.align-items-center
+    b
+      a(href="/vendor")
+        |Kênh bán hàng
+    .col-lg-3.col-6
+      - if(user)
+          .account.user-info.text-end(type='button' data-toggle='dropdown' aria-expanded='false')
+            .rounded-circle.bg-primary.p-1.d-inline-block.overflow-hidden.dropdown(style='width: 45px; height: 45px;')
+              - if(user.avatar)
+                  img.img-fluid.rounded-circle(src=`data:image/png;base64,${user.avatar.toString('base64')}` alt='Ảnh đại diện' style='object-fit: cover; width: 100%; height: 100%;')
+              - else
+                  img.img-fluid.rounded-circle(src='/images/avatar_user_null.png' alt='Ảnh đại diện' style='object-fit: cover; width: 100%; height: 100%;')
+            a.text-decoration-none(href='')
+              span.user-name.fw-bold.text-primary=user.fullName
+          .dropdown-menu
+            a.dropdown-item.inforuser(href='/user') Thông tin tài khoản
+            form.dropdown-item.inforuser(action=`/auth/${user.id}?_method=DELETE`, method='post').logout
+              button(type='submit') Đăng xuất
+      - else
+          .account.user-info.text-end
+            a.header-icon.me-3(href='/auth/signin') 
+              b Đăng nhập 
+            a.header-icon.me-3(href='###')
+              i |
+            a.header-icon.me-3(href='/auth/signup') 
+              b  Đăng ký
   .header-middle
     .container-fluid
       .row.align-items-center
         .col-auto.col-lg-3.col-xl-3.col-xxl-2
           a.logo(href='/')
-            img(src='images/demos/demo-14/logo.png' alt='Logo Molla' width='105' height='25')
-        .col.col-lg-9.col-xl-9.col-xxl-10.header-middle-right
-          .row.align-items-center
-            .col-lg-8
-              .header-search.header-search-extended.header-search-visible.header-search-no-radius
-                a.search-toggle(href='#' role='button')
+            img(src='/images/demos/demo-14/logo.png' alt='Logo Molla' width='105' height='25')
+        .col.col-lg-6.col-xl-6.col-xxl-8.header-middle-right
+          .header-search.header-search-extended.header-search-visible.header-search-no-radius
+            a.search-toggle(href='#' role='button')
+              i.icon-search
+            form.d-none.d-lg-block(action='/product/search' method='get')
+              .header-search-wrapper.search-wrapper-wide
+                label.sr-only(for='q') Tìm kiếm
+                input#q.form-control(type='text' name='q' placeholder='Tìm kiếm sản phẩm ...')
+                button.btn.btn-primary(type='submit')
                   i.icon-search
-                form.d-none.d-lg-block(action='/product/search' method='get')
-                  .header-search-wrapper.search-wrapper-wide
-                    label.sr-only(for='q') T&igrave;m ki&#x1EBF;m
-                    input#q.form-control(type='text' name='q' placeholder='Tìm kiếm sản phẩm ...')
-                    button.btn.btn-primary(type='submit')
-                      i.icon-search
-            .col-lg-3.col-6.row
-              - if(user)
-                  .account.d-flex.align-items-center.user-info.col-12.justify-content-end(type='button' data-toggle='dropdown' aria-expanded='false')
-                    .rounded-circle.bg-primary.p-1.d-inline-block.overflow-hidden.dropdown(style='width: 45px; height: 45px;')
-                      - if(user.avatar)
-                          img.img-fluid.rounded-circle(src=`data:image/png;base64,${user.avatar.toString('base64')}` alt='Ảnh đại diện' style='object-fit: cover; width: 100%; height: 100%;')
-                      - else
-                          img.img-fluid.rounded-circle(src='images/avatar_user_null.png' alt='Ảnh đại diện' style='object-fit: cover; width: 100%; height: 100%;')
-                    a.text-decoration-none(href='')
-                      span.user-name.fw-bold.text-primary=user.fullName
-                      small.text-muted.d-block seller
-                  .dropdown-menu
-                    a.dropdown-item.inforuser(href='/user') Thông tin tài khoản
-                    form.dropdown-item.inforuser(action=`/auth/${user.id}?_method=DELETE`, method='post').logout
-                      button(type='submit') Đăng xuất
-              - else
-                  .account.d-flex.align-items-center.user-info.col-12.justify-content-end
-                    a.header-icon.me-3(href='/auth/signin') 
-                      b Đăng nhập 
-                      i |
-                    a.header-icon.me-3(href='/auth/signup') 
-                      b  Đăng ký
-            .col-lg-1.col-6
-              .cart.position-relative
-                div(href='#')
-                  .rounded-circle.bg-primary.p-2.d-inline-block
-                    svg.bi.bi-cart(xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' viewbox='0 0 16 16')
-                      path(d='M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2')
-                       span.cart-count.position-absolute.top-0.translate-middle.badge.rounded-pill.bg-primary
-                        | 0
+        .col-lg-3.col-xl-3.col-xxl-2
+          .cart.text-center
+            a(href='/cart')
+              b.rounded-circle.p-2.d-inline-block.text-muted
+                svg.bi.bi-cart(xmlns='http://www.w3.org/2000/svg' width='34' height='34' fill='currentColor' viewbox='0 0 16 16')
+                  path(d='M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2')
+                    

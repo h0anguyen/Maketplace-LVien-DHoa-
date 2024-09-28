@@ -1,4 +1,4 @@
-extends ../layout3
+extends ../layout
 
 block content
     .page-wrapper
@@ -12,10 +12,9 @@ block content
                   .product-gallery
                     figure.product-main-image
                       img#ima.img-thumbnail.shadow.d-block(src=`data:image/png;base64,${product.mainImage.toString('base64')}` alt='product image')
-                      
                     // End .product-main-image
                     #product-zoom-gallery.product-image-gallery.d-flex.justify-content-between
-                      a.product-gallery-item.active(href='#' data-image='/images/products/single/extended/1.jpg')
+                      a.product-gallery-item(href='#' data-image='/images/products/single/extended/1.jpg')
                         img(src='/images/products/single/extended/1-small.jpg' alt='product side')
                       a.product-gallery-item(href='#' data-image='/images/products/single/extended/2.jpg')
                         img(src='/images/products/single/extended/2-small.jpg' alt='product cross')
@@ -46,7 +45,7 @@ block content
                     // End .product-content
                     
                     .details-filter-row.details-row-size.align-items-center
-                      label(for='qty') S&#x1ED1; l&#x1B0;&#x1EE3;ng:
+                      label(for='qty') Số lượng:
                       .product-details-quantity
                         input#qty.form-control(type='number' value='1' min='1' step='1' data-decimals='0' required='')
                       // End .product-details-quantity
@@ -56,7 +55,7 @@ block content
                         | Sản phẩm
                     // End .details-filter-row
                     .product-details-action
-                      a.btn-product.btn-cart(href='#')
+                      a.btn-product.btn-cart.btn-add-to-cart(href='#')
                         span Th&ecirc;m v&agrave;o gi&#x1ECF; h&agrave;ng
                       
                     // End .product-details-action
@@ -66,16 +65,17 @@ block content
                         a(href='#')= product.categories.categoryName
                       // End .product-cat
           .product-details-footer.d-block
-            .shop-product.row.justify-content-around
-              .sdf.row
+            .shop-product.justify-content-around.d-flex
+              .sdf.d-flex
                 .rounded-circle.bg-primary.p-1.d-inline-block.overflow-hidden.dropdown.ml-3.mr-3(style='width: 100px; height: 100px;')
                   - if(product.user.avatar)
                       img.img-fluid.rounded-circle(src=`data:image/png;base64,${product.user.avatar.toString('base64')}` alt='Ảnh đại diện' style='object-fit: cover; width: 100%; height: 100%;')
                   - else
-                      img.img-fluid.rounded-circle(src='images/avatar_user_null.png' alt='Ảnh đại diện' style='object-fit: cover; width: 100%; height: 100%;')
+                      img.img-fluid.rounded-circle(src='/images/avatar_user_null.png' alt='Ảnh đại diện' style='object-fit: cover; width: 100%; height: 100%;')
                 .shop-name.d-flex.flex-column.justify-content-around
                   .d-flex.ml-3.mr-3
-                    b= product.user.fullName
+                    b= product.user.fullName 
+                      | (Shop)
                   .shop-interact
                     a(href="").btn.btn-primary.text-white Chat ngay
                     span.ml-1.mr-1
@@ -219,25 +219,20 @@ block content
                       }\
                       }')
                         each product in productsCate
-                          .product.text-center.fancy-product
+                          .product
                             figure.product-media
-                              a.product-image-link(href=`product.html?id=${product.id}`)
-                                img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
-                              .product-action
-                                form(action='/cart' method='POST').addtocart.fadd
-                                  input(type='hidden' name='productId' value=product.id)
-                                  input(type='hidden' name='quantity' value='1')
-                                  button.btn-product.btn-cart.pt-1(type='submit' title='Thêm vào giỏ hàng')
-                                    span Thêm vào giỏ hàng
+                              a.product-image-link(href=`/product/${product.id}`)
+                                img.product-image(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
                             .product-body
                               h3.product-title
                                 a(href=`/product/${product.id}`)= product.productName
                               .product-price
-                                span= `${product.price.toLocaleString('vi-VN')} ₫`
-                              .sold.text-warning
-                                | Đã bán: #{product.sold}
+                                span= product.price
+                                  |.000VND
+                              .product-star 
+                                span= product.sold
                 .more.mx-auto.text-center.mt-2
-                  a(href="###") Xem thêm
+                  a(href=`/category/${product.categoryId}`) Xem thêm
       // End .main
 
       include ../partials/footer

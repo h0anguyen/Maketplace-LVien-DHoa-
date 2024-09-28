@@ -7595,7 +7595,7 @@ p {
 }
 
 .product:hover {
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05)
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15)
 }
 
 .product-media {
@@ -19919,7 +19919,6 @@ button:focus {
 }
 @media screen and (min-width: 768px) {
     .product-title {
-        height: 35px;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -19955,5 +19954,31 @@ button:focus {
 
 .fadd .btn-cart span:hover {
     text-decoration: none;
+}
 
+.page-wrapper {
+    background-color: #fafafa;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.btn-add-to-cart {
+    background-color: #ffffff;
+}
+
+.btn-add-to-cart:hover {
+    background-color: #ffffff;
+}
+
+.category-inputs {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.category-inputs {
+    
 }

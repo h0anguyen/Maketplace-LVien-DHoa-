@@ -7,7 +7,7 @@ block content
       .mb-lg-2
       .container-fluid
         .row
-          .col-xl-12
+          .col-xl-11.mx-auto
             .row
               .col-lg-12
                 .row
@@ -200,21 +200,19 @@ block content
                   }\
                   }')
                     each product in productsSold
-                      .product.text-center.shadow
+                      .product
                         figure.product-media
                           a.product-image-link(href=`/product/${product.id}`)
                             img.product-image(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
-                          .product-action
-                            form(action='/cart' method='POST').addtocart
-                              input(type='hidden' name='productId' value=product.id)
-                              input(type='hidden' name='quantity' value='1')
-                              button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
-                                span Thêm vào giỏ hàng
                         .product-body
                           h3.product-title
                             a(href=`/product/${product.id}`)= product.productName
                           .product-price
-                            span= `${product.price.toLocaleString('vi-VN')} ₫`
+                            span= product.price
+                              |.000VND
+                          .product-star 
+                            span= product.sold
+                          
             .mb-5
             //- .row.cat-banner-row.electronics
             //-   .col-xl-3.col-xxl-4
@@ -322,69 +320,21 @@ block content
                   .products
                     .row.justify-content-center
                       each product in products
-                        .col-md-3.col-lg-2.shadow.pt-2.mt-1.mb-1.mt-1.mb-1.ml-3.mr-3.col-xs-3
-                          .product.text-center.fancy-product
-                            figure.product-media
-                              a.product-image-link(href=`product.html?id=${product.id}`)
-                                img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
-                              .product-action
-                                form(action='/cart' method='POST').addtocart
-                                  input(type='hidden' name='productId' value=product.id)
-                                  input(type='hidden' name='quantity' value='1')
-                                  button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
-                                    span Thêm vào giỏ hàng
-                            .product-body
-                              h3.product-title
-                                a(href=`/product/${product.id}`)= product.productName
-                              .product-price
-                                span= `${product.price.toLocaleString('vi-VN')} ₫`
-                              .sold.text-warning
-                                | Đã bán: #{product.sold}
+                          .col-2
+                            .product.px-4.pt-2
+                              figure.product-media
+                                a.product-image-link(href=`/product/${product.id}`)
+                                  img.product-image(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
+                              .product-body
+                                h3.product-title
+                                  a(href=`/product/${product.id}`)= product.productName
+                                .product-price
+                                  span= product.price
+                                    |.000VND
+                                .product-star 
+                                  span= product.sold
                       .col-md-3.col-lg-2.pt-2.mt-1.mb-1.mt-1.mb-1.ml-3.mr-3.col-xs-3
                         a(href="###").product.text-center.fancy-product.pt-1.pb-1 Xem thêm
 
-            .icon-boxes-container
-              .container-fluid
-                .row
-                  .col-sm-6.col-lg-3
-                    .icon-box.icon-box-side
-                      span.icon-box-icon.text-dark
-                        i.icon-rocket
-                      .icon-box-content
-                        h3.icon-box-title Free Shipping
-                        // End .icon-box-title
-                        p Orders $50 or more
-                      // End .icon-box-content
-                    // End .icon-box
-                  // End .col-sm-6 col-lg-3
-                  .col-sm-6.col-lg-3
-                    .icon-box.icon-box-side
-                      span.icon-box-icon.text-dark
-                        i.icon-rotate-left
-                      .icon-box-content
-                        h3.icon-box-title Free Returns
-                        // End .icon-box-title
-                        p Within 30 days
-                      // End .icon-box-content
-                    // End .icon-box
-                  // End .col-sm-6 col-lg-3
-                  .col-sm-6.col-lg-3
-                    .icon-box.icon-box-side
-                      span.icon-box-icon.text-dark
-                        i.icon-info-circle
-                      .icon-box-content
-                        h3.icon-box-title Get 20% Off 1 Item
-                        // End .icon-box-title
-                        p When you sign up
-                      // End .icon-box-content
-                    // End .icon-box
-                  // End .col-sm-6 col-lg-3
-                  .col-sm-6.col-lg-3
-                    .icon-box.icon-box-side
-                      span.icon-box-icon.text-dark
-                        i.icon-life-ring
-                      .icon-box-content
-                        h3.icon-box-title We Support
-                        p 24/7 amazing services
-            .mb-5
+            
     include ../partials/footer

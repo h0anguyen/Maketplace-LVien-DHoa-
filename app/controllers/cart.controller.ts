@@ -4,7 +4,7 @@ import { ApplicationController } from ".";
 
 export class CartController extends ApplicationController {
   public async index(req: Request, res: Response) {
-    req.session.userId = 1;
+    // req.session.userId = 1;
     if (req.session.userId) {
       const carts = await prisma.cart.findMany({
         where: {
