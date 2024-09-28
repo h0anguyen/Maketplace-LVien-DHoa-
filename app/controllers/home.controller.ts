@@ -22,13 +22,13 @@ export class HomeController extends ApplicationController {
       });
       productsDatabase.shift();
       const shuffledProducts = _.shuffle(productsDatabase);
-      const products = shuffledProducts.slice(0, 50);
+      const products = shuffledProducts.slice(0, 60);
 
       const productsSold = await prisma.products.findMany({
         orderBy: {
           sold: "desc",
         },
-        take: 100,
+        take: 70,
       });
 
       const banners = await prisma.images.findMany({

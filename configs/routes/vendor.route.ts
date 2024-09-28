@@ -2,12 +2,36 @@ import { RestActions } from "@configs/enum";
 import { VendorController } from "@controllers";
 import { Router } from "express";
 import { Route } from ".";
+import { upload } from "../fileUpload";
 
 export class VendorRoute {
   private static path = Router();
   private static vendorController = new VendorController();
 
   public static draw() {
+    this.path.route("/orders").get(this.vendorController.listOrder);
+    this.path.route("/orders/:id").get(this.vendorController.orderDetail);
+    this.path.route("/orders/:id").put(this.vendorController.updateOrder);
+    this.path
+      .route("/orders/:id/cancel")
+      .put(this.vendorController.cancelorder);
+    this.path.route("/orders/:id").delete(this.vendorController.deleteOrder);
+
+    this.path.route("/products").get(this.vendorController.listProducts);
+
+    this.path.post(
+      "/product",
+      upload.array("imageMain"),
+      this.vendorController.createProduct
+    );
+    this.path.patch(
+      "/product/:id",
+      upload.array("imageMain"),
+      this.vendorController.updateProduct
+    );
+    this.path.route("/product/:id").delete(this.vendorController.deleteProduct);
+    this.path.route("/product/new").get(this.vendorController.newProduct);
+
     Route.resource(this.path, this.vendorController, {
       only: [RestActions.Destroy, RestActions.Index, RestActions.Create],
     });

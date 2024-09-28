@@ -1,11 +1,10 @@
-extends ../layout3
+extends ../layout
 
 block content
     .page-wrapper
       include ../partials/header
       main.main.mt-5
         .page-content
-          h1.text-center.mb-3 Kết quả tìm kiếm cho "#{searchQuery} "
           .container
             .row
               .col-lg-9
@@ -13,41 +12,25 @@ block content
                   .toolbox-left
                     .toolbox-info
                       | Hiển thị 
-                      span #{products.length} của #{products.length}
-                      |  Sản phẩm
-                  .toolbox-right
-                    .toolbox-sort
-                      label(for='sortby') Sort by:
-                      .select-custom
-                        select#sortby.form-control(name='sortby')
-                          option(value="rating") Most Popular
-                          option(value='price-asc') Price: Low - High
-                          option(value='price-desc') Price: High - Low
+                      span #{products.length} của #{products.length} 
+                      | Sản phẩm cho kết quả tìm kiếm "#{searchQuery}"
                 .products.mb-3
-                  .row.justify-content-between
+                  .row.justify-content-start
                     if products.length > 0
                       each product in products
-                        .col-md-4.col-lg-3.shadow-sm.mb-2.px-2
-                          .product.product-7.text-center
+                        .col-3
+                          .product.px-4.pt-2
                             figure.product-media
-                              a(href=`/product/${product.id}`)
-                                 img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
-                              .product-action
-                                form(action='/cart' method='POST').addtocart
-                                  input(type='hidden' name='productId' value=product.id)
-                                  input(type='hidden' name='quantity' value='1')
-                                  button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
-                                    span Thêm vào giỏ hàng
+                              a.product-image-link(href=`/product/${product.id}`)
+                                img.product-image(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
                             .product-body
-                              .product-cat
-                                a(href=product.categories) #{product.categories}
                               h3.product-title
-                                a(href=`/product/${product.id}`)
-                                  | #{product.productName}
+                                a(href=`/product/${product.id}`)= product.productName
                               .product-price
-                                | #{product.price}VNĐ
-                              .sold.text-warning
-                                | Đã bán: #{product.sold}
+                                span= product.price
+                                  |.000VND
+                              .product-star 
+                                span= product.sold
                     else
                       .col-md-12.text-center
                         p.text-center Không tìm thấy sản phẩm nào phù hợp với từ khóa "#{searchQuery}"
@@ -73,20 +56,30 @@ block content
               aside.col-lg-3.order-lg-first
                 .sidebar.sidebar-shop
                   .widget.widget-clean
-                    label Filters:
+                    label 
                     a.sidebar-filter-clear(href='#') Clean All
                 .widget.widget-collapsible
                   h3.widget-title
                     a(data-toggle='collapse' href='#widget-5' role='button' aria-expanded='true' aria-controls='widget-5')
-                      | Giá;
+                      | Bộ lọc
                   #widget-5.collapse.show
                     .widget-body
-                      .filter-price
-                        .filter-price-text.mb-2
-                          | Khoảng giá:
-                        .price-inputs.d-flex.align-items-center.mb-2
-                          input#price-min.form-control.mr-2(type='number' placeholder='Tối thiểu')
-                          span.mx-2 -
-                          input#price-max.form-control.ml-2(type='number' placeholder='Tối đa')
-                        button#apply-price.btn.btn-primary.btn-block Áp dụng
+                      .filter-category
+                        b.filer-category-text.md-2 
+                          | Danh mục
+                          each category in categories
+                            .category-inputs.d-flex.align-items-center.mb-2.ml-4
+                              - if(category.id==categoryId)
+                                  a(href=`/category/${category.id}`).font-weight-border
+                                    u= category.categoryName
+                              - else
+                                  a(href=`/category/${category.id}`).font-weight-normal.text-muted
+                                    span= category.categoryName
+                             
+                      .filter-address
+                        b.filter-address-text.mb-2
+                          | Nơi bán
+                        .address-inputs.d-flex.align-items-center.mb-2
+                          input(type="checkbox") 
+                        
       include ../partials/footer
