@@ -9,10 +9,13 @@ export class CartRoute {
 
   public static draw() {
     this.path
+      .route("/")
+      .get(this.cartController.isAuthenticated,this.cartController.index);
+    this.path
       .route("/handleCartActions")
       .post(this.cartController.handleCartActions);
     Route.resource(this.path, this.cartController, {
-      only: [RestActions.Index, RestActions.Create],
+      only: [RestActions.Create],
     });
 
     return this.path;

@@ -9,6 +9,7 @@ export class CartController extends ApplicationController {
       const carts = await prisma.cart.findMany({
         where: {
           userId: req.session.userId,
+          
         },
         include: {
           product: true,
@@ -42,8 +43,8 @@ export class CartController extends ApplicationController {
           quantity: parseInt(quantity),
         },
       });
-
       req.flash("success", { msg: "Product added or updated in cart" });
+      res.redirect("back");
     }
   }
 
@@ -53,6 +54,9 @@ export class CartController extends ApplicationController {
     console.log("Request body:", req.body);
 
     if (action === "update") {
+
+      // lỗi 1 product
+
       const updates = productId.map((id: string, index: number) => {
         return prisma.cart.updateMany({
           where: {

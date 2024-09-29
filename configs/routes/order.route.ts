@@ -8,8 +8,13 @@ export class OrderRoute {
   private static orderController = new OrderController();
 
   public static draw() {
+    this.path.route("/api/districts").get(this.orderController.getDistricts);
+    this.path.route("/api/wards").get(this.orderController.getWards);
+    this.path
+      .route("/")
+      .get(this.orderController.isAuthenticated, this.orderController.index);
     Route.resource(this.path, this.orderController, {
-      only: [RestActions.Index, RestActions.Create],
+      only: [RestActions.Create],
     });
 
     return this.path;

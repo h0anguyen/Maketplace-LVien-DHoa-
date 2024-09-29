@@ -1,11 +1,53 @@
 import prisma from "@models";
+import axios from "axios";
 import Decimal from "decimal.js";
 import { Request, Response } from "express";
 import { ApplicationController } from ".";
 // checkout
 export class OrderController extends ApplicationController {
+  public async getDistricts(req: Request, res: Response) {
+    const { provinceCode } = req.query;
+    if (!provinceCode) {
+      return res.status(400).json({ message: "Province code is required" });
+    }
+
+    try {
+      const response = await axios.get(
+        `https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`
+      );
+      const districts = response.data.districts;
+      if (!districts) {
+        return res.status(404).json({ message: "Districts not found" });
+      }
+      res.json(districts);
+    } catch (error) {
+      console.error("Error fetching districts from API:", error);
+      res.status(500).json({ message: "Error fetching districts" });
+    }
+  }
+
+  public async getWards(req: Request, res: Response) {
+    const { districtCode } = req.query;
+    if (!districtCode) {
+      return res.status(400).json({ message: "District code is required" });
+    }
+
+    try {
+      const response = await axios.get(
+        `https://provinces.open-api.vn/api/d/${districtCode}?depth=2`
+      );
+      const wards = response.data.wards;
+      if (!wards) {
+        return res.status(404).json({ message: "Wards not found" });
+      }
+      res.json(wards);
+    } catch (error) {
+      console.error("Error fetching wards from API:", error);
+      res.status(500).json({ message: "Error fetching wards" });
+    }
+  }
+
   public async index(req: Request, res: Response) {
-    req.session.userId = 1;
     if (req.session.userId) {
       const carts = await prisma.cart.findMany({
         where: {
@@ -15,18 +57,39 @@ export class OrderController extends ApplicationController {
           product: true,
         },
       });
+
+      const provincesResponse = await axios.get(
+        "https://provinces.open-api.vn/api/p/"
+      );
+      const provinces = provincesResponse.data;
+
       const user = req.session.id;
-      res.render("userview/order.view/index", { carts, user });
+      res.render("userview/order.view/index", { user, carts, provinces });
     }
   }
+
   public async create(req: Request, res: Response) {
     const userId = req.session.userId;
     const {
       recipientName,
       recipientAddress,
       recipientNumberPhone,
-      promotionCode,
+      province,
+      district,
+      ward,
     } = req.body;
+
+    const [provinceData, districtData, wardData] = await Promise.all([
+      axios.get(`https://provinces.open-api.vn/api/p/${province}`),
+      axios.get(`https://provinces.open-api.vn/api/d/${district}`),
+      axios.get(`https://provinces.open-api.vn/api/w/${ward}`),
+    ]);
+
+    const provinceName = provinceData.data.name;
+    const districtName = districtData.data.name;
+    const wardName = wardData.data.name;
+
+    const fullAddress = `${recipientAddress}, ${wardName}, ${districtName}, ${provinceName}`;
 
     const cart = await prisma.cart.findMany({
       where: { userId },
@@ -41,34 +104,37 @@ export class OrderController extends ApplicationController {
       data: {
         userId,
         recipientName,
-        recipientAddress,
+        recipientAddress: fullAddress,
         recipientNumberPhone,
         status: "PENDING",
       },
     });
 
-    const orderDetails = await prisma.orderDetail.createMany({
+    const orderDetail = await prisma.orderDetail.createMany({
       data: cart.map((item) => ({
         orderId: order.id,
         quantity: item.quantity,
         unitPrice: new Decimal(item.product.price).mul(item.quantity),
         productId: item.productId,
-        promotionCode: promotionCode ? promotionCode : 1,
       })),
     });
 
+    for (const item of cart) {
+      await prisma.products.update({
+        where: { id: item.productId },
+        data: {
+          inventory: {
+            decrement: item.quantity,
+          },
+          sold: {
+            increment: item.quantity,
+          },
+        },
+      });
+    }
+
     await prisma.cart.deleteMany({ where: { userId } });
 
-    const createdOrderDetails = await prisma.orderDetail.findMany({
-      where: { orderId: order.id },
-      include: { product: true },
-    });
-
-    // res.status(201).json({
-    //   message: "Đặt hàng thành công",
-    //   orderId: order.id,
-    //   orderDetails: createdOrderDetails,
-    // });
-    res.redirect("//purchase");
+    res.redirect("/user/purchase");
   }
 }

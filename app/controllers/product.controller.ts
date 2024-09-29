@@ -82,7 +82,6 @@ export class ProductController extends ApplicationController {
       },
       take: 12,
     });
-    console.log(q);
 
     res.render("userview/products.view/search", {
       products,

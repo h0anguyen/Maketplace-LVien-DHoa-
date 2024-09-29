@@ -5,81 +5,75 @@ block content
     include ../partials/header
     main
       .my-5
-      .container.pd
-        #layoutSidenav.rounded-3.overflow-hidden
-          #layoutSidenav_nav
-            nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark.border.rounded.shadow-sm(style='font-size: 1.8rem;')
-              .sb-sidenav-menu
-                .nav
-                  a.nav-link.active(href='/profile')
-                    .sb-nav-link-icon.active
-                      i.fas.fa-user.fa-fw
-                    |                                         Thông tin tài khoản
-                  a.nav-link(href='/history.html')
-                    .sb-nav-link-icon
-                      i.fas.fa-shopping-cart.fa-fw
-                    |                                         Đơn hàng
-                  a.nav-link(href='/vendor')
-                    .sb-nav-link-icon
-                      i.fas.fa-store.fa-fw
-                    |                                         Kênh người bán
-          #layoutSidenav_content
-            main
-              .container-fluid.px-4
-                .border.p-4.mb-4.rounded.shadow-lg.bg-white
-                  .border-bottom.pb-3.mb-4.text-center
-                    h1.h3.mb-1.text-primary Hồ sơ của tôi
-                    p.text-muted.mb-0 Quản lí thông tin
-                  .row.g-4
-                    .col-12
-                      .border.rounded-3.p-4.bg-white.shadow-sm
-                        form(action=`/user/${user.id}?_method=PUT` method="post" enctype="multipart/form-data").row
-                          .col-8
-                            .mb-4.row.align-items-center
-                              label.col-sm-3.col-form-label.fw-bold(for='name') Tên :
-                              .col-sm-9
-                                - if(user.fullName)
-                                    input#name.form-control(type='text' name='fullName' value=`${user.fullName}` required='')
-                                - else
-                                    input#name.form-control(type='text'  name='fullName' value=`` placeholder="Chưa chưa cập nhật tên người dùng" required='')
-                            .mb-4.row.align-items-center
-                              label.col-sm-3.col-form-label.fw-bold(for='phone') Số điện thoại :
-                              .col-sm-9
-                                - if(user.numberPhone)
-                                    input#name.form-control(type='text' name='numberPhone' value=`${user.numberPhone}` required='')
-                                - else
-                                    input#name.form-control(type='text' name='numberPhone' value=`` placeholder="Chưa cập nhật số điện thoại" required='')
-                            .mb-4.row.align-items-center
-                              label.col-sm-3.col-form-label.fw-bold(for='email') Email:
-                              .col-sm-9
-                                - if(user.email)
-                                    input#name.form-control(type='email' name='email' value=`${user.email}` required='')
-                                - else
-                                    input#name.form-control(type='email' name='email' value=`` placeholder="Chưa cập nhật email" required='')
-                            .mb-4.row.align-items-center
-                              label.col-sm-3.col-form-label.fw-bold(for='email') Địa chỉ:
-                              .col-sm-9
-                                - if(user.address)
-                                    input#name.form-control(type='text' name='address' value=`${user.address}` required='')
-                                - else
-                                    input#name.form-control(type='text' name='address' value=`` placeholder="Chưa cập nhật địa chỉ" required='')
-                            .mb-4.row.align-items-center
-                          .col-4.rounded-3.p-4.bg-white.text-center
-                              - if(user.avatar)
-                                  img#avatar.img-thumbnail.rounded-circle.mb-3.shadow.mx-auto.d-block(src=`data:image/png;base64,${user.avatar.toString('base64')}` alt='Ảnh đại diện' style='width: 150px; height: 150px; object-fit: cover;')
-                              - else
-                                  img#avatar.img-thumbnail.rounded-circle.mb-3.shadow.mx-auto.d-block(src='images/avatar_user_null.png' alt='Avatar' style='width: 150px; height: 150px; object-fit: cover;')
-                              div
-                                label.btn.btn-outline-primary.rounded-pill(for='uploadAvatar')
-                                  i.fas.fa-camera.me-2
-                                  | Chọn Ảnh
-                                  input#uploadAvatar.d-none(type='file' name='avatar')
+        .container
+          #layoutSidenav
+            #layoutSidenav_nav
+              nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark.border.rounded.shadow-sm(style='font-size: 1.8rem;')
+                .sb-sidenav-menu
+                  .nav
+                    a.nav-link(href='/user')
+                      .sb-nav-link-icon
+                        i.fas.fa-user.fa-fw
+                      | Tài khoản của tôi
+                    a.nav-link.active(href='/user/purchase')
+                      .sb-nav-link-icon
+                        i.fas.fa-shopping-cart.fa-fw
+                      | Đơn mua
+                    a.nav-link(href='/vendor')
+                      .sb-nav-link-icon
+                        i.fas.fa-store.fa-fw
+                      | Kênh người bán
+            #layoutSidenav_content
+              main
+                .container-fluid.px-4
+                  .border.p-4.mb-4.rounded.shadow-lg.bg-white
+                    h2.mb-4.text-primary.text-center Đơn mua của tôi
 
-                          .text-center
-                            button.btn.btn-primary.px-4.me-2.rounded-pill(type='submit')
-                              i.fas.fa-edit.me-2
-                              | Lưu thông tin
-                            a.btn.btn-outline-secondary.px-4.rounded-pill(href="/user/editPassword")
-                              i.fas.fa-key.me-2
-                              | Đổi mật khẩu
+                    each order in orders
+                      .order-summary.border.p-4.mb-4.rounded.shadow-sm.bg-light.position-relative
+                        span.badge.badge-pill.position-absolute.top-0.end-0.mt-2.me-3(
+                          class=(order.status === 'PENDING' ? 'badge-warning' : order.status === 'COMPLETED' ? 'badge-success' : 'badge-secondary')
+                        ) #{order.status}
+
+                        h4.text-secondary
+                          Order ID: 
+                          span.text-primary= order.id
+                        table.table.table-bordered.shadow-sm
+                          thead.thead-light
+                            tr 
+                              th.text-center Người nhận 
+                              th.text-center Địa chỉ
+                              th.text-center Số điện thoại 
+                              th.text-center Ngày mua
+                          tbody 
+                            tr 
+                              td.text-center.text-info= order.recipientName
+                              td.text-center.text-info= order.recipientAddress
+                              td.text-center.text-info= order.recipientNumberPhone
+                              td.text-center.text-info= new Date(order.createdAt).toLocaleDateString()
+                        h5.text-primary.mt-4.mb-3 Sản phẩm trong đơn hàng
+                        table.table
+                          thead
+                            tr
+                              th Tên sản phẩm
+                              th.text-center Giá
+                              th.text-center Số lượng
+                              th.text-right Thành tiền
+                              th.text-center Đánh giá
+                          tbody
+                            each detail in order.OrdersDetail
+                              tr
+                                td
+                                  a.text-decoration-none.text-dark(href=`/products/${detail.productId}`)= detail.product.productName
+                                td.text-center.text-success= detail.unitPrice.toFixed(2) + ' VNĐ'
+                                td.text-center= detail.quantity
+                                td.text-right.text-primary= (detail.unitPrice * detail.quantity).toFixed(2) + ' VNĐ'
+                                td.text-center
+                                  if !detail.hasReview
+                                    a.btn.btn-outline-primary.btn-sm(href=`/products/${detail.productId}/review`) Đánh giá
+                                  else
+                                    span.text-muted Đã đánh giá
+                        h5.mt-4.text-end
+                          span Tổng giá trị đơn hàng: 
+                          span.text-danger #{order.OrdersDetail.reduce((total, detail) => total + (detail.unitPrice * detail.quantity), 0).toFixed(2)} VNĐ
     include ../partials/footer

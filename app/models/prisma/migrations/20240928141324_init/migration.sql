@@ -7,7 +7,7 @@ CREATE TABLE `User` (
     `numberPhone` VARCHAR(191) NULL,
     `email` VARCHAR(191) NULL,
     `password` VARCHAR(191) NULL,
-    `avatar` LONGBLOB NULL,
+    `avatar` JSON NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -55,6 +55,7 @@ CREATE TABLE `Cart` (
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
+    UNIQUE INDEX `Cart_userId_productId_key`(`userId`, `productId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -68,7 +69,7 @@ CREATE TABLE `Products` (
     `view` INTEGER NOT NULL,
     `sold` INTEGER NOT NULL,
     `inventory` INTEGER NOT NULL,
-    `mainImage` LONGBLOB NULL,
+    `mainImage` JSON NULL,
     `categoryId` INTEGER NOT NULL,
     `userId` INTEGER NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -92,7 +93,7 @@ CREATE TABLE `Categories` (
 CREATE TABLE `Comments` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `content` VARCHAR(191) NULL,
-    `image` LONGBLOB NULL,
+    `image` JSON NULL,
     `star` INTEGER NULL,
     `productId` INTEGER NOT NULL,
     `userId` INTEGER NOT NULL,
@@ -105,7 +106,7 @@ CREATE TABLE `Comments` (
 -- CreateTable
 CREATE TABLE `Images` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `imageAddress` LONGBLOB NULL,
+    `imageAddress` JSON NULL,
     `productId` INTEGER NOT NULL,
     `bannerId` INTEGER NULL,
     `location` INTEGER NULL,
@@ -122,7 +123,7 @@ CREATE TABLE `OrderDetail` (
     `unitPrice` DECIMAL(10, 3) NOT NULL,
     `productId` INTEGER NOT NULL,
     `orderId` INTEGER NOT NULL,
-    `promotionCode` INTEGER NOT NULL,
+    `promotionCode` INTEGER NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -135,7 +136,7 @@ CREATE TABLE `Orders` (
     `recipientName` VARCHAR(191) NULL,
     `recipientAddress` VARCHAR(191) NULL,
     `recipientNumberPhone` VARCHAR(191) NULL,
-    `status` INTEGER NOT NULL,
+    `status` ENUM('PENDING', 'ACCEPTED', 'OUT_FOR_DELIVERY', 'DELIVERED', 'CANCELLED') NOT NULL DEFAULT 'PENDING',
     `userId` INTEGER NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
@@ -193,7 +194,7 @@ ALTER TABLE `OrderDetail` ADD CONSTRAINT `OrderDetail_productId_fkey` FOREIGN KE
 ALTER TABLE `OrderDetail` ADD CONSTRAINT `OrderDetail_orderId_fkey` FOREIGN KEY (`orderId`) REFERENCES `Orders`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `OrderDetail` ADD CONSTRAINT `OrderDetail_promotionCode_fkey` FOREIGN KEY (`promotionCode`) REFERENCES `Promotions`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `OrderDetail` ADD CONSTRAINT `OrderDetail_promotionCode_fkey` FOREIGN KEY (`promotionCode`) REFERENCES `Promotions`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Orders` ADD CONSTRAINT `Orders_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

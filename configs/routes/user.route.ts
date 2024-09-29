@@ -10,6 +10,7 @@ export class UserRoute {
 
   public static draw() {
     this.path.route("/editPassword").get(this.userController.editPassword);
+    this.path.route("/purchase").get(this.userController.purchase);
     this.path
       .route("/")
       .post(this.userController.validateSignUp, this.userController.create);
@@ -17,9 +18,12 @@ export class UserRoute {
     this.path
       .route("/:id/changePassword")
       .put(this.userController.changePassword);
+    this.path
+      .route("/")
+      .get(this.userController.isAuthenticated, this.userController.index);
 
     Route.resource(this.path, this.userController, {
-      only: [RestActions.Destroy, RestActions.Index],
+      only: [RestActions.Destroy],
     });
 
     return this.path;

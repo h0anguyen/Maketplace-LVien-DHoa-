@@ -22,6 +22,21 @@ export class UserController extends ApplicationController {
     }
   }
 
+  public async purchase(req: Request, res: Response) {
+    const orders = await prisma.orders.findMany({
+      where: { userId: req.session.userId },
+      include: {
+        OrdersDetail: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+    res.render("userview/profile.view/purchase", { orders });
+
+  }
+
   public async create(req: Request, res: Response) {
     const { fullName, email, numberPhone, password, confirmPassword } =
       req.body;

@@ -22,6 +22,14 @@ export class ApplicationController {
     next();
   }
 
+  public async isAuthenticated(req: Request, res: Response, next: NextFunction) {
+  if (req.session && req.session.userId) {
+    return next();
+  }
+
+  return res.redirect('/auth/signin');
+};
+
   public verifyToken(req: Request, res: Response, next: NextFunction) {
     const token = req.headers["x-access-token"] as string;
 

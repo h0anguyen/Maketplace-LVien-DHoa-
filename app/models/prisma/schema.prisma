@@ -133,7 +133,7 @@ model Comments {
 }
 
 model Images {
-  id           Int    @id @default(autoincrement())
+  id           Int   @id @default(autoincrement())
   imageAddress Json?
   productId    Int
   bannerId     Int?
@@ -151,11 +151,11 @@ model OrderDetail {
   unitPrice     Decimal @db.Decimal(10, 3)
   productId     Int
   orderId       Int
-  promotionCode Int
+  promotionCode Int?
 
   product   Products   @relation(fields: [productId], references: [id])
   order     Orders     @relation(fields: [orderId], references: [id])
-  promotion Promotions @relation(fields: [promotionCode], references: [id])
+  promotion Promotions? @relation(fields: [promotionCode], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
