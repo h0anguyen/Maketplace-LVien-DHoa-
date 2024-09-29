@@ -1,0 +1,73 @@
+extends ../layout
+
+block content
+  .page-wrapper
+    include ../partials/header
+    .container.mt-5
+  // Thông tin shop
+  .row.mb-4.bg-light.p-4.rounded.shadow-sm.justify-content-center
+    .col-md-2.text-center
+      - if(userShop.avatar)
+        img.img-fluid.rounded-circle.shadow(src=`data:image/png;base64,${userShope.avatar.toString('base64')}` alt='Ảnh đại diện shop' style='width: 200px; height: 200px; object-fit: cover;')
+      - else 
+        img.img-fluid.rounded-circle.shadow(src='/images/avatar_user_null.png' alt='Ảnh đại diện shop' style='width: 200px; height: 200px; object-fit: cover;')
+    .col-md-8
+      h2.shop-name.text-center.text-primary.mb-3= userShop.fullName
+        |(Shop)
+        i.fas.fa-check-circle.text-success
+      .shop-stats.mb-3
+        .row.justify-content-center
+          .col-md-5
+            .stat-item.text-center
+              i.fas.fa-box.fa-2x.text-info.mb-2
+              h4.mb-0= productsShop.length
+              p.text-muted Sản Phẩm
+          .col-md-5
+            .stat-item.text-center
+              i.fas.fa-clock.fa-2x.text-secondary.mb-2
+              h4.mb-0= time
+              p.text-muted Ng&agrave;y tham gia
+      .d-flex.justify-content-center.align-items-center
+        button.btn.btn-success.me-3
+          i.fas.fa-comments
+          |  Chat v&#x1EDB;i shop
+  // Danh sách sản phẩm
+  h3.mb-5.text-center.text-primary.border-bottom.pb-3 T&#x1EA5;t c&#x1EA3; s&#x1EA3;n ph&#x1EA9;m
+  .row.justify-content-center
+    .products.col-11
+      .row.justify-content-center
+        each product in productsShop
+          .col-2
+            .product.px-4.pt-2
+              figure.product-media
+                a.product-image-link(href=`/product/${product.id}`)
+                  img.product-image(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
+              .product-body
+                h3.product-title
+                  a(href=`/product/${product.id}`)= product.productName
+                .product-price
+                  span= product.price
+                    |.000VND
+                .product-star 
+                  span= product.sold
+      nav(aria-label='Page navigation')
+        ul.pagination.justify-content-center
+          li.page-item.disabled
+            a.page-link.page-link-prev(href='#' aria-label='Previous' tabindex='-1' aria-disabled='true')
+              span(aria-hidden='true')
+                i.icon-long-arrow-left
+              | Prev
+          li.page-item.active(aria-current='page')
+            a.page-link(href='#') 1
+          li.page-item
+            a.page-link(href='#') 2
+          li.page-item
+            a.page-link(href='#') 3
+          li.page-item-total of 6
+          li.page-item
+            a.page-link.page-link-next(href='#' aria-label='Next')
+              | Next 
+              span(aria-hidden='true')
+                i.icon-long-arrow-right
+    
+    include ../partials/footer

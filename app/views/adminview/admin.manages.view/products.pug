@@ -89,10 +89,7 @@ block content
                   tr
                     th STT
                     th sản phẩm
-                    th Mô tả
                     th Giá 
-                    th Lượt xem
-                    th lượt bán
                     th Doanh mục
                     th Thời gian tạo
                 tbody 
@@ -102,10 +99,7 @@ block content
                         td= STT=STT+1
                         td.row 
                           b.col-6= product.productName
-                          img.col-6#avatar.img-thumbnail.mb-3.shadow.mx-auto.d-block(src=`data:image/png;base64,${product.mainImage.toString('base64')}` alt='' style='width: 150px; height: 150px; object-fit: cover;')
-                        td= product.description
                         td= product.price
-                        td= product.view
-                        td= product.sold
+                          |.000VND
                         td= product.categories.categoryName
                         td= array[STT-1]
