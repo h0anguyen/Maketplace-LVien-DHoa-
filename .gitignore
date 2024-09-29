@@ -5,3 +5,5 @@ app/assets/javascripts/generated
 .env
 yarn-error.log
 uploads
+app/models/prisma/migration
+

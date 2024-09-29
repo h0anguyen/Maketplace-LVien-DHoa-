@@ -4,7 +4,7 @@ import { ApplicationController } from ".";
 
 export class CartController extends ApplicationController {
   public async index(req: Request, res: Response) {
-    req.session.userId = 1;
+    // req.session.userId = 1;
     if (req.session.userId) {
       const carts = await prisma.cart.findMany({
         where: {
@@ -17,6 +17,11 @@ export class CartController extends ApplicationController {
       });
       const user = req.session.userId;
       res.render("userview/cart.view/index", { carts, user });
+    }else{
+      req.flash("errors", {
+        msg: "Vui lòng đăng nhập trước khi sử dụng trang này",
+      });
+      res.redirect("/auth/signin");
     }
   }
 

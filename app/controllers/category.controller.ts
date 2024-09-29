@@ -14,8 +14,13 @@ export class CategoryController extends ApplicationController {
       const products = await prisma.products.findMany({
         where: { categoryId },
       });
+      const categories = await prisma.categories.findMany();
 
-      res.render("userview/categories.view/show", { products });
+      res.render("userview/categories.view/show", {
+        products,
+        categories,
+        categoryId,
+      });
     } catch (error) {
       console.error("Error fetching products by category ID:", error);
       res.status(500).json({ message: "Internal server error" });

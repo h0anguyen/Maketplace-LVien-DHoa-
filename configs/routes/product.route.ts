@@ -8,6 +8,8 @@ export class ProductRoute {
   private static productController = new ProductController();
 
   public static draw() {
+    this.path.route("/shop/:id").get(this.productController.shopView);
+
     this.path.route("/search").get(this.productController.Search);
     Route.resource(this.path, this.productController, {
       only: [RestActions.Index, RestActions.Show],
