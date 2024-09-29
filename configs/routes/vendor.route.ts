@@ -10,10 +10,13 @@ export class VendorRoute {
 
   public static draw() {
     this.path.route("/orders").get(this.vendorController.listOrder);
+    this.path
+      .route("/orders/cancel")
+      .get(this.vendorController.listOrderCancel);
     this.path.route("/orders/:id").get(this.vendorController.orderDetail);
     this.path.route("/orders/:id").put(this.vendorController.updateOrder);
     this.path
-      .route("/orders/:id/cancel")
+      .route("/orders/cancel/:id")
       .put(this.vendorController.cancelorder);
     this.path.route("/orders/:id").delete(this.vendorController.deleteOrder);
 

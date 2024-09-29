@@ -16,6 +16,11 @@ export class CartController extends ApplicationController {
       });
       const user = req.session.userId;
       res.render("userview/cart.view/index", { carts, user });
+    }else{
+      req.flash("errors", {
+        msg: "Vui lòng đăng nhập trước khi sử dụng trang này",
+      });
+      res.redirect("/auth/signin");
     }
   }
 
@@ -44,6 +49,13 @@ export class CartController extends ApplicationController {
       });
 
       req.flash("success", { msg: "Product added or updated in cart" });
+      res.redirect(`/products/${parseInt(productId)}`);
+    }
+    else{
+      req.flash("errors", {
+        msg: "Vui lòng đăng nhập trước khi sử dụng trang này",
+      });
+      res.redirect("/auth/signin");
     }
   }
 

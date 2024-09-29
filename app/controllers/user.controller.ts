@@ -212,10 +212,6 @@ export class UserController extends ApplicationController {
           });
           return res.redirect("/user/editPassword");
         }
-        req.flash("success", {
-          msg: "Thay đổi thành công",
-        });
-        return res.redirect("/user");
       } else {
         req.flash("errors", {
           msg: "Không thể thay đổi mật khẩu khi bạn đang sử dụng tài khoảng Google",
