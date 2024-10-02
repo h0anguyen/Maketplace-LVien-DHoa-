@@ -73,27 +73,27 @@ block content
                         #heading-3.card-header
                           h2.card-title
                             .form-check
-                              input#cashOnDelivery.form-check-input(type='radio' name='paymentMethod' value='cashOnDelivery')
+                              input#cashOnDelivery.form-check-input(type='radio' name='paymentMethod' value='cod' checked)
                               label.form-check-label.mx-2(for='cashOnDelivery') Cash on delivery
-                      .card.mb-1
-                        #heading-4.card-header
-                          h2.card-title
-                            .form-check
-                              input#paypal.form-check-input(type='radio' name='paymentMethod' value='paypal' disabled)
-                              label.form-check-label.mx-2(for='paypal')
-                                | PayPal( Maintain)
-                              small.float-right.paypal-link What is PayPal?
                       .card.mb-1
                         #heading-5.card-header
                           h2.card-title
                             .form-check
-                              input#creditCard.form-check-input(type='radio' name='paymentMethod' value='creditCard')
-                              label.form-check-label.mx-2(for='creditCard')
-                                | Vnpay
-                              img.mt-1(src='images/payments-summary.png' alt='payments cards')
+                              input#creditCard.form-check-input(type='radio' name='paymentMethod' value='vnpay')
+                              label.form-check-label.mx-2(for='creditCard') Vnpay
+                            img.mt-1(src='images/payments-summary.png' alt='payments cards')
                     button.btn.btn-outline-primary-2.btn-order.btn-block(type='submit')
-                      span.btn-text Place Order
+                      span.btn-text Thanh toán
                       span.btn-hover-text Proceed to Checkout
 
   include ../partials/footer
-  
+  script.
+    document.querySelector("#checkoutForm").addEventListener("submit", function(event) {
+      const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+      
+      if (selectedPaymentMethod === 'vnpay') {
+        console.log("VNPay payment method selected");
+      } else if (selectedPaymentMethod === 'cod') {
+        console.log("COD payment method selected");
+      }
+    });

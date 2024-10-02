@@ -69,7 +69,7 @@ async function main() {
     },
   });
   allUser.shift();
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 300; i++) {
     const mainImage = images[i % imageCount].toString();
 
     await prisma.products.create({
@@ -77,7 +77,7 @@ async function main() {
         productName: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
         // information: faker.commerce.productMaterial
-        price: parseInt(faker.commerce.price()),
+        price: parseInt(faker.commerce.price()) * 100,
         inventory: faker.number.int({ min: 1, max: 1000 }),
         mainImage,
         view: faker.number.int({ min: 1, max: 10000 }),
@@ -129,7 +129,7 @@ async function main() {
   // }
   console.log("Seeding finished.");
 }
-        
+
 main()
   .catch((e) => {
     console.error(e);

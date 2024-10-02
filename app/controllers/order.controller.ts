@@ -67,7 +67,6 @@ export class OrderController extends ApplicationController {
       res.render("userview/order.view/index", { user, carts, provinces });
     }
   }
-
   public async create(req: Request, res: Response) {
     const userId = req.session.userId;
     const {
@@ -77,6 +76,7 @@ export class OrderController extends ApplicationController {
       province,
       district,
       ward,
+      paymentMethod,
     } = req.body;
 
     const [provinceData, districtData, wardData] = await Promise.all([
@@ -133,8 +133,23 @@ export class OrderController extends ApplicationController {
       });
     }
 
+    const totalAmount =
+      cart.reduce(
+        (total, item) =>
+          total + new Decimal(item.product.price).mul(item.quantity).toNumber(),
+        0
+      ) * 100;
+
+    // Xóa giỏ hàng trước khi redirect hoặc render
     await prisma.cart.deleteMany({ where: { userId } });
 
-    res.redirect("/user/purchase");
+    if (paymentMethod === "cod") {
+      return res.render("userview/order.view/success");
+    } else if (paymentMethod === "vnpay") {
+      return res.render("userview/order.view/payment", {
+        orderId: order.id,
+        totalAmount,
+      });
+    }
   }
 }

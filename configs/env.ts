@@ -10,4 +10,7 @@ export default {
   googleRedirectUri: process.env.GOOGLE_REDIRECT_URI,
   googleRefreshToken: process.env.GOOGLE_REFRESH_TOKEN,
   emailFrom: process.env.EMAIL_FROM,
+  tmnCode: process.env.VNPAY_TMN_CODE,
+  secretKey: process.env.VNPAY_SECURE_SECRET
+
 };
