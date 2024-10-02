@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  .page-wrapper
+    include ../partials/header
+    main.my-5
+      .payment-container
+        .text-center
+          h1.text-primary.mb-5 Chuyển hướng đến trang thanh toán...
+          p.text-muted.mb-4 Quý khách vui lòng đợi trong giây lát, chúng tôi đang chuyển hướng bạn đến trang thanh toán.
+          i.fas.fa-spinner.fa-spin.fa-3x.text-info  //- Icon loading animation
+          
+          // Tự động submit form khi trang load
+          script.
+            setTimeout(function() {
+              document.forms['paymentForm'].submit();
+            },2000);
+
+          // Form tự động gửi thông tin đơn hàng đến server xử lý thanh toán
+          form(name='paymentForm' method='post' action='/payment')
+            input(type='hidden' name='orderId' value=orderId)
+            input(type='hidden' name='totalAmount' value=totalAmount)
+
+          // Thêm nút dự phòng nếu tự động không hoạt động
+          button.btn.btn-primary(type='submit') Nhấn vào đây nếu không được chuyển hướng tự động
+    include ../partials/footer

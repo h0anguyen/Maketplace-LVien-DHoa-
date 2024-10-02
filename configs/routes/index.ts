@@ -6,6 +6,7 @@ import { AuthRoute } from "./auth.route";
 import { CartRoute } from "./cart.route";
 import { CategoryRoute } from "./category.route";
 import { OrderRoute } from "./order.route";
+import { PaymentRoute } from "./payment.route";
 import { ProductRoute } from "./product.route";
 import { UserRoute } from "./user.route";
 import { VendorRoute } from "./vendor.route";
@@ -24,6 +25,7 @@ export class Route {
 
     this.path.use("/product", ProductRoute.draw());
     this.path.use("/category", CategoryRoute.draw());
+    this.path.use("/payment", PaymentRoute.draw());
 
     Route.resource(this.path, this.homeController, {
       only: [RestActions.Index],

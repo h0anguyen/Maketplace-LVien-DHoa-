@@ -5,7 +5,6 @@ block content
     include ../partials/header
     main
       .my-5
-<<<<<<< HEAD
         .container
           #layoutSidenav
             #layoutSidenav_nav
@@ -29,74 +28,6 @@ block content
                 .container-fluid.px-4
                   .border.p-4.mb-4.rounded.shadow-lg.bg-white
                     h2.mb-4.text-primary.text-center Đơn mua của tôi
-=======
-      .container.pd
-        #layoutSidenav.rounded-3.overflow-hidden
-          #layoutSidenav_nav
-            nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark.border.rounded.shadow-sm(style='font-size: 1.8rem;')
-              .sb-sidenav-menu
-                .nav
-                  a.nav-link.active(href='/profile')
-                    .sb-nav-link-icon.active
-                      i.fas.fa-user.fa-fw
-                    |                                         Thông tin tài khoản
-                  a.nav-link(href='/history.html')
-                    .sb-nav-link-icon
-                      i.fas.fa-shopping-cart.fa-fw
-                    |                                         Đơn hàng
-
-          #layoutSidenav_content
-            main
-              .container-fluid.px-4
-                .border.p-4.mb-4.rounded.shadow-lg.bg-white
-                  .border-bottom.pb-3.mb-4.text-center
-                    h1.h3.mb-1.text-primary Hồ sơ của tôi
-                    p.text-muted.mb-0 Quản lí thông tin
-                  .row.g-4
-                    .col-12
-                      .border.rounded-3.p-4.bg-white.shadow-sm
-                        form(action=`/user/${user.id}?_method=PUT` method="post" enctype="multipart/form-data").row
-                          .col-8
-                            .mb-4.row.align-items-center
-                              label.col-sm-3.col-form-label.fw-bold(for='name') Tên :
-                              .col-sm-9
-                                - if(user.fullName)
-                                    input#name.form-control(type='text' name='fullName' value=`${user.fullName}` required='')
-                                - else
-                                    input#name.form-control(type='text'  name='fullName' value=`` placeholder="Chưa chưa cập nhật tên người dùng" required='')
-                            .mb-4.row.align-items-center
-                              label.col-sm-3.col-form-label.fw-bold(for='phone') Số điện thoại :
-                              .col-sm-9
-                                - if(user.numberPhone)
-                                    input#name.form-control(type='text' name='numberPhone' value=`${user.numberPhone}` required='')
-                                - else
-                                    input#name.form-control(type='text' name='numberPhone' value=`` placeholder="Chưa cập nhật số điện thoại" required='')
-                            .mb-4.row.align-items-center
-                              label.col-sm-3.col-form-label.fw-bold(for='email') Email:
-                              .col-sm-9
-                                - if(user.email)
-                                    input#name.form-control(type='email' name='email' value=`${user.email}` required='')
-                                - else
-                                    input#name.form-control(type='email' name='email' value=`` placeholder="Chưa cập nhật email" required='')
-                            .mb-4.row.align-items-center
-                              label.col-sm-3.col-form-label.fw-bold(for='email') Địa chỉ:
-                              .col-sm-9
-                                - if(user.address)
-                                    input#name.form-control(type='text' name='address' value=`${user.address}` required='')
-                                - else
-                                    input#name.form-control(type='text' name='address' value=`` placeholder="Chưa cập nhật địa chỉ" required='')
-                            .mb-4.row.align-items-center
-                          .col-4.rounded-3.p-4.bg-white.text-center
-                              - if(user.avatar)
-                                  img#avatar.img-thumbnail.rounded-circle.mb-3.shadow.mx-auto.d-block(src=`data:image/png;base64,${user.avatar.toString('base64')}` alt='Ảnh đại diện' style='width: 150px; height: 150px; object-fit: cover;')
-                              - else
-                                  img#avatar.img-thumbnail.rounded-circle.mb-3.shadow.mx-auto.d-block(src='images/avatar_user_null.png' alt='Avatar' style='width: 150px; height: 150px; object-fit: cover;')
-                              div
-                                label.btn.btn-outline-primary.rounded-pill(for='uploadAvatar')
-                                  i.fas.fa-camera.me-2
-                                  | Chọn Ảnh
-                                  input#uploadAvatar.d-none(type='file' name='avatar')
->>>>>>> 8312951b8071d9b5777fbf34b4af89520162666a
 
                     each order in orders
                       .order-summary.border.p-4.mb-4.rounded.shadow-sm.bg-light.position-relative
@@ -138,10 +69,14 @@ block content
                                 td.text-center= detail.quantity
                                 td.text-right.text-primary= (detail.unitPrice * detail.quantity).toFixed(2) + ' VNĐ'
                                 td.text-center
-                                  if !detail.hasReview
-                                    a.btn.btn-outline-primary.btn-sm(href=`/products/${detail.productId}/review`) Đánh giá
+                                  if order.status === 'DELIVERED'
+                                    if !detail.hasReview
+                                      a.btn.btn-outline-primary.btn-sm(href=`/products/${detail.productId}/review`) Đánh giá
+                                    else
+                                      span.text-muted Đã đánh giá
                                   else
-                                    span.text-muted Đã đánh giá
+                                    span.text-muted Chưa thể đánh giá
+
                         h5.mt-4.text-end
                           span Tổng giá trị đơn hàng: 
                           span.text-danger #{order.OrdersDetail.reduce((total, detail) => total + (detail.unitPrice * detail.quantity), 0).toFixed(2)} VNĐ

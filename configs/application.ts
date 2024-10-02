@@ -8,6 +8,7 @@ import methodOverride from "method-override";
 import { join, resolve } from "path";
 import serverless from "serverless-http";
 import { Route } from "./routes";
+
 type RouteInfo = {
   method: string;
   prefix: string;
@@ -36,7 +37,7 @@ class Application {
         cookie: {
           secure: false,
           httpOnly: true,
-          maxAge: 1000 * 60 * 60 * 3,
+          maxAge: 1000 * 60 * 60 * 24,
         },
       })
     );

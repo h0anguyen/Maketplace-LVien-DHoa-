@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+  .page-wrapper
+    include ../partials/header
+    main.my-5
+      .success-container
+        .text-center
+          h1.text-success.mb-5 Đặt hàng thành công!
+          p.text-muted.mb-4 Cảm ơn quý khách đã đặt hàng. Quý khách sẽ được chuyển hướng về trang quản lý đơn hàng trong giây lát.
+          i.fas.fa-check-circle.fa-4x.text-success  //- Icon thành công
+
+          script.
+            setTimeout(function() {
+              window.location.href = '/user/purchase';
+            }, 5000);
+
+          p.mt-4.text-muted
+            | Nếu không được chuyển hướng tự động, vui lòng 
+            a(href='/user/purchase' class='text-primary') nhấn vào đây.
+    include ../partials/footer

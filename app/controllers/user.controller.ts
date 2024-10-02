@@ -32,6 +32,9 @@ export class UserController extends ApplicationController {
           },
         },
       },
+      orderBy: {
+        createdAt: 'desc'
+      }
     });
     res.render("userview/profile.view/purchase", { orders });
 
