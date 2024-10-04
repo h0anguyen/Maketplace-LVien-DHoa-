@@ -8,7 +8,7 @@ block content
         .container
           #layoutSidenav
             #layoutSidenav_nav
-              nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark.border.rounded.shadow-sm(style='font-size: 1.8rem;')
+              nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark.border.shadow-sm(style='font-size: 1.8rem;')
                 .sb-sidenav-menu
                   .nav
                     a.nav-link(href='/user')
@@ -28,15 +28,14 @@ block content
                 .container-fluid.px-4
                   .border.p-4.mb-4.rounded.shadow-lg.bg-white
                     h2.mb-4.text-primary.text-center Đơn mua của tôi
-
                     each order in orders
                       .order-summary.border.p-4.mb-4.rounded.shadow-sm.bg-light.position-relative
                         span.badge.badge-pill.position-absolute.top-0.end-0.mt-2.me-3(
-                          class=(order.status === 'PENDING' ? 'badge-warning' : order.status === 'COMPLETED' ? 'badge-success' : 'badge-secondary')
+                          class=`badge-${order.status === 'PENDING' ? 'warning' : (order.status === 'COMPLETED' ? 'secondary' : 'success')}`
                         ) #{order.status}
 
                         h4.text-secondary
-                          Order ID: 
+                          | Order ID: 
                           span.text-primary= order.id
                         table.table.table-bordered.shadow-sm
                           thead.thead-light
@@ -51,7 +50,7 @@ block content
                               td.text-center.text-info= order.recipientAddress
                               td.text-center.text-info= order.recipientNumberPhone
                               td.text-center.text-info= new Date(order.createdAt).toLocaleDateString()
-                        h5.text-primary.mt-4.mb-3 Sản phẩm trong đơn hàng
+                        h5.text-primary.mt-4.mb-3.text-center Sản phẩm trong đơn hàng
                         table.table
                           thead
                             tr
@@ -65,19 +64,72 @@ block content
                               tr
                                 td
                                   a.text-decoration-none.text-dark(href=`/products/${detail.productId}`)= detail.product.productName
-                                td.text-center.text-success= detail.unitPrice.toFixed(2) + ' VNĐ'
+                                td.text-center.text-success= detail.unitPrice + ' VNĐ'
                                 td.text-center= detail.quantity
-                                td.text-right.text-primary= (detail.unitPrice * detail.quantity).toFixed(2) + ' VNĐ'
+                                td.text-right.text-primary= (detail.unitPrice * detail.quantity) + ' VNĐ'
                                 td.text-center
                                   if order.status === 'DELIVERED'
                                     if !detail.hasReview
-                                      a.btn.btn-outline-primary.btn-sm(href=`/products/${detail.productId}/review`) Đánh giá
+                                      a.btn.btn-outline-primary.btn-sm(href='#' data-bs-toggle='modal' data-bs-target='#reviewModal' data-product-id=detail.productId data-order-id=order.id) Đánh giá
                                     else
                                       span.text-muted Đã đánh giá
                                   else
                                     span.text-muted Chưa thể đánh giá
-
                         h5.mt-4.text-end
                           span Tổng giá trị đơn hàng: 
-                          span.text-danger #{order.OrdersDetail.reduce((total, detail) => total + (detail.unitPrice * detail.quantity), 0).toFixed(2)} VNĐ
+                          span.text-danger #{order.OrdersDetail.reduce((total, detail) => total + (detail.unitPrice * detail.quantity), 0)} VNĐ
+
     include ../partials/footer
+
+    // Modal for product review
+    #reviewModal.modal.fade(tabindex='-1' aria-labelledby='reviewModalLabel' aria-hidden='true')
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          .modal-header.bg-primary.text-white
+            h5#reviewModalLabel.modal-title
+              i.fas.fa-star.me-2
+              | Đánh giá sản phẩm
+            button.btn-close.btn-close-white(type='button' data-bs-dismiss='modal' aria-label='Close')
+          .modal-body.px-3.pt-1
+            form#reviewForm(action='/product/submit-review' method='POST')
+              input#productId(type='hidden' name='productId')
+              input#orderId(type='hidden' name='orderId')
+              .mb-4
+                label.form-label.fw-bold(for='rating') Chất lượng sản phẩm
+                select#rating.form-select(name='rating' required)
+                  option(value='') Chọn đánh giá
+                  option(value='1') 1 sao
+                  option(value='2') 2 sao
+                  option(value='3') 3 sao
+                  option(value='4') 4 sao
+                  option(value='5') 5 sao
+              .mb-4
+                label.form-label.fw-bold(for='reviewTitle') Tiêu đề đánh giá
+                input#reviewTitle.form-control(type='text' name='reviewTitle' placeholder='Nhập tiêu đề ngắn gọn' required)
+              .mb-4
+                label.form-label.fw-bold(for='reviewContent') Nội dung đánh giá
+                textarea#reviewContent.form-control(name='reviewContent' rows='4' placeholder='Chia sẻ trải nghiệm của bạn về sản phẩm' required)
+              .modal-footer
+                button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                  i.fas.fa-times.me-2
+                  | Đóng
+                button.btn.btn-primary(type='submit')
+                  i.fas.fa-paper-plane.me-2
+                  | Gửi đánh giá
+  script.
+    document.addEventListener('DOMContentLoaded', function() {
+      const reviewModal = document.getElementById('reviewModal');
+      if (reviewModal) {
+        reviewModal.addEventListener('show.bs.modal', function(event) {
+          const button = event.relatedTarget;
+          const productId = button.getAttribute('data-product-id');
+          const orderId = button.getAttribute('data-order-id');
+          
+          const modalProductId = reviewModal.querySelector('#productId');
+          const modalOrderId = reviewModal.querySelector('#orderId');
+          
+          modalProductId.value = productId;
+          modalOrderId.value = orderId;
+        });
+      }
+    })

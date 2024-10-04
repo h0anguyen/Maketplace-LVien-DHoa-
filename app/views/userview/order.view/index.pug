@@ -58,16 +58,16 @@ block content
                           tr
                             td
                               a(href=`/product/${cart.product.id}`)= cart.product.productName
-                            td= `${(Math.round(cart.product.price * cart.quantity * 10) / 10).toFixed(2)} VNĐ`
+                            td= `${(Math.round(cart.product.price * cart.quantity * 10) / 10)} VNĐ`
                       tr.summary-subtotal
                         td Subtotal:
-                        td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0).toFixed(2)} VNĐ`
+                        td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0)} VNĐ`
                       tr
                         td Shipping:
                         td Free shipping
                       tr.summary-total
                         td Total:
-                        td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0).toFixed(2)} VNĐ`
+                        td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0)} VNĐ`
                     #accordion-payment.accordion-summary
                       .card.mb-1
                         #heading-3.card-header

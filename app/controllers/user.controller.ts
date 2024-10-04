@@ -23,8 +23,10 @@ export class UserController extends ApplicationController {
   }
 
   public async purchase(req: Request, res: Response) {
+    const userId = req.session.userId;
+  
     const orders = await prisma.orders.findMany({
-      where: { userId: req.session.userId },
+      where: { userId: userId },
       include: {
         OrdersDetail: {
           include: {
@@ -36,8 +38,8 @@ export class UserController extends ApplicationController {
         createdAt: 'desc'
       }
     });
+      
     res.render("userview/profile.view/purchase", { orders });
-
   }
 
   public async create(req: Request, res: Response) {

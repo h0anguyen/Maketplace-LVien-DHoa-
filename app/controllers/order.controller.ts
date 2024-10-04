@@ -138,7 +138,7 @@ export class OrderController extends ApplicationController {
         (total, item) =>
           total + new Decimal(item.product.price).mul(item.quantity).toNumber(),
         0
-      ) * 100;
+      ) ;
 
     // Xóa giỏ hàng trước khi redirect hoặc render
     await prisma.cart.deleteMany({ where: { userId } });

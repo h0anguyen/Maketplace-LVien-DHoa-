@@ -102,6 +102,10 @@ export class ProductController extends ApplicationController {
       where: {
         userId: +id,
       },
+      orderBy: {
+        createdAt: "asc",
+      },
+      take: 30,
     });
     const time = moment
       .tz(
@@ -111,5 +115,42 @@ export class ProductController extends ApplicationController {
       )
       .format("DD-MM-YYYY");
     res.render("userview/shop.view/index", { userShop, productsShop, time });
+  }
+
+  public async addReview(req: Request, res: Response) {
+    try {
+      const { productId, orderId, rating, reviewTitle, reviewContent } = req.body;
+      const userId = req.session.userId; 
+      console.log( req.body);
+      
+      const newReview = await prisma.comments.create({
+        data: {
+          mainContent: reviewTitle,
+          content: reviewContent,
+          star: parseInt(rating),
+          productId: parseInt(productId),
+          userId: userId,
+        },
+      });
+
+      // Cập nhật OrderDetail để đánh dấu rằng đã có đánh giá
+      await prisma.orderDetail.updateMany({
+        where: {
+          orderId: parseInt(orderId),
+          productId: parseInt(productId),
+        },
+        data: {
+          hasReview: true,
+        },
+      });
+
+      // Chuyển hướng người dùng trở lại trang đơn hàng với thông báo thành công
+      req.flash("success", "Đánh giá đã được gửi thành công!");
+      res.redirect("/user/purchase");
+    } catch (error) {
+      console.error("Error submitting review:", error);
+      req.flash("error", "Có lỗi xảy ra khi gửi đánh giá. Vui lòng thử lại.");
+      res.redirect("/user/purchase");
+    }
   }
 }

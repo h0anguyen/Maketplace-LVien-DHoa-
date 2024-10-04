@@ -135,9 +135,9 @@ export class PaymentController extends ApplicationController {
       return res.send("Dữ liệu không hợp lệ");
     }
     // Kiểm tra thông tin đơn hàng và xử lý
-    return res.status(200).json({ message: "Thanh toán thành công" });
+    return res.render("userview/order.view/success");
   }
   public async index(req: Request, res: Response) {
-    // return res.render("userview/order.view/success");
+    return res.render("userview/order.view/success");
   }
 }
