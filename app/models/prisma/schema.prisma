@@ -118,12 +118,13 @@ model Categories {
 }
 
 model Comments {
-  id        Int     @id @default(autoincrement())
-  content   String?
-  image     Json?
-  star      Int?
-  productId Int
-  userId    Int
+  id          Int     @id @default(autoincrement())
+  mainContent String?
+  content     String?
+  star        Int?
+  productId   Int
+  userId      Int
+
 
   user    User     @relation(fields: [userId], references: [id])
   product Products @relation(fields: [productId], references: [id])
@@ -152,9 +153,10 @@ model OrderDetail {
   productId     Int
   orderId       Int
   promotionCode Int?
+  hasReview     Boolean @default(false)
 
-  product   Products   @relation(fields: [productId], references: [id])
-  order     Orders     @relation(fields: [orderId], references: [id])
+  product   Products    @relation(fields: [productId], references: [id])
+  order     Orders      @relation(fields: [orderId], references: [id])
   promotion Promotions? @relation(fields: [promotionCode], references: [id])
 
   createdAt DateTime @default(now())

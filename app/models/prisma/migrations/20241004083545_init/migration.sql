@@ -92,8 +92,8 @@ CREATE TABLE `Categories` (
 -- CreateTable
 CREATE TABLE `Comments` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `mainContent` VARCHAR(191) NULL,
     `content` VARCHAR(191) NULL,
-    `image` JSON NULL,
     `star` INTEGER NULL,
     `productId` INTEGER NOT NULL,
     `userId` INTEGER NOT NULL,
@@ -124,6 +124,7 @@ CREATE TABLE `OrderDetail` (
     `productId` INTEGER NOT NULL,
     `orderId` INTEGER NOT NULL,
     `promotionCode` INTEGER NULL,
+    `hasReview` BOOLEAN NOT NULL DEFAULT false,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 

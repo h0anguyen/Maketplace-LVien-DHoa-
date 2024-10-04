@@ -200,19 +200,21 @@ block content
                   }\
                   }')
                     each product in productsSold
-                      .product
+                      .product.text-center.shadow
                         figure.product-media
                           a.product-image-link(href=`/product/${product.id}`)
                             img.product-image(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
+                          .product-action
+                            form(action='/cart' method='POST').addtocart
+                              input(type='hidden' name='productId' value=product.id)
+                              input(type='hidden' name='quantity' value='1')
+                              button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
+                                span Thêm vào giỏ hàng
                         .product-body
                           h3.product-title
                             a(href=`/product/${product.id}`)= product.productName
                           .product-price
-                            span= product.price
-                              |.000VND
-                          .product-star 
-                            span= product.sold
-                          
+                            span= `${product.price.toLocaleString('vi-VN')} ₫`              
             .mb-5
             //- .row.cat-banner-row.electronics
             //-   .col-xl-3.col-xxl-4
@@ -320,21 +322,24 @@ block content
                   .products
                     .row.justify-content-center
                       each product in products
-                          .col-2
-                            .product.px-4.pt-2
-                              figure.product-media
-                                a.product-image-link(href=`/product/${product.id}`)
-                                  img.product-image(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
-                              .product-body
-                                h3.product-title
-                                  a(href=`/product/${product.id}`)= product.productName
-                                .product-price
-                                  span= product.price
-                                    |.000VND
-                                .product-star 
-                                  span= product.sold
-                      .col-md-3.col-lg-2.pt-2.mt-1.mb-1.mt-1.mb-1.ml-3.mr-3.col-xs-3
-                        a(href="###").product.text-center.fancy-product.pt-1.pb-1 Xem thêm
-
-            
+                        .col-md-3.col-lg-2.shadow.pt-2.mt-1.mb-1.mt-1.mb-1.ml-3.mr-3.col-xs-3
+                          .product.text-center.fancy-product
+                            figure.product-media
+                              a.product-image-link(href=`product.html?id=${product.id}`)
+                                img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
+                              .product-action
+                                form(action='/cart' method='POST').addtocart
+                                  input(type='hidden' name='productId' value=product.id)
+                                  input(type='hidden' name='quantity' value='1')
+                                  button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
+                                    span Thêm vào giỏ hàng
+                            .product-body
+                              h3.product-title
+                                a(href=`/product/${product.id}`)= product.productName
+                              .product-price
+                                span= `${product.price.toLocaleString('vi-VN')} ₫`
+                              .sold.text-warning
+                                | Đã bán: #{product.sold}
+                      .col-md-3.col-lg-2.pt-2.mt-2.mb-2.mx-3.col-xs-3
+                        a(href="###").product.text-center.fancy-product.pt-1.pb-1.shadow Xem thêm
     include ../partials/footer

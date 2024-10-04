@@ -26,4 +26,5 @@ export class CategoryController extends ApplicationController {
       res.status(500).json({ message: "Internal server error" });
     }
   }
+  
 }

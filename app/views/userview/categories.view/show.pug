@@ -16,19 +16,27 @@ block content
                   .row.justify-content-start
                     if products.length > 0
                       each product in products
-                        .col-3
-                          .product.px-4.pt-2
+                        .col-md-4.col-lg-3.shadow-sm.mb-2.px-2
+                          .product.product-7.text-center
                             figure.product-media
-                              a.product-image-link(href=`/product/${product.id}`)
-                                img.product-image(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
+                              a(href=`/product/${product.id}`)
+                                 img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
+                              .product-action
+                                form(action='/cart' method='POST').addtocart
+                                  input(type='hidden' name='productId' value=product.id)
+                                  input(type='hidden' name='quantity' value='1')
+                                  button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
+                                    span Thêm vào giỏ hàng
                             .product-body
+                              .product-cat
+                                a(href=product.categories) #{product.categories}
                               h3.product-title
-                                a(href=`/product/${product.id}`)= product.productName
+                                a(href=`/product/${product.id}`)
+                                  | #{product.productName}
                               .product-price
-                                span= product.price
-                                  |.000VND
-                              .product-star 
-                                span= product.sold
+                                | #{product.price}VNĐ
+                              .sold.text-warning
+                                | Đã bán: #{product.sold}
                     else
                       .col-md-12.text-center
                         p.text-center Không tìm thấy sản phẩm nào phù hợp với từ khóa "#{searchQuery}"
