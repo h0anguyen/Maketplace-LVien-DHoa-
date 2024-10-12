@@ -27,29 +27,29 @@ export class MessageController extends ApplicationController {
     }
     console.log(checkGroup.length);
 
-    // if (checkGroup.length <= 0 && receiverId) {
-    //   const groupId = Math.floor(
-    //     10000000 + Math.random() * 90000000
-    //   ).toString();
-    //   const createGroup = await prisma.groud.create({
-    //     data: {
-    //       id: +groupId,
-    //       groudName: groupId.toString(),
-    //       Participants: {
-    //         createMany: {
-    //           data: [
-    //             {
-    //               userId: +userId,
-    //             },
-    //             {
-    //               userId: +receiverId,
-    //             },
-    //           ],
-    //         },
-    //       },
-    //     },
-    //   });
-    // }
+    if (checkGroup.length <= 0 && receiverId) {
+      const groupId = Math.floor(
+        10000000 + Math.random() * 90000000
+      ).toString();
+      const createGroup = await prisma.groud.create({
+        data: {
+          id: +groupId,
+          groudName: groupId.toString(),
+          Participants: {
+            createMany: {
+              data: [
+                {
+                  userId: +userId,
+                },
+                {
+                  userId: +receiverId,
+                },
+              ],
+            },
+          },
+        },
+      });
+    }
     console.log(checkGroup);
     if (message && checkGroup[0]) {
       console.log("gửi tin nhắn");
