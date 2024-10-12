@@ -2,6 +2,9 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
 
 enum OrderEventStatus {
   PENDING
@@ -22,12 +25,10 @@ model User {
   avatar      Json?
 
   roleUsers     RoleUser[]
-  searchHistory SearchHistory[]
   cart          Cart[]
   products      Products[]
   comments      Comments[]
   order         Orders[]
-  promotion     Promotions[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -50,17 +51,6 @@ model RoleUser {
 
   user User  @relation(fields: [userId], references: [id])
   role Roles @relation(fields: [rolesId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model SearchHistory {
-  id      Int    @id @default(autoincrement())
-  content String
-  userId  Int
-
-  user User @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -125,7 +115,6 @@ model Comments {
   productId   Int
   userId      Int
 
-
   user    User     @relation(fields: [userId], references: [id])
   product Products @relation(fields: [productId], references: [id])
 
@@ -157,7 +146,6 @@ model OrderDetail {
 
   product   Products    @relation(fields: [productId], references: [id])
   order     Orders      @relation(fields: [orderId], references: [id])
-  promotion Promotions? @relation(fields: [promotionCode], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -173,20 +161,6 @@ model Orders {
 
   OrdersDetail OrderDetail[]
   user         User          @relation(fields: [userId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Promotions {
-  id            Int      @id @default(autoincrement())
-  value         Float
-  dateEffective DateTime
-  dateExpire    DateTime
-  userId        Int
-
-  orderdetail OrderDetail[]
-  user        User          @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

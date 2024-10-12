@@ -27,6 +27,8 @@ export class Route {
     this.path.use("/category", CategoryRoute.draw());
     this.path.use("/payment", PaymentRoute.draw());
 
+    this.path.route("/api/products").get(this.homeController.getMoreProducts);
+
     Route.resource(this.path, this.homeController, {
       only: [RestActions.Index],
     });

@@ -19,10 +19,6 @@ block content
                       .sb-nav-link-icon
                         i.fas.fa-shopping-cart.fa-fw
                       | Đơn mua
-                    a.nav-link(href='/vendor')
-                      .sb-nav-link-icon
-                        i.fas.fa-store.fa-fw
-                      | Kênh người bán
             #layoutSidenav_content
               main
                 .container-fluid.px-4
@@ -63,7 +59,7 @@ block content
                             each detail in order.OrdersDetail
                               tr
                                 td
-                                  a.text-decoration-none.text-dark(href=`/products/${detail.productId}`)= detail.product.productName
+                                  a.text-decoration-none.text-dark(href=`/product/${detail.productId}`)= detail.product.productName
                                 td.text-center.text-success= detail.unitPrice + ' VNĐ'
                                 td.text-center= detail.quantity
                                 td.text-right.text-primary= (detail.unitPrice * detail.quantity) + ' VNĐ'
