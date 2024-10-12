@@ -4,6 +4,24 @@ import { ApplicationController } from ".";
 
 export class CategoryController extends ApplicationController {
   public async show(req: Request, res: Response) {
+    let user = null;
+    let groups = null;
+
+    if (req.session.userId) {
+      user = await prisma.user.findFirst({
+        where: {
+          id: req.session.userId,
+        },
+      });
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
+    }
     try {
       const categoryId = parseInt(req.params.id);
 
@@ -21,6 +39,8 @@ export class CategoryController extends ApplicationController {
         products,
         categories,
         categoryId,
+        user,
+        groups,
       });
     } catch (error) {
       console.error("Error fetching products by category ID:", error);

@@ -57,6 +57,32 @@ async function seedCategories() {
 async function main() {
   console.log("Start seeding...");
 
+  for (let i = 0; i < 30; i++) {
+    const salt = bcrypt.genSaltSync(0);
+    const hash = bcrypt.hashSync("abcdefght", salt);
+    await prisma.user.create({
+      data: {
+        fullName: faker.name.fullName(), // Use findName() for more realistic names
+        address: faker.address.streetAddress(),
+        numberPhone: faker.string.numeric({ length: 10 }), // Use phone number format
+        email: faker.internet.email(), // Generate valid email addresses
+        password: hash,
+        roleUsers: {
+          createMany: {
+            data: [
+              {
+                rolesId: 1,
+              },
+              {
+                rolesId: 2,
+              },
+            ],
+            // Assuming you have a role with ID 1
+          },
+        },
+      },
+    });
+  }
   await seedCategories();
 
   const images = convertFilesToBase64();
@@ -69,15 +95,15 @@ async function main() {
     },
   });
   allUser.shift();
-  for (let i = 0; i < 300; i++) {
+  for (let i = 0; i < 1000; i++) {
     const mainImage = images[i % imageCount].toString();
 
     await prisma.products.create({
       data: {
         productName: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
-        // information: faker.commerce.productMaterial
-        price: parseInt(faker.commerce.price()) * 1000,
+        information: faker.commerce.productMaterial(),
+        price: parseInt(faker.commerce.price()),
         inventory: faker.number.int({ min: 1, max: 1000 }),
         mainImage,
         view: faker.number.int({ min: 1, max: 10000 }),
@@ -99,37 +125,8 @@ async function main() {
     });
   }
 
-  // for (let i = 0; i < 30; i++) {
-  //   const mainImage = images[i % imageCount].toString();
-
-  //   const salt = bcrypt.genSaltSync(0);
-  //   const hash = bcrypt.hashSync("abcdefght", salt);
-  //   await prisma.user.create({
-  //     data: {
-  //       fullName: faker.name.fullName(), // Use findName() for more realistic names
-  //       address: faker.address.streetAddress(),
-  //       numberPhone: faker.string.numeric({ length: 10 }), // Use phone number format
-  //       email: faker.internet.email(), // Generate valid email addresses
-  //       password: hash,
-  //       roleUsers: {
-  //         createMany: {
-  //           data: [
-  //             {
-  //               rolesId: 1,
-  //             },
-  //             {
-  //               rolesId: 2,
-  //             },
-  //           ],
-  //           // Assuming you have a role with ID 1
-  //         },
-  //       },
-  //     },
-  //   });
-  // }
   console.log("Seeding finished.");
 }
-
 main()
   .catch((e) => {
     console.error(e);

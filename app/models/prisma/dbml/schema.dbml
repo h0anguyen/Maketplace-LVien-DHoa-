@@ -16,6 +16,7 @@ Table User {
   products Products [not null]
   comments Comments [not null]
   order Orders [not null]
+  participants Participants [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
@@ -34,6 +35,14 @@ Table RoleUser {
   rolesId Int [not null]
   user User [not null]
   role Roles [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table SearchHistory {
+  id Int [pk, increment]
+  content String [not null]
+  userId Int [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
@@ -135,6 +144,45 @@ Table Orders {
   updatedAt DateTime [not null]
 }
 
+Table Promotions {
+  id Int [pk, increment]
+  value Float [not null]
+  dateEffective DateTime [not null]
+  dateExpire DateTime [not null]
+  userId Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Messages {
+  id Int [pk, increment]
+  content String [not null]
+  sender Int [not null]
+  groudId Int [not null]
+  groud Groud [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Groud {
+  id Int [pk]
+  groudName String [not null]
+  Messages Messages [not null]
+  Participants Participants [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Participants {
+  id Int [pk, increment]
+  groudId Int [not null]
+  userId Int [not null]
+  user User [not null]
+  groud Groud [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
 Enum OrderEventStatus {
   PENDING
   ACCEPTED
@@ -166,3 +214,9 @@ Ref: OrderDetail.productId > Products.id
 Ref: OrderDetail.orderId > Orders.id
 
 Ref: Orders.userId > User.id
+
+Ref: Messages.groudId > Groud.id
+
+Ref: Participants.userId > User.id
+
+Ref: Participants.groudId > Groud.id

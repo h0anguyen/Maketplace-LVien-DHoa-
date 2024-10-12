@@ -4,20 +4,35 @@ import { ApplicationController } from ".";
 
 export class CartController extends ApplicationController {
   public async index(req: Request, res: Response) {
-    // req.session.userId = 1;
+    let user = null;
+    let groups = null;
+
+    if (req.session.userId) {
+      user = await prisma.user.findFirst({
+        where: {
+          id: req.session.userId,
+        },
+      });
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
+    }
     if (req.session.userId) {
       const carts = await prisma.cart.findMany({
         where: {
           userId: req.session.userId,
-          
         },
         include: {
           product: true,
         },
       });
-      const user = req.session.userId;
-      res.render("userview/cart.view/index", { carts, user });
-    }else{
+      res.render("userview/cart.view/index", { carts, user, groups });
+    } else {
       req.flash("errors", {
         msg: "Vui lòng đăng nhập trước khi sử dụng trang này",
       });

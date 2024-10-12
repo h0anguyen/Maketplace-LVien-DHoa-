@@ -3,7 +3,7 @@ extends ../layout
 block content
   nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
     // Navbar Brand
-    a.navbar-brand.ps-3(href='index.html') Molla
+    a.navbar-brand.ps-3(href='/vendor') Molla
     // Sidebar Toggle
     button#sidebarToggle.btn.btn-link.btn-sm.order-1.order-lg-0.me-4.me-lg-0(href='#!')
       i.fas.fa-bars
@@ -42,7 +42,7 @@ block content
             #collapseLayouts.collapse(aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion')
               nav.sb-sidenav-menu-nested.nav
                 a.nav-link(href='/vendor/orders') Đơn hàng
-                a.nav-link(href='/vendor/orders/') Đơn hàng đã hủy
+                a.nav-link(href='###') Đơn hàng đã hủy
             a.nav-link.collapsed(href='#' data-bs-toggle='collapse' data-bs-target='#collapsePages' aria-expanded='false' aria-controls='collapsePages')
               .sb-nav-link-icon
                 i.fas.fa-book-open
@@ -62,7 +62,7 @@ block content
               |                                 Phiếu giảm giá(Đang nguyên cứu thêm)
         .sb-sidenav-footer
           .small
-          |
+          | 2024
     #layoutSidenav_content
       main
         .container-fluid.px-4
