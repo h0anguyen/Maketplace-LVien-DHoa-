@@ -38,7 +38,6 @@ block content
                       span= product.sold
                     // End .rating-container
                     .product-price= product.price
-                      |.000đ
                     // End .product-price
                     .product-content
                       p= product.description
@@ -92,7 +91,7 @@ block content
                 li.nav-item
                   a#product-desc-link.nav-link.active(data-toggle='tab' href='#product-desc-tab' role='tab' aria-controls='product-desc-tab' aria-selected='true') M&ocirc; t&#x1EA3;
                 li.nav-item
-                  a#product-review-link.nav-link(data-toggle='tab' href='#product-review-tab' role='tab' aria-controls='product-review-tab' aria-selected='false') &Dstrok;&aacute;nh gi&aacute; (2)
+                  a#product-review-link.nav-link(data-toggle='tab' href='#product-review-tab' role='tab' aria-controls='product-review-tab' aria-selected='false') &Dstrok;&aacute;nh gi&aacute;
             // End .container
             .tab-content
               #product-desc-tab.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='product-desc-link')
@@ -116,71 +115,22 @@ block content
               #product-review-tab.tab-pane.fade(role='tabpanel' aria-labelledby='product-review-link')
                 .reviews
                   .container
-                    h3 Reviews (2)
-                    .review
-                      .row.no-gutters
-                        .col-auto
-                          h4
-                            a(href='#') Samanta J.
-                          .ratings-container
-                            .ratings
-                              .ratings-val(style='width: 80%;')
-                              // End .ratings-val
-                            // End .ratings
-                          // End .rating-container
-                          span.review-date 6 days ago
-                        // End .col
-                        .col
-                          h4 Good, perfect size
-                          .review-content
-                            p
-                              | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus cum dolores assumenda asperiores facilis porro reprehenderit animi culpa atque blanditiis commodi perspiciatis doloremque, possimus, explicabo, autem fugit beatae quae voluptas!
-                          // End .review-content
-                          .review-action
-                            a(href='#')
-                              i.icon-thumbs-up
-                              | Helpful (2)
-                            a(href='#')
-                              i.icon-thumbs-down
-                              | Unhelpful (0)
-                          // End .review-action
-                        // End .col-auto
-                      // End .row
-                    // End .review
-                    .review
-                      .row.no-gutters
-                        .col-auto
-                          h4
-                            a(href='#') John Doe
-                          .ratings-container
-                            .ratings
-                              .ratings-val(style='width: 100%;')
-                              // End .ratings-val
-                            // End .ratings
-                          // End .rating-container
-                          span.review-date 5 days ago
-                        // End .col
-                        .col
-                          h4 Very good
-                          .review-content
-                            p
-                              | Sed, molestias, tempore? Ex dolor esse iure hic veniam laborum blanditiis laudantium iste amet. Cum non voluptate eos enim, ab cumque nam, modi, quas iure illum repellendus, blanditiis perspiciatis beatae!
-                          // End .review-content
-                          .review-action
-                            a(href='#')
-                              i.icon-thumbs-up
-                              | Helpful (0)
-                            a(href='#')
-                              i.icon-thumbs-down
-                              | Unhelpful (0)
-                          // End .review-action
-                        // End .col-auto
-                      // End .row
-                    // End .review
-                  // End .container
-                // End .reviews
-              // .End .tab-pane
-            // End .tab-content
+                    h3 Reviews
+                      each review in reviews
+                        .review
+                          .row.no-gutters
+                            .col-auto
+                              h4
+                                a(href='#')= review.user.fullName
+                              .ratings-container
+                                .ratings
+                                  .ratings-val(style=`width: ${review.star * 20}%;`)
+                                span.review-date= review.createdAt
+                            .col
+                              h4= review.mainContent
+                              .review-content
+                                p= review.content
+            
             .bg-lighter.trending-products
                 .headinsg.mb-3
                   .heading-center
@@ -230,8 +180,6 @@ block content
                                   |.000VND
                               .product-star 
                                 span= product.sold
-                .more.mx-auto.text-center.mt-2
-                  a(href=`/category/${product.categoryId}`) Xem thêm
       // End .main
 
       include ../partials/footer

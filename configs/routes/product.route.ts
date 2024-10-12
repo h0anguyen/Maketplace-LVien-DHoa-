@@ -8,12 +8,14 @@ export class ProductRoute {
   private static productController = new ProductController();
 
   public static draw() {
-    this.path.route("/shop/:id").get(this.productController.shopView);
     this.path
-      .route("/submit-review")
-      .post(this.productController.addReview);
+      .route("/api/products")
+      .get(this.productController.getMoreProductsV2);
 
-    this.path.route("/search").get(this.productController.Search);
+    this.path.route("/search").get(this.productController.search);
+    this.path.route("/submit-review").post(this.productController.addReview);
+
+    this.path.route("/search").get(this.productController.search);
     Route.resource(this.path, this.productController, {
       only: [RestActions.Index, RestActions.Show],
     });

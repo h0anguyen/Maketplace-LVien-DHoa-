@@ -22,7 +22,7 @@ block content
                           option(value="rating") Most Popular
                           option(value='price-asc') Price: Low - High
                           option(value='price-desc') Price: High - Low
-                .products.mb-3
+                .products.mb-3#productContainer
                   .row.justify-content-start
                     if products.length > 0
                       each product in products
@@ -47,28 +47,11 @@ block content
                                 | #{product.price}VNĐ
                               .sold.text-warning
                                 | Đã bán: #{product.sold}
+                      .text-center.mt-4
+                        button#loadMoreBtn.btn.btn-outline-primary-2 Xem thêm
                     else
                       .col-md-12.text-center
-                        p.text-center Không tìm thấy sản phẩm nào phù hợp với từ khóa "#{searchQuery}"
-                nav(aria-label='Page navigation')
-                  ul.pagination.justify-content-center
-                    li.page-item.disabled
-                      a.page-link.page-link-prev(href='#' aria-label='Previous' tabindex='-1' aria-disabled='true')
-                        span(aria-hidden='true')
-                          i.icon-long-arrow-left
-                        | Prev
-                    li.page-item.active(aria-current='page')
-                      a.page-link(href='#') 1
-                    li.page-item
-                      a.page-link(href='#') 2
-                    li.page-item
-                      a.page-link(href='#') 3
-                    li.page-item-total of 6
-                    li.page-item
-                      a.page-link.page-link-next(href='#' aria-label='Next')
-                        | Next 
-                        span(aria-hidden='true')
-                          i.icon-long-arrow-right
+                        h3.text-dark.text-center Không tìm thấy sản phẩm nào phù hợp với từ khóa "#{searchQuery}"
               aside.col-lg-3.order-lg-first
                 .sidebar.sidebar-shop
                   .widget.widget-clean

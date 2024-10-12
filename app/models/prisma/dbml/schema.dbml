@@ -1,0 +1,168 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id Int [pk, increment]
+  fullName String
+  birthday DateTime
+  address String
+  numberPhone String
+  email String
+  password String
+  avatar Json
+  roleUsers RoleUser [not null]
+  cart Cart [not null]
+  products Products [not null]
+  comments Comments [not null]
+  order Orders [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Roles {
+  id Int [pk, increment]
+  value String [not null]
+  roleUsers RoleUser [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table RoleUser {
+  id Int [pk, increment]
+  userId Int [not null]
+  rolesId Int [not null]
+  user User [not null]
+  role Roles [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Cart {
+  id Int [pk, increment]
+  userId Int [not null]
+  productId Int [not null]
+  quantity Int [not null]
+  user User [not null]
+  product Products [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+
+  indexes {
+    (userId, productId) [unique]
+  }
+}
+
+Table Products {
+  id Int [pk, increment]
+  productName String [not null]
+  description String
+  information String
+  price Decimal [not null]
+  view Int [not null]
+  sold Int [not null]
+  inventory Int [not null]
+  mainImage Json
+  categoryId Int [not null]
+  userId Int [not null]
+  cart Cart [not null]
+  comments Comments [not null]
+  image Images [not null]
+  orderDetail OrderDetail [not null]
+  categories Categories [not null]
+  user User [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Categories {
+  id Int [pk, increment]
+  categoryName String [not null]
+  description String
+  products Products [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Comments {
+  id Int [pk, increment]
+  mainContent String
+  content String
+  star Int
+  productId Int [not null]
+  userId Int [not null]
+  user User [not null]
+  product Products [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Images {
+  id Int [pk, increment]
+  imageAddress Json
+  productId Int [not null]
+  bannerId Int
+  location Int
+  product Products [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table OrderDetail {
+  id Int [pk, increment]
+  quantity Int [not null]
+  unitPrice Decimal [not null]
+  productId Int [not null]
+  orderId Int [not null]
+  promotionCode Int
+  hasReview Boolean [not null, default: false]
+  product Products [not null]
+  order Orders [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Orders {
+  id Int [pk, increment]
+  recipientName String
+  recipientAddress String
+  recipientNumberPhone String
+  status OrderEventStatus [not null, default: 'PENDING']
+  userId Int [not null]
+  OrdersDetail OrderDetail [not null]
+  user User [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Enum OrderEventStatus {
+  PENDING
+  ACCEPTED
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+Ref: RoleUser.userId > User.id
+
+Ref: RoleUser.rolesId > Roles.id
+
+Ref: Cart.userId > User.id
+
+Ref: Cart.productId > Products.id
+
+Ref: Products.categoryId > Categories.id
+
+Ref: Products.userId > User.id
+
+Ref: Comments.userId > User.id
+
+Ref: Comments.productId > Products.id
+
+Ref: Images.productId > Products.id
+
+Ref: OrderDetail.productId > Products.id
+
+Ref: OrderDetail.orderId > Orders.id
+
+Ref: Orders.userId > User.id

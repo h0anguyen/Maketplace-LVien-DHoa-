@@ -18,6 +18,12 @@ export class ProductController extends ApplicationController {
   public async show(req: Request, res: Response) {
     const { id } = req.params;
 
+    const user = await prisma.user.findFirst({
+      where: {
+        id: req.session.userId,
+      },
+    });
+
     const product = await prisma.products.findUnique({
       where: {
         id: +id,
@@ -56,14 +62,38 @@ export class ProductController extends ApplicationController {
       )
       .format("YYYY-MM-DD");
 
+    const reviews = await prisma.comments.findMany({
+      where: {
+        productId: parseInt(id),
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      select: {
+        id: true,
+        mainContent: true,
+        content: true,
+        star: true,
+        createdAt: true,
+        user: {
+          select: {
+            fullName: true,
+            avatar: true,
+          },
+        },
+      },
+    });
+
     res.render("userview/products.view/show", {
       product,
       contproduct,
       time,
       productsCate,
+      user,
+      reviews,
     });
   }
-  public async Search(req: Request, res: Response) {
+  public async search(req: Request, res: Response) {
     let user = null;
     if (req.session.userId) {
       user = await prisma.user.findFirst({
@@ -119,10 +149,11 @@ export class ProductController extends ApplicationController {
 
   public async addReview(req: Request, res: Response) {
     try {
-      const { productId, orderId, rating, reviewTitle, reviewContent } = req.body;
-      const userId = req.session.userId; 
-      console.log( req.body);
-      
+      const { productId, orderId, rating, reviewTitle, reviewContent } =
+        req.body;
+      const userId = req.session.userId;
+      console.log(req.body);
+
       const newReview = await prisma.comments.create({
         data: {
           mainContent: reviewTitle,
@@ -133,7 +164,6 @@ export class ProductController extends ApplicationController {
         },
       });
 
-      // Cập nhật OrderDetail để đánh dấu rằng đã có đánh giá
       await prisma.orderDetail.updateMany({
         where: {
           orderId: parseInt(orderId),
@@ -144,13 +174,72 @@ export class ProductController extends ApplicationController {
         },
       });
 
-      // Chuyển hướng người dùng trở lại trang đơn hàng với thông báo thành công
-      req.flash("success", "Đánh giá đã được gửi thành công!");
+      req.flash("success", {
+        msg: "Vui lòng đăng nhập trước khi sử dụng trang này",
+      });
       res.redirect("/user/purchase");
     } catch (error) {
       console.error("Error submitting review:", error);
       req.flash("error", "Có lỗi xảy ra khi gửi đánh giá. Vui lòng thử lại.");
       res.redirect("/user/purchase");
     }
+  }
+
+  public async getMoreProductsV2(req: Request, res: Response) {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 12;
+    const skip = (page - 1) * limit;
+    const searchQuery = req.query.q as string;
+
+    try {
+        let whereClause = {};
+        if (searchQuery) {
+            whereClause = {
+                OR: [
+                    { productName: { contains: searchQuery, mode: 'insensitive' } },
+                    { description: { contains: searchQuery, mode: 'insensitive' } }
+                ]
+            };
+        }
+
+        const products = await prisma.products.findMany({
+            where: whereClause,
+            skip: skip,
+            take: limit,
+            orderBy: { createdAt: 'desc' },
+            select: {
+                id: true,
+                productName: true,
+                price: true,
+                sold: true,
+                categories: true,
+                mainImage: true
+            }
+        });
+
+
+        res.json({ products });
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(500).json({ products: [], error: 'Internal server error' });
+    }
+  }
+  public async getMoreProducts(req: Request, res: Response) {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 12;
+    const skip = (page - 1) * limit;
+
+    const products = await prisma.products.findMany({
+      skip,
+      take: limit,
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        categories: true,
+      },
+    });
+
+    res.json(products);
   }
 }

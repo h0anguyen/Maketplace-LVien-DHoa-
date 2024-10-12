@@ -320,7 +320,7 @@ block content
               .tab-content.mb-5
                 #top-all-tab.tab-pane.p-0.fade.show.active(role='tabpanel' aria-labelledby='top-all-link')
                   .products
-                    .row.justify-content-center
+                    .row.justify-content-center#productContainer
                       each product in products
                         .col-md-3.col-lg-2.shadow.pt-2.mt-1.mb-1.mt-1.mb-1.ml-3.mr-3.col-xs-3
                           .product.text-center.fancy-product
@@ -340,6 +340,7 @@ block content
                                 span= `${product.price.toLocaleString('vi-VN')} ₫`
                               .sold.text-warning
                                 | Đã bán: #{product.sold}
-                      .col-md-3.col-lg-2.pt-2.mt-2.mb-2.mx-3.col-xs-3
-                        a(href="###").product.text-center.fancy-product.pt-1.pb-1.shadow Xem thêm
+                    .row.justify-content-center.mt-4
+                      .col-12.d-flex.justify-content-center
+                        button#loadMoreBtn.btn.btn-outline-primary-2.text-center Xem thêm
     include ../partials/footer

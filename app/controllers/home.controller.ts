@@ -45,4 +45,22 @@ export class HomeController extends ApplicationController {
       banners,
     });
   }
+  public async getMoreProducts(req: Request, res: Response) {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 20;
+    const skip = (page - 1) * limit;
+  
+    const products = await prisma.products.findMany({
+      skip,
+      take: limit,
+      orderBy: {
+        createdAt: 'desc'
+      },
+      include: {
+        categories: true
+      }
+    });
+  
+    res.json(products);
+  }
 }
