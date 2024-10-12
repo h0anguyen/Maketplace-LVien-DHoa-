@@ -1,0 +1,77 @@
+extends ../layout
+
+block content
+  .page-wrapper
+    include ../partials/header
+    .container-fluid
+    .row
+      nav.col-md-3.col-lg-2.d-md-block.sidebarr.collapse.mt-3
+        .position-sticky
+          ul.nav.flex-column
+            li.nav-item
+              a.nav-link(href='/vendor' )
+                i.fas.fa-box.me-2
+                |                                 Sản phẩm
+            li.nav-item
+              a.nav-link(href='/vendororder' )
+                i.fas.fa-shopping-cart.me-2
+                |                                Đơn hàng
+            li.nav-item
+              a.nav-link(href='' )
+                i.fas.fa-percentage.me-2
+                |                                 Kênh marketing
+      #layoutSidenav_content.col-md-9.col-lg-10
+        main
+          .container-fluid.px-4
+             
+            #product-manager.tab-pane.fade.show.active.text-center(role='')
+              h2.mb-4.pb-2.border-bottom Sản phẩm cửa hàng
+              .d-flex.justify-content-end.align-items-center.mb-3
+                a.btn.btn-primary(href='/vendorproduct/new')
+                  i.fas.fa-plus.me-2
+                  | Thêm sản phẩm mới
+
+            .card.mb-4
+              .card-header
+                i.fas.fa-table.me-1
+                | Tất cả sản phẩm 
+              .card-body
+                table#datatablesSimple
+                  thead
+                    tr
+                      th
+                        | Sản phẩm
+                      th
+                        | Danh mục
+                      th
+                        | Giá
+                      th
+                        | Lượt xem
+                      th
+                        | Đã bán
+                      th
+                        | Tồn kho
+                      th 
+                        | 
+                  tbody
+                    each product in products
+                      tr
+                        td.row
+                          b.d-block.mx-auto.col-6= product.productName
+                          img.col-6#avatar.img-thumbnail.mb-3.shadow.mx-auto.d-block(src=`data:image/png;base64,${product.mainImage.toString('base64')}` alt='' style='width: 150px; height: 150px; object-fit: cover;')
+                        td= product.categories.categoryName
+                        td= product.price
+                          |.000đ
+                        td= product.view
+                        td= product.sold
+                        td= product.inventory
+                        td
+                          form(action=`/vendorproduct/${product.id}/edit`, method="get") 
+                            button(type="submit").btn.btn-info.btn-sm
+                              i.fas.fa-edit.me-1
+                              | Sửa
+                          form(action=`/vendorproduct/${product.id}?_method=DELETE`, method="post") 
+                            button(type="submit").btn.btn-danger.btn-sm
+                              i.fas.fa-trash.me-1
+                              | Xóa
+    include ../partials/footer

@@ -89,4 +89,44 @@ footer.footer.footer-dark
       // End .footer-payments
     // End .container
   // End .footer-bottom
-// End .footer
+  .chatrt
+    .icon.position-relative
+      a.border-chat.position-absolute#openChat(href='#' data-toggle='modal' data-target='#exampleModal')
+        i.bi.bi-chat-dots-fill
+        svg.bi.bi-chat-dots-fill(xmlns='http://www.w3.org/2000/svg' width='50' height='50' fill='currentColor' viewbox='0 0 16 16')
+          path(d='M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2')
+    #exampleModal.box-chat.modal.fade(data-backdrop='' data-keyboard='true' tabindex='10' aria-labelledby='exampleModalLabel' aria-hidden='true')
+      .modal-dialog.form-box-chat.position-fixed
+        .modal-content
+          .modal-header
+            h5#exampleModalLabel.modal-title.text-white Chat
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+              span.text-white(aria-hidden='true') &times;
+          .modal-body.row
+            .col-4.name-speaker
+              li.text-center.border-bottom
+                b Danh sách 
+              form(action="", method="post") 
+                ul#list_chat
+                  - if(groups)
+                    each groudInfo in groups
+                      li.bt= groudInfo.groud.groudName
+            .col-8.content-speaker#content-speaker.d-flex
+              .content
+                .content-name.border-bottom T&ecirc;n ng&#x1B0;&#x1EDD;i chat
+                .content-content#messages
+                  //- .text-left
+                  //-   button(disabled='')
+                  //- .text-right
+                  //-   button(disabled='') abc
+              .modal-footer
+                form.row#chatForm()
+                  - if(user)
+                    input(type='hidden' id="userId" value=`${user.id}`)
+                    input(type='hidden' id="groudId" value=`126`)
+                  input.col-10#messageInput(type='text' name='content-' plchataceholder='Nhập nội dung')
+                  button.btn-primary.col-2#sendButton(type="button")
+                    i.bi.bi-send
+                    svg.bi.bi-send(xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewbox='0 0 16 16')
+                      path(d='M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z')
+  

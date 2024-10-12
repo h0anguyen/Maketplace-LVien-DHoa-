@@ -31,6 +31,7 @@ export class ApplicationController {
       });
     }
   }
+
   public async checkBan(req: Request, res: Response, next: NextFunction) {
     const checkBan = await prisma.roleUser.findFirst({
       where: {

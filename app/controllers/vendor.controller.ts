@@ -177,6 +177,57 @@ export class VendorController extends ApplicationController {
     }
   }
 
+  public async listOrderCancel(req: Request, res: Response) {
+    if (req.session.userId) {
+      const user = await prisma.user.findFirst({
+        where: {
+          id: req.session.userId,
+        },
+      });
+      const orders = await prisma.orders.findMany({
+        where: {
+          status: "CANCELLED",
+          OrdersDetail: {
+            some: {
+              product: {
+                userId: req.session.userId,
+              },
+            },
+          },
+        },
+        include: {
+          OrdersDetail: {
+            include: {
+              product: true,
+            },
+          },
+        },
+      });
+      let array = [];
+      for (let index = 0; index < orders.length; index++) {
+        array.push(
+          moment
+            .tz(
+              orders[index].createdAt,
+              "ddd MMM DD YYYY HH:mm:ss ZZ",
+              "Asia/Ho_Chi_Minh"
+            )
+            .format("HH:mm:ss DD-MM-YYYY")
+        );
+      }
+      res.render("vendorview/vendor.view/orders", {
+        orders,
+        user,
+        array,
+      });
+    } else {
+      req.flash("errors", {
+        msg: "Vui lòng đăng nhập trước khi sử dụng trang này",
+      });
+      res.redirect("/auth/signup");
+    }
+  }
+
   public async updateOrder(req: Request, res: Response) {
     const { id } = req.params;
     try {

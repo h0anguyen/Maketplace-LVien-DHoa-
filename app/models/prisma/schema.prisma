@@ -28,6 +28,7 @@ model User {
   comments      Comments[]
   order         Orders[]
   promotion     Promotions[]
+  participants  Participants[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -133,7 +134,7 @@ model Comments {
 }
 
 model Images {
-  id           Int    @id @default(autoincrement())
+  id           Int   @id @default(autoincrement())
   imageAddress Json?
   productId    Int
   bannerId     Int?
@@ -185,6 +186,41 @@ model Promotions {
 
   orderdetail OrderDetail[]
   user        User          @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Messages {
+  id      Int    @id @default(autoincrement())
+  content String
+  sender  Int
+  groudId Int
+
+  groud Groud @relation(fields: [groudId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Groud {
+  id        Int    @id
+  groudName String
+
+  Messages     Messages[]
+  Participants Participants[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Participants {
+  id      Int @id @default(autoincrement())
+  groudId Int
+  userId  Int
+
+  user  User  @relation(fields: [userId], references: [id])
+  groud Groud @relation(fields: [groudId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

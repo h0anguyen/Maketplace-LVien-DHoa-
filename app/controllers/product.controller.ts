@@ -15,6 +15,7 @@ export class ProductController extends ApplicationController {
     });
     res.render("userview/products.view/index", { products });
   }
+
   public async show(req: Request, res: Response) {
     const { id } = req.params;
 
@@ -63,6 +64,7 @@ export class ProductController extends ApplicationController {
       productsCate,
     });
   }
+
   public async Search(req: Request, res: Response) {
     let user = null;
     if (req.session.userId) {
@@ -88,6 +90,44 @@ export class ProductController extends ApplicationController {
       user,
       searchQuery: q,
       categories,
+    });
+  }
+
+  public async shopView(req: Request, res: Response) {
+    const { id } = req.params;
+    let user = null;
+    if (req.session.userId) {
+      user = await prisma.user.findFirst({
+        where: {
+          id: req.session.userId,
+        },
+      });
+    }
+    const userShop = await prisma.user.findFirst({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    const productsShop = await prisma.products.findMany({
+      where: {
+        userId: +id,
+      },
+    });
+    const time = moment
+      .tz(
+        userShop?.createdAt,
+        "ddd MMM DD YYYY HH:mm:ss ZZ",
+        "Asia/Ho_Chi_Minh"
+      )
+      .format("DD-MM-YYYY");
+
+    res.render("userview/shop.view/index", {
+      userShop,
+      productsShop,
+      time,
+      receiverId: id,
+      user,
     });
   }
 }

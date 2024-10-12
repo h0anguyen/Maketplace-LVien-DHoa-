@@ -30,6 +30,7 @@
     "express-flash": "0.0.2",
     "express-session": "1.17.1",
     "faker": "^6.6.6",
+    "firebase": "^10.14.1",
     "font-awesome": "4.7.0",
     "googleapis": "^140.0.1",
     "jquery": "3.7.1",

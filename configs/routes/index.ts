@@ -1,10 +1,11 @@
+import { HomeController } from "@controllers";
 import { Router } from "express";
-import { HomeController } from "../../app/controllers/home.controller";
 import { RestActions } from "../enum";
 import { AdminRoute } from "./admin.route";
 import { AuthRoute } from "./auth.route";
 import { CartRoute } from "./cart.route";
 import { CategoryRoute } from "./category.route";
+import { MessageRoute } from "./message.route";
 import { OrderRoute } from "./order.route";
 import { ProductRoute } from "./product.route";
 import { UserRoute } from "./user.route";
@@ -21,7 +22,7 @@ export class Route {
     this.path.use("/admin", AdminRoute.draw());
     this.path.use("/cart", CartRoute.draw());
     this.path.use("/checkout", OrderRoute.draw());
-
+    this.path.use("/message", MessageRoute.draw());
     this.path.use("/product", ProductRoute.draw());
     this.path.use("/category", CategoryRoute.draw());
 

@@ -6,15 +6,26 @@ const moment = require("moment-timezone");
 
 export class HomeController extends ApplicationController {
   public async index(req: Request, res: Response) {
+    // req.session.userId = 1;
     try {
       let user = null;
+      let groups = null;
       if (req.session.userId) {
         user = await prisma.user.findFirst({
           where: {
             id: req.session.userId,
           },
         });
+        groups = await prisma.participants.findMany({
+          where: {
+            userId: req.session.userId,
+          },
+          include: {
+            groud: true,
+          },
+        });
       }
+
       const productsDatabase = await prisma.products.findMany({
         orderBy: {
           id: "asc",
@@ -41,16 +52,18 @@ export class HomeController extends ApplicationController {
           bannerId: "asc",
         },
       });
-
+      console.log(groups);
       res.render("userview/home.view/index", {
         products,
         user,
         productsSold,
         banners,
+        groups,
       });
     } catch (error) {
-      res.status(500).json({ message: "Đã xảy ra lỗi khi xử lý yêu cầu" });
+      res
+        .status(500)
+        .json({ message: "Đã xảy ra lỗi khi xử lý yêu cầu", error });
     }
   }
 }
-
