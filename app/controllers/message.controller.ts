@@ -13,21 +13,26 @@ export class MessageController extends ApplicationController {
     console.log(receiverId);
     let checkGroup;
     if (receiverId) {
-      checkGroup = await prisma.participants.findMany({
+      checkGroup = await prisma.participants.findFirst({
         where: {
-          AND: [{ userId: +userId }, { userId: +receiverId }],
+          OR: [
+            { userId: +userId, groudId: { in: [+receiverId] } },
+            { userId: +receiverId, groudId: { in: [+userId] } },
+          ],
         },
       });
-    } else {
-      checkGroup = await prisma.participants.findMany({
+      console.log(checkGroup);
+    }
+    if (a.groupId) {
+      checkGroup = await prisma.participants.findFirst({
         where: {
           groudId: +a.groupId,
         },
       });
     }
-    console.log(checkGroup.length);
+    console.log(checkGroup);
 
-    if (checkGroup.length <= 0 && receiverId) {
+    if (!checkGroup && receiverId) {
       const groupId = Math.floor(
         10000000 + Math.random() * 90000000
       ).toString();
@@ -50,14 +55,14 @@ export class MessageController extends ApplicationController {
         },
       });
     }
-    console.log(checkGroup);
-    if (message && checkGroup[0]) {
+    console.log(checkGroup, a.groupId);
+    if (message && checkGroup) {
       console.log("gửi tin nhắn");
       const sendMessage = await prisma.messages.create({
         data: {
           sender: +userId,
           content: message,
-          groudId: checkGroup[0].groudId,
+          groudId: +a.groupId,
         },
       });
 
