@@ -122,6 +122,24 @@ export class ProductController extends ApplicationController {
   }
 
   public async shopView(req: Request, res: Response) {
+    let user = null;
+    let groups = null;
+
+    if (req.session.userId) {
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
+      user = await prisma.user.findFirst({
+        where: {
+          id: req.session.userId,
+        },
+      });
+    }
     const { id } = req.params;
     const userShop = await prisma.user.findFirst({
       where: {
@@ -144,7 +162,13 @@ export class ProductController extends ApplicationController {
         "Asia/Ho_Chi_Minh"
       )
       .format("DD-MM-YYYY");
-    res.render("userview/shop.view/index", { userShop, productsShop, time });
+    res.render("userview/shop.view/index", {
+      userShop,
+      productsShop,
+      time,
+      user,
+      groups,
+    });
   }
 
   public async addReview(req: Request, res: Response) {

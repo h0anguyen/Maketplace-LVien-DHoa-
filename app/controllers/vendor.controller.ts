@@ -7,7 +7,17 @@ const bcrypt = require("bcrypt");
 const moment = require("moment");
 export class VendorController extends ApplicationController {
   public async index(req: Request, res: Response) {
+    let groups = null;
     if (req.session.userId) {
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
+
       const checkRole = await prisma.roleUser.findFirst({
         where: {
           AND: [{ userId: req.session.userId }, { rolesId: 2 }],
@@ -60,9 +70,10 @@ export class VendorController extends ApplicationController {
           productsCount,
           orders,
           array,
+          groups,
         });
       } else {
-        res.render("vendorview/vendor.view/new", { user });
+        res.render("vendorview/vendor.view/new", { user, groups });
       }
     } else {
       req.flash("errors", {
@@ -71,7 +82,16 @@ export class VendorController extends ApplicationController {
       res.redirect("/auth/signup");
     }
   }
-
+  public async new(req: Request, res: Response) {
+    if (req.session.userId) {
+      const user = await prisma.user.findFirst({
+        where: {
+          id: req.session.userId,
+        },
+      });
+      res.render("vendorview/vendor.view/new", { user });
+    }
+  }
   public async create(req: Request, res: Response) {
     const { fullName, address, numberPhone, email } = req.body;
     const id = req.session.userId;
@@ -128,7 +148,16 @@ export class VendorController extends ApplicationController {
   }
 
   public async listOrder(req: Request, res: Response) {
+    let groups = null;
     if (req.session.userId) {
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
       const user = await prisma.user.findFirst({
         where: {
           id: req.session.userId,
@@ -168,6 +197,7 @@ export class VendorController extends ApplicationController {
         orders,
         user,
         array,
+        groups,
       });
     } else {
       req.flash("errors", {
@@ -178,7 +208,16 @@ export class VendorController extends ApplicationController {
   }
 
   public async listOrderCancel(req: Request, res: Response) {
+    let groups = null;
     if (req.session.userId) {
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
       const user = await prisma.user.findFirst({
         where: {
           id: req.session.userId,
@@ -219,6 +258,7 @@ export class VendorController extends ApplicationController {
         orders,
         user,
         array,
+        groups,
       });
     } else {
       req.flash("errors", {
@@ -263,13 +303,29 @@ export class VendorController extends ApplicationController {
   }
 
   public async orderDetail(req: Request, res: Response) {
-    const { id } = req.params;
+    let groups = null;
+    if (req.session.userId) {
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
+      const user = await prisma.user.findFirst({
+        where: {
+          id: req.session.userId,
+        },
+      });
+      const { id } = req.params;
 
-    const orderDetail = await prisma.orderDetail.findMany({
-      where: {
-        orderId: parseInt(id),
-      },
-    });
+      const orderDetail = await prisma.orderDetail.findMany({
+        where: {
+          orderId: parseInt(id),
+        },
+      });
+    }
   }
 
   public async deleteOrder(req: Request, res: Response) {
@@ -300,7 +356,16 @@ export class VendorController extends ApplicationController {
   }
 
   public async listProducts(req: Request, res: Response) {
+    let groups = null;
     if (req.session.userId) {
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
       const user = await prisma.user.findFirst({
         where: {
           id: req.session.userId,
@@ -322,7 +387,12 @@ export class VendorController extends ApplicationController {
             .format("DD-MM-YYYY HH:mm:ss")
         );
       }
-      res.render("vendorview/vendor.view/products", { user, products, array });
+      res.render("vendorview/vendor.view/products", {
+        user,
+        products,
+        array,
+        groups,
+      });
     } else {
       req.flash("errors", {
         msg: "Vui lòng đăng nhập trước khi sử dụng trang này",

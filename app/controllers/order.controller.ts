@@ -48,6 +48,24 @@ export class OrderController extends ApplicationController {
   }
 
   public async index(req: Request, res: Response) {
+    let user = null;
+    let groups = null;
+
+    if (req.session.userId) {
+      user = await prisma.user.findFirst({
+        where: {
+          id: req.session.userId,
+        },
+      });
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
+    }
     if (req.session.userId) {
       const carts = await prisma.cart.findMany({
         where: {
@@ -63,8 +81,12 @@ export class OrderController extends ApplicationController {
       );
       const provinces = provincesResponse.data;
 
-      const user = req.session.id;
-      res.render("userview/order.view/index", { user, carts, provinces });
+      res.render("userview/order.view/index", {
+        user,
+        carts,
+        provinces,
+        groups,
+      });
     }
   }
   public async create(req: Request, res: Response) {

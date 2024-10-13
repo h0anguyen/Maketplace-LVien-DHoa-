@@ -7,10 +7,21 @@ const moment = require("moment-timezone");
 export class HomeController extends ApplicationController {
   public async index(req: Request, res: Response) {
     let user = null;
+    let groups = null;
+    req.session.userId = 31;
+
     if (req.session.userId) {
       user = await prisma.user.findFirst({
         where: {
           id: req.session.userId,
+        },
+      });
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
         },
       });
     }
@@ -43,6 +54,7 @@ export class HomeController extends ApplicationController {
       user,
       productsSold,
       banners,
+      groups,
     });
   }
   public async getMoreProducts(req: Request, res: Response) {

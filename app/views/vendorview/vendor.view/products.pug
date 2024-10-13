@@ -3,7 +3,7 @@ extends ../layout
 block content
   nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
     // Navbar Brand
-    a.navbar-brand.ps-3(href='/admin') Molla
+    a.navbar-brand.ps-3(href='/vendor') Molla
     // Sidebar Toggle
     button#sidebarToggle.btn.btn-link.btn-sm.order-1.order-lg-0.me-4.me-lg-0(href='#!')
       i.fas.fa-bars
@@ -33,12 +33,12 @@ block content
       nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark
         .sb-sidenav-menu
           .nav
-            .sb-sidenav-menu-heading Tổng quát
+            .sb-sidenav-menu-heading Tổng quan
             a.nav-link(href='/vendor')
               .sb-nav-link-icon
                 i.fas.fa-tachometer-alt
-              |                                 Tổng quát
-            .sb-sidenav-menu-heading Quản lý
+              |                                 Tổng quan
+            .sb-sidenav-menu-heading Quản lí
             a.nav-link.collapsed(href='#' data-bs-toggle='collapse' data-bs-target='#collapseLayouts' aria-expanded='false' aria-controls='collapseLayouts')
               .sb-nav-link-icon
                 i.fas.fa-columns
@@ -48,7 +48,7 @@ block content
             #collapseLayouts.collapse(aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion')
               nav.sb-sidenav-menu-nested.nav
                 a.nav-link(href='/vendor/orders') Đơn hàng
-                a.nav-link(href='/vendor/orders/canceled') Đơn hàng đã hủy
+                a.nav-link(href='###') Đơn hàng đã hủy
             a.nav-link.collapsed(href='#' data-bs-toggle='collapse' data-bs-target='#collapsePages' aria-expanded='false' aria-controls='collapsePages')
               .sb-nav-link-icon
                 i.fas.fa-book-open
@@ -57,22 +57,18 @@ block content
                 i.fas.fa-angle-down
             #collapsePages.collapse(aria-labelledby='headingTwo' data-bs-parent='#sidenavAccordion')
               nav#sidenavAccordionPages.sb-sidenav-menu-nested.nav.accordion
-                a.nav-link.collapsed(href='/vendor/products' )
+                a.nav-link.collapsed(href='/vendor/products')
                   | Sản phẩm
                 a.nav-link.collapsed(href='/vendor/product/new')
-                  | Thêm Sản phẩm
+                  | Thêm sản phẩm
             .sb-sidenav-menu-heading Thành phần khác
-            a.nav-link(href='/admin/banner')
-              .sb-nav-link-icon
-                i.fas.fa-chart-area
-              |                                 Banner
-            a.nav-link(href='tables.html')
+            a.nav-link(href='#')
               .sb-nav-link-icon
                 i.fas.fa-table
-              |                                 Phiếu giảm giá
+              |                                 Phiếu giảm giá(Đang nguyên cứu thêm)
         .sb-sidenav-footer
-          .small 
-          |                         
+          .small
+          | 2024
     #layoutSidenav_content
       main
         .container-fluid.px-4

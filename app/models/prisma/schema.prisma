@@ -29,6 +29,7 @@ model User {
   products      Products[]
   comments      Comments[]
   order         Orders[]
+  participants  Participants[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -51,6 +52,15 @@ model RoleUser {
 
   user User  @relation(fields: [userId], references: [id])
   role Roles @relation(fields: [rolesId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SearchHistory {
+  id      Int    @id @default(autoincrement())
+  content String
+  userId  Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -166,6 +176,51 @@ model Orders {
   updatedAt DateTime @updatedAt
 }
 
+model Promotions {
+  id            Int      @id @default(autoincrement())
+  value         Float
+  dateEffective DateTime
+  dateExpire    DateTime
+  userId        Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Messages {
+  id      Int    @id @default(autoincrement())
+  content String
+  sender  Int
+  groudId Int
+
+  groud Groud @relation(fields: [groudId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Groud {
+  id        Int    @id
+  groudName String
+
+  Messages     Messages[]
+  Participants Participants[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Participants {
+  id      Int @id @default(autoincrement())
+  groudId Int
+  userId  Int
+
+  user  User  @relation(fields: [userId], references: [id])
+  groud Groud @relation(fields: [groudId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch", "fullTextIndex"]

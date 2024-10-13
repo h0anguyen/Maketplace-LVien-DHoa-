@@ -7,13 +7,23 @@ const bcrypt = require("bcrypt");
 
 export class UserController extends ApplicationController {
   public async index(req: Request, res: Response) {
+    let groups = null;
+
     if (req.session.userId) {
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
       const user = await prisma.user.findFirst({
         where: {
           id: req.session.userId,
         },
       });
-      res.render("userview/profile.view/index", { user });
+      res.render("userview/profile.view/index", { user, groups });
     } else {
       req.flash("errors", {
         msg: "Vui lòng đăng nhập trước khi sử dụng trang này",
@@ -24,6 +34,18 @@ export class UserController extends ApplicationController {
 
   public async purchase(req: Request, res: Response) {
     const userId = req.session.userId;
+    let groups = null;
+
+    if (req.session.userId) {
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
+    }
     const user = await prisma.user.findFirst({
       where: {
         id: req.session.userId,
@@ -43,7 +65,7 @@ export class UserController extends ApplicationController {
       },
     });
 
-    res.render("userview/profile.view/purchase", { orders, user });
+    res.render("userview/profile.view/purchase", { orders, user,groups });
   }
 
   public async create(req: Request, res: Response) {

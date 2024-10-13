@@ -1,57 +1,61 @@
-extends ../layout2
+extends ../layout
 
 block content
-  .page-wrapper
-    include ../partials/header
-    main.container.my-5
-      #layoutSidenav
-        #layoutSidenav_nav
-          nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark.border.rounded.shadow-sm(style='font-size: 1.8rem;')
-            .sb-sidenav-menu
-              .nav
-                a.nav-link(href='/profile')
-                  .sb-nav-link-icon
-                    i.fas.fa-user.fa-fw
-                  |                                 Thông tin tài khoản
-                a.nav-link(href='/history')
-                  .sb-nav-link-icon
-                    i.fas.fa-shopping-cart.fa-fw
-                  |                                 Đơn hàng
-                a.nav-link.active(href='/vendor')
-                  .sb-nav-link-icon
-                    i.fas.fa-store.fa-fw
-                  |                                 Kênh người bán
-        #layoutSidenav_content
-          main
-            .container-fluid.px-4
-              .border.p-3.d.shadow-lg.bg-white.rounded
-                .border-bottom.pb-3.mb-4.text-center.pt-3.pb-3.pl-2.pr-2
-                  h2.text-primary Đăng kí người bán
-                form(method="post" action="/vendor")
-                  .mb-3
-                    label.form-label.fw-bold(for='shopName') Tên cửa hàng: 
-                    
-                    input#shopName.form-control(type='text' required='' name="fullName" value=`${user.fullName}` placeholder='Nhập tên cửa hàng của bạn' )
-                  .mb-3
-                    label.form-label.fw-bold(for='shopDescription') Thông tin cửa hàng: 
-                    textarea#shopDescription.form-control(rows='1' placeholder='Đang trong quá trình update')
-                  .mb-3
-                    label.form-label.fw-bold(for='shopAddress') Địa chỉ :
-                    - if(user.address)
-                        input#shopAddress.form-control(type='text' name="address" value=`${user.address}` required='' placeholder='Nhập địa chỉ cửa hàng')
-                    - else
-                        input#shopAddress.form-control(type='text' name="address" required='' placeholder='Nhập địa chỉ cửa hàng')
-                  .mb-3
-                    label.form-label.fw-bold(for='shopPhone') Số điện thoại:
-                    input#shopPhone.form-control(type='text' required='' name='numberPhone' value=`${user.numberPhone}` placeholder='' )
-                  .mb-3
-                    label.form-label.fw-bold(for='shopEmail') Email:
-                    input#shopEmail.form-control(type='email' required='' name='email' value=`${user.email}` placeholder='example@email.com' )
-                  .mb-3.form-check
-                    input#agreeTerms.form-check-input(type='checkbox' required='')
-                    label.form-check-label(for='agreeTerms')
-                      | Tôi đồng ý với các 
-                      a.text-primary(href='#') Điều khoản và điều kiện
-                  button.btn.btn-primary.btn-lg(type='submit') Đăng kí
-
-    include ../partials/footer
+  nav.row.border-bottom.mb-5.justify-content-around
+    a.col-6.mt-2(href='/')
+      img(src='/images/demos/demo-14/logo.png' alt='Logo Molla' width='105' height='25')
+      h4.text
+    .col-5.text-end.d-flex.align-items-center.justify-content-end
+      - if(user)
+          a.account.user-info.text-end(href='/user')
+            .rounded-circle.btn-brown.p-1.d-inline-block.overflow-hidden.dropdown(style='width: 45px; height: 45px;')
+              - if(user.avatar)
+                  img.img-fluid.rounded-circle(src=`data:image/png;base64,${user.avatar.toString('base64')}` alt='Ảnh đại diện' style='object-fit: cover; width: 100%; height: 100%;')
+              - else
+                  img.img-fluid.rounded-circle(src='/images/avatar_user_null.png' alt='Ảnh đại diện' style='object-fit: cover; width: 100%; height: 100%;')
+            a.text-decoration-none(href='/user')
+              span.user-name.fw-bold.text-brown=user.fullName
+          
+  main.row.justify-content-center
+    .content.col-10.border.p-5.rounded
+      .nav-content.mx-1
+        h4 Th&ocirc;ng tin c&#x1EED;a h&agrave;ng
+        | ( X&aacute;c nh&#x1EAD;n th&ocirc;ng tin b&#x1EA1;n &dstrok;&abreve;ng k&iacute; t&agrave;i kho&#x1EA3;n )
+      hr
+      .body-content.row.justify-content-center
+        form.rV.col-8(action='/vendor' method='post')
+          .content-row
+            label(for='')
+              | T&ecirc;n c&#x1EED;a h&agrave;ng 
+              sup.text-danger *
+            input(type='text' name='fullName' value='ten tui nè' disabled=''  required='')
+          .content-row
+            label(for='')
+              | &Dstrok;&#x1ECB;a ch&#x1EC9;
+              sup.text-danger *
+            - if(!user.address)
+              input(type='text' name='address' value=``  placeholder='vui lòng nhập địa chỉ'  required='')
+            - if(user.address)
+              input(type='text' name='address' value=`${user.address}` placeholder='vui lòng nhập địa chỉ'  required='')
+          .content-row
+            label(for='')
+              | S&#x1ED1; &dstrok;i&#x1EC7;n tho&#x1EA1;i
+              sup.text-danger *
+            - if(!user.numberPhone)
+              input(type='text' name='numberPhone' value=``  placeholder='vui lòng nhập số điện thoại'  required='')
+            - if(user.numberPhone)
+              input(type='text' name='numberPhone' value=`${user.numberPhone}` disabled=''  required='')
+          .content-row
+            label(for='')
+              | Email
+              sup.text-danger *
+            input(type='email' name='email' value=`${user.email}` disabled='')
+          .custom-control.custom-checkbox.content-row
+            input#register-policy-2.custom-control-input(type='checkbox' required='')
+            label.custom-control-label(for='register-policy-2')
+              | I agree to the 
+              a(href='#') privacy policy
+              |
+          .content-row.button.d-flex.justify-content-end
+            input.btn.btn-outline-secondary(type='button' value='Quay lại')
+            input.btn.btn-brown(type='submit' value='Đăng kí ')

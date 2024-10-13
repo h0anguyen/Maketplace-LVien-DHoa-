@@ -27,8 +27,12 @@ block content
               i.fas.fa-clock.fa-2x.text-secondary.mb-2
               h4.mb-0= time
               p.text-muted Ng&agrave;y tham gia
-      .d-flex.justify-content-center.align-items-center
-        button.btn.btn-success.me-3
+      form(action="/message", method="post").d-flex.justify-content-center.align-items-center
+        - if(user)
+          input(type="hidden", name="userId" value=user.id)
+          input(type="hidden", name="receiverId" value=userShop.id)
+
+        button.border-chat.position-absolute#openChat(type='submit' data-toggle='modal' data-target='#exampleModal').btn.btn-success.me-3
           i.fas.fa-comments
           |  Chat v&#x1EDB;i shop
   // Danh sách sản phẩm

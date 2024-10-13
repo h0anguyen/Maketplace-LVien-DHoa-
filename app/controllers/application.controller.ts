@@ -70,4 +70,27 @@ export class ApplicationController {
       next();
     }
   }
+  public async checkRoleVendor(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const checkRoleVendor = await prisma.roleUser.findFirst({
+      where: {
+        AND: [
+          {
+            userId: req.session.userId,
+          },
+          {
+            rolesId: 2,
+          },
+        ],
+      },
+    });
+    if (checkRoleVendor) {
+      next();
+    } else {
+      res.redirect("/vendor/new");
+    }
+  }
 }
