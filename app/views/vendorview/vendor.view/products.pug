@@ -98,10 +98,9 @@ block content
                         td= product.categories.categoryName
                         td= array[STT-1]
                         th 
-                          form(action="" method="") 
-                            button(type="submit").btn.btn-info.btn-sm
-                              i.fas.fa-eye.me-1
-                              | Chi tiết
+                          a(href=`/vendor/product/${product.id}`).btn.btn-info.btn-sm
+                            i.fas.fa-eye.me-1
+                            | Chi tiết
                         th 
                           form(action=`/vendor/product/${product.id}?_method=DELETE`, method="post") 
                             button(type="submit").btn.btn-danger.btn-sm

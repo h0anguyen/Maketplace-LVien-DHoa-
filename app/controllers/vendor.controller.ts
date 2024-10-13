@@ -401,34 +401,17 @@ export class VendorController extends ApplicationController {
     }
   }
 
-  public async newProduct(req: Request, res: Response) {
-    if (req.session.userId) {
-      const user = await prisma.user.findFirst({
-        where: {
-          id: req.session.userId,
-        },
-      });
-      const categories = await prisma.categories.findMany();
-      res.render("vendorview/vendor.view/addproduct", { user, categories });
-    } else {
-      req.flash("errors", {
-        msg: "Vui lòng đăng nhập trước khi sử dụng trang này",
-      });
-      res.redirect("/auth/signin");
-    }
-  }
-
   public async editProduct(req: Request, res: Response) {
     const { id } = req.params;
-    if (id) {
+    if (isNaN(+id) == false) {
       const product = await prisma.products.findFirst({
         where: {
-          id: parseInt(id),
+          id: +id,
         },
       });
       const productImage = await prisma.images.findMany({
         where: {
-          productId: parseInt(id),
+          productId: +id,
         },
       });
 
@@ -439,6 +422,14 @@ export class VendorController extends ApplicationController {
         categories,
         productImage,
       });
+    } else {
+      const user = await prisma.user.findFirst({
+        where: {
+          id: req.session.userId,
+        },
+      });
+      const categories = await prisma.categories.findMany();
+      res.render("vendorview/vendor.view/addproduct", { user, categories });
     }
   }
 
@@ -499,12 +490,12 @@ export class VendorController extends ApplicationController {
         req.flash("success", {
           msg: "Cập nhật sản phẩm thành công",
         });
-        res.redirect("/products");
+        res.redirect("/vendor/products");
       } else {
         req.flash("errors", {
           msg: "Lỗi không xác định",
         });
-        res.redirect("/products");
+        res.redirect("/vendor/products");
       }
     } else {
       const newProduct = await prisma.products.update({
@@ -523,12 +514,12 @@ export class VendorController extends ApplicationController {
         req.flash("success", {
           msg: "Cập nhật sản phẩm thành công",
         });
-        res.redirect("/products");
+        res.redirect("/vendor/products");
       } else {
         req.flash("errors", {
           msg: "Lỗi không xác định",
         });
-        res.redirect("/products");
+        res.redirect("/vendor/products");
       }
     }
   }

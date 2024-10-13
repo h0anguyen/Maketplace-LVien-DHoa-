@@ -75,22 +75,27 @@ export class ApplicationController {
     res: Response,
     next: NextFunction
   ) {
-    const checkRoleVendor = await prisma.roleUser.findFirst({
-      where: {
-        AND: [
-          {
-            userId: req.session.userId,
-          },
-          {
-            rolesId: 2,
-          },
-        ],
-      },
-    });
-    if (checkRoleVendor) {
-      next();
+    if (req.session.userId) {
+      const checkRoleVendor = await prisma.roleUser.findFirst({
+        where: {
+          AND: [
+            {
+              userId: req.session.userId,
+            },
+            {
+              rolesId: 2,
+            },
+          ],
+        },
+      });
+      if (checkRoleVendor) {
+        next();
+      } else {
+        res.redirect("/vendor/new");
+      }
     } else {
-      res.redirect("/vendor/new");
+      res.redirect("/auth/signin");
     }
+    
   }
 }

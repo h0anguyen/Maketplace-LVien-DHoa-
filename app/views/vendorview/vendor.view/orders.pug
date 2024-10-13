@@ -41,7 +41,7 @@ block content
                 i.fas.fa-angle-down
             #collapseLayouts.collapse(aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion')
               nav.sb-sidenav-menu-nested.nav
-                a.nav-link(href='/vendor/orders') Đơn hàng
+                a.nav-link(href='/vendor/vendor/orders') Đơn hàng
                 a.nav-link(href='###') Đơn hàng đã hủy
             a.nav-link.collapsed(href='#' data-bs-toggle='collapse' data-bs-target='#collapsePages' aria-expanded='false' aria-controls='collapsePages')
               .sb-nav-link-icon
@@ -95,9 +95,9 @@ block content
                         td= order.recipientNumberPhone
                         td
                           - if(order.status=="PENDING")
-                            form(action=`/orders/${order.id}?_method=PUT`, method="post") 
+                            form(action=`/vendor/orders/${order.id}?_method=PUT`, method="post") 
                               button(type="submit" ).badge.bg-warning Chờ xác nhận
-                          - if(order.status=="OUT_FOR_DELIVERY")
+                          - if(order.status=="ACCEPTED")
                               form(action="", method="post") 
                                 button(type="submit" disabled).badge.bg-warning Đang chuyển giao vận chuyển
                           - if(order.status=="CANCELLED")
