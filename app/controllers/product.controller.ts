@@ -17,13 +17,15 @@ export class ProductController extends ApplicationController {
   }
   public async show(req: Request, res: Response) {
     const { id } = req.params;
-
-    const user = await prisma.user.findFirst({
-      where: {
-        id: req.session.userId,
-      },
-    });
-
+    let user;
+    console.log(req.session.userId);
+    if (req.session.userId) {
+      user = await prisma.user.findFirst({
+        where: {
+          id: req.session.userId,
+        },
+      });
+    }
     const product = await prisma.products.findUnique({
       where: {
         id: +id,

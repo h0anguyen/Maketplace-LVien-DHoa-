@@ -19,13 +19,6 @@ block content
         a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
           i.fas.fa-user.fa-fw
         ul.dropdown-menu.dropdown-menu-end(aria-labelledby='navbarDropdown')
-          li
-            a.dropdown-item(href='#!') Settings
-          li
-            a.dropdown-item(href='#!') Activity Log
-          li
-            hr.dropdown-divider
-          li
             form(action=`/auth/${userId}?_method=DELETE`, method="post") 
               button(type="submit").dropdown-item Đăng xuất
   #layoutSidenav
