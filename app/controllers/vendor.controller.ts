@@ -82,7 +82,16 @@ export class VendorController extends ApplicationController {
       res.redirect("/auth/signup");
     }
   }
-
+  public async new(req: Request, res: Response) {
+    if (req.session.userId) {
+      const user = await prisma.user.findFirst({
+        where: {
+          id: req.session.userId,
+        },
+      });
+      res.render("vendorview/vendor.view/new", { user });
+    }
+  }
   public async create(req: Request, res: Response) {
     const { fullName, address, numberPhone, email } = req.body;
     const id = req.session.userId;
@@ -309,15 +318,15 @@ export class VendorController extends ApplicationController {
           id: req.session.userId,
         },
       });
-    const { id } = req.params;
+      const { id } = req.params;
 
-    const orderDetail = await prisma.orderDetail.findMany({
-      where: {
-        orderId: parseInt(id),
-      },
-    });
+      const orderDetail = await prisma.orderDetail.findMany({
+        where: {
+          orderId: parseInt(id),
+        },
+      });
+    }
   }
-}
 
   public async deleteOrder(req: Request, res: Response) {
     const { id } = req.params;
@@ -378,7 +387,12 @@ export class VendorController extends ApplicationController {
             .format("DD-MM-YYYY HH:mm:ss")
         );
       }
-      res.render("vendorview/vendor.view/products", { user, products, array,groups });
+      res.render("vendorview/vendor.view/products", {
+        user,
+        products,
+        array,
+        groups,
+      });
     } else {
       req.flash("errors", {
         msg: "Vui lòng đăng nhập trước khi sử dụng trang này",

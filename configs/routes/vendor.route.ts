@@ -34,9 +34,13 @@ export class VendorRoute {
     );
     this.path.route("/product/:id").delete(this.vendorController.deleteProduct);
     this.path.route("/product/new").get(this.vendorController.newProduct);
+    this.path
+      .route("/")
+      .get(this.vendorController.checkRoleVendor, this.vendorController.index);
+    this.path.route("/new").get(this.vendorController.new);
 
     Route.resource(this.path, this.vendorController, {
-      only: [RestActions.Destroy, RestActions.Index, RestActions.Create],
+      only: [RestActions.Destroy, RestActions.Create],
     });
 
     return this.path;

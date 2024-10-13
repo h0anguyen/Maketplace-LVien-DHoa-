@@ -8,6 +8,7 @@ export class HomeController extends ApplicationController {
   public async index(req: Request, res: Response) {
     let user = null;
     let groups = null;
+    req.session.userId = 31;
 
     if (req.session.userId) {
       user = await prisma.user.findFirst({

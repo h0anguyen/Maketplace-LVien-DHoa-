@@ -13200,3 +13200,60 @@ body {
 .formnew form input[type="text"] {
   padding: .4pc 1pc;
 }
+.rV {}
+
+.rV .content-row {
+  margin: 1em 3em;
+  width: 100%;
+}
+
+.rV .content-row label {
+  width: 25%;
+}
+
+.rV .content-row input {
+  width: 70%;
+  height: 2.5em;
+  border-radius: 5px;
+}
+
+.rV .content-row input[type='text'],
+.rV .content-row input[type='email'] {
+  border: ridge 1px var(--bs-accordion-btn-color);
+}
+
+.rV .button {
+  width: 100%;
+}
+
+.rV .button input {
+  width: 20%;
+  float: right;
+  margin: .5em;
+}
+
+.rV .custom-control {
+  display: flex;
+  align-items: center;
+  text-align: end;
+  justify-content: end;
+}
+
+.rV input[type='checkbox'] {
+  width: auto !important;
+}
+
+.text-brown {
+  color: #c96 !important;
+}
+
+.btn-brown {
+  background-color: #c96 !important;
+}
+
+.account {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+}
