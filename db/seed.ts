@@ -95,7 +95,7 @@ async function main() {
     },
   });
   allUser.shift();
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 400; i++) {
     const mainImage = images[i % imageCount].toString();
 
     await prisma.products.create({
@@ -107,7 +107,7 @@ async function main() {
         inventory: faker.number.int({ min: 1, max: 1000 }),
         mainImage,
         view: faker.number.int({ min: 1, max: 10000 }),
-        sold: faker.number.int({ min: 1, max: 1000 }),
+        sold: faker.number.int({ min: 1, max: 1000 }) * 1000,
         categories: {
           connect: {
             id: allCategories[

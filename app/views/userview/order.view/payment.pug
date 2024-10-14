@@ -14,7 +14,7 @@ block content
           script.
             setTimeout(function() {
               document.forms['paymentForm'].submit();
-            },2000);
+            },1000);
 
           // Form tự động gửi thông tin đơn hàng đến server xử lý thanh toán
           form(name='paymentForm' method='post' action='/payment')

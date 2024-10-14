@@ -9,7 +9,7 @@ export class ProductRoute {
 
   public static draw() {
     this.path
-      .route("/api/products")
+      .route("/api/search")
       .get(this.productController.getMoreProductsV2);
 
     this.path.route("/search").get(this.productController.search);

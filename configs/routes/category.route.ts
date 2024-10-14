@@ -8,9 +8,10 @@ export class CategoryRoute {
   private static categoryController = new CategoryController();
 
   public static draw() {
-    this.path.route("/api/products/category/:id").get(this.categoryController.getMoreProductsV2);
 
-    this.path.route("/api/category").get(this.categoryController.getMoreProducts);
+    this.path
+      .route("/api/category/:id")
+      .get(this.categoryController.getMoreProductsByCategory);
     Route.resource(this.path, this.categoryController, {
       only: [RestActions.Show],
     });

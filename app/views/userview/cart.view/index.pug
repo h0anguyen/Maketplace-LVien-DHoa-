@@ -6,7 +6,7 @@ block content
     main.main
       .page-header.text-center.mb-4(style="background-image: url('assets/images/page-header-bg.jpg')")
         .container
-          h1.page-title CART
+          h1.page-title Giỏ hàng
       .page-content
         #cart
           .container
@@ -36,7 +36,7 @@ block content
                             .cart-product-quantity
                               input(type='hidden' name='productId' value=cart.productId)
                               input.form-control(type='number' name='quantity' value=cart.quantity min='1' max=cart.product.inventory step='1' data-decimals='0' required='')
-                          td.total-col= `${(Math.round(cart.product.price * cart.quantity * 10) / 10)} VNĐ`
+                          td.total-col= `${(Math.round(cart.product.price * cart.quantity * 10) / 10)} đ`
                           td.remove-col
                                button.btn-remove(type='submit' name='action' value='remove')
                                 i.icon-close
@@ -51,23 +51,21 @@ block content
                     tbody
                       tr.summary-subtotal
                         td CẬP NHẬT GIỎ HÀNG
-                        td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0)} VNĐ`
+                        td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0)} vnđ`
                       tr.summary-shipping
                         td Vận chuyển:
                         td &nbsp;
                       tr.summary-shipping-row
                         td
-                          .custom-control.custom-radio
                             label(for='free-shipping') Miễn phí vận chuyển
                         td 0đ
                       tr.summary-shipping-estimate
                         td
-                          | Ước tính cho Quốc gia của bạn
                           br
                         td &nbsp;
                       tr.summary-total
                         td Tổng cộng:
-                        td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0)} VNĐ`
+                        td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0)} đ`
                 form(action='/checkout' method="GET")
                   button.btn.btn-outline-primary-2.btn-order.btn-block(type="submit") TIẾN HÀNH THANH TOÁN
     include ../partials/footer

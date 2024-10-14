@@ -13,7 +13,7 @@ block content
         img.img-fluid.rounded-circle.shadow(src='/images/avatar_user_null.png' alt='Ảnh đại diện shop' style='width: 200px; height: 200px; object-fit: cover;')
     .col-md-8
       h2.shop-name.text-center.text-primary.mb-3= userShop.fullName
-        |(Shop)
+        | (Shop)
         i.fas.fa-check-circle.text-success
       .shop-stats.mb-3
         .row.justify-content-center
@@ -26,15 +26,15 @@ block content
             .stat-item.text-center
               i.fas.fa-clock.fa-2x.text-secondary.mb-2
               h4.mb-0= time
-              p.text-muted Ng&agrave;y tham gia
+              p.text-muted Ngày tham gia
       form(action="/message", method="post").d-flex.justify-content-center.align-items-center
         - if(user)
           input(type="hidden", name="userId" value=user.id)
           input(type="hidden", name="receiverId" value=userShop.id)
 
-        button.border-chat.position-absolute#openChat(type='submit' data-toggle='modal' data-target='#exampleModal').btn.btn-success.me-3
+        button.border-chat#openChat(type='submit' data-toggle='modal' data-target='#exampleModal').btn.btn-success.me-3
           i.fas.fa-comments
-          |  Chat v&#x1EDB;i shop
+          |  Chat với shop
   // Danh sách sản phẩm
   h3.mb-5.text-center.text-primary.border-bottom.pb-3 T&#x1EA5;t c&#x1EA3; s&#x1EA3;n ph&#x1EA9;m
   .row.justify-content-center
@@ -42,18 +42,23 @@ block content
       .row.justify-content-center
         each product in productsShop
           .col-2
-            .product.px-4.pt-2
+            .product.text-center.fancy-product
               figure.product-media
-                a.product-image-link(href=`/product/${product.id}`)
-                  img.product-image(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
+                a.product-image-link(href=`product.html?id=${product.id}`)
+                  img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
+                .product-action
+                  form(action='/cart' method='POST').addtocart
+                    input(type='hidden' name='productId' value=product.id)
+                    input(type='hidden' name='quantity' value='1')
+                    button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
+                      span Thêm vào giỏ hàng
               .product-body
                 h3.product-title
                   a(href=`/product/${product.id}`)= product.productName
                 .product-price
-                  span= product.price
-                    |.000VND
-                .product-star 
-                  span= product.sold
+                  span= `${product.price.toLocaleString('vi-VN')} đ`
+                .sold.text-warning
+                  | Đã bán: #{product.sold}
       nav(aria-label='Page navigation')
         ul.pagination.justify-content-center
           li.page-item.disabled

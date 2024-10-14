@@ -213,59 +213,42 @@ export class ProductController extends ApplicationController {
 
   public async getMoreProductsV2(req: Request, res: Response) {
     const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 12;
+    const limit = parseInt(req.query.limit as string) || 20;
     const skip = (page - 1) * limit;
     const searchQuery = req.query.q as string;
+    const sortBy = (req.query.sortby as string) || "rating";
+    console.log(sortBy);
 
     try {
-        let whereClause = {};
-        if (searchQuery) {
-            whereClause = {
-                OR: [
-                    { productName: { contains: searchQuery, mode: 'insensitive' } },
-                    { description: { contains: searchQuery, mode: 'insensitive' } }
-                ]
-            };
-        }
+      let whereClause = {};
+      if (searchQuery) {
+        whereClause = {
+          productName: {
+            contains: searchQuery,
+          },
+        };
+      }
 
-        const products = await prisma.products.findMany({
-            where: whereClause,
-            skip: skip,
-            take: limit,
-            orderBy: { createdAt: 'desc' },
-            select: {
-                id: true,
-                productName: true,
-                price: true,
-                sold: true,
-                categories: true,
-                mainImage: true
-            }
-        });
+      const sortOptions: Record<string, any> = {
+        rating: { sold: "desc" },
+        asc: { price: "asc" },
+        desc: { price: "desc" },
+      };
 
+      // Kiểm tra xem sortBy có nằm trong sortOptions không
+      const orderBy = sortOptions[sortBy] || sortOptions['rating'];
 
-        res.json({ products });
+      const products = await prisma.products.findMany({
+        where: whereClause,
+        skip: skip,
+        take: limit,
+        orderBy: orderBy,
+      });
+
+      res.json({ products });
     } catch (error) {
-        console.error('Error fetching products:', error);
-        res.status(500).json({ products: [], error: 'Internal server error' });
+      console.error("Error fetching products:", error);
+      res.status(500).json({ products: [], error: "An error occurred" });
     }
-  }
-  public async getMoreProducts(req: Request, res: Response) {
-    const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 12;
-    const skip = (page - 1) * limit;
-
-    const products = await prisma.products.findMany({
-      skip,
-      take: limit,
-      orderBy: {
-        createdAt: "desc",
-      },
-      include: {
-        categories: true,
-      },
-    });
-
-    res.json(products);
   }
 }

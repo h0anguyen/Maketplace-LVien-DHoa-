@@ -47,51 +47,42 @@ export class CategoryController extends ApplicationController {
       res.status(500).json({ message: "Internal server error" });
     }
   }
-  public async getMoreProducts(req: Request, res: Response) {
-    const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 12;
-    const skip = (page - 1) * limit;
-
-    const products = await prisma.products.findMany({
-      skip,
-      take: limit,
-      orderBy: {
-        createdAt: "desc",
-      },
-      include: {
-        categories: true,
-      },
-    });
-
-    res.json(products);
-  }
-  public async getMoreProductsV2(req: Request, res: Response) {
-    const categoryId = parseInt(req.params.id);
-    const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 12;
-    const skip = (page - 1) * limit;
-
+  public async getMoreProductsByCategory(req: Request, res: Response) {
     try {
+      const categoryId = parseInt(req.params.id);
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 20;
+      const skip = (page - 1) * limit;
+      const sortBy = (req.query.sortby as string) || "rating";
+
+      if (isNaN(categoryId)) {
+        return res.status(400).json({ error: "Invalid category ID" });
+      }
+      const sortOptions: any = {
+        rating: { sold: "desc" },
+        asc: { price: "asc" },
+        desc: { price: "desc" },
+      };
+
       const products = await prisma.products.findMany({
-        where: { categoryId: categoryId },
-        skip: skip,
-        take: limit,
-        orderBy: { createdAt: "desc" },
-        select: {
-          id: true,
-          productName: true,
-          price: true,
-          sold: true,
-          categories: true,
-          mainImage: true,
+        where: {
+          categoryId: categoryId,
         },
+        skip,
+        take: limit,
+        orderBy: sortOptions[sortBy],
       });
 
+      if (products.length === 0) {
+        return res
+          .status(404)
+          .json({ message: "No more products found in this category" });
+      }
 
-      res.json({ products });
+      res.json(products);
     } catch (error) {
-      console.error("Error fetching products:", error);
-      res.status(500).json({ products: [], error: "Internal server error" });
+      console.error("Error fetching products by category:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
   }
 }

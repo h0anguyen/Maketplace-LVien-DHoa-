@@ -26,12 +26,12 @@ block content
         form.rV.col-8(action='/vendor' method='post')
           .content-row
             label(for='')
-              | T&ecirc;n c&#x1EED;a h&agrave;ng 
+              | Tên cửa hàng
               sup.text-danger *
-            input(type='text' name='fullName' value='ten tui nè' disabled=''  required='')
+            input(type='text' name='fullName' value=`${user.fullName}` disabled=''  required='')
           .content-row
             label(for='')
-              | &Dstrok;&#x1ECB;a ch&#x1EC9;
+              | Địa chỉ
               sup.text-danger *
             - if(!user.address)
               input(type='text' name='address' value=``  placeholder='vui lòng nhập địa chỉ'  required='')
@@ -39,7 +39,7 @@ block content
               input(type='text' name='address' value=`${user.address}` placeholder='vui lòng nhập địa chỉ'  required='')
           .content-row
             label(for='')
-              | S&#x1ED1; &dstrok;i&#x1EC7;n tho&#x1EA1;i
+              | Số điện thoại
               sup.text-danger *
             - if(!user.numberPhone)
               input(type='text' name='numberPhone' value=``  placeholder='vui lòng nhập số điện thoại'  required='')

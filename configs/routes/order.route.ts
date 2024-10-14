@@ -8,6 +8,7 @@ export class OrderRoute {
   private static orderController = new OrderController();
 
   public static draw() {
+    
     this.path.route("/api/districts").get(this.orderController.getDistricts);
     this.path.route("/api/wards").get(this.orderController.getWards);
 
