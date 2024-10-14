@@ -13,7 +13,7 @@ block content
             form(action="/checkout" method="POST")
               .row.mt-3 
                 .col-lg-9
-                  h2.checkout-title Billing Details
+                  h2.checkout-title Chi tiết thanh toán
                   .row
                     .col-sm-6
                       label Họ và tên *
@@ -44,15 +44,15 @@ block content
 
                     .col-12
                       label Ghi chú (optional)
-                      textarea.form-control(cols='30' rows='4' placeholder='Notes about your order, e.g. special notes for delivery')
+                      textarea.form-control(cols='30' rows='4' placeholder='Ghi chú về đơn đặt hàng của bạn, ví dụ: ghi chú đặc biệt khi giao hàng')
                 .col-lg-3.mt-2
                   .summary
-                    h3.summary-title Your Order
+                    h3.summary-title Đơn hàng của bạn
                     table.table.table-summary
                       thead
                         tr
-                          th Product
-                          th Total
+                          th Sản phẩm
+                          th Tổng cộng
                       tbody
                         each cart in carts
                           tr
@@ -60,13 +60,13 @@ block content
                               a(href=`/product/${cart.product.id}`)= cart.product.productName
                             td= `${(Math.round(cart.product.price * cart.quantity * 10) / 10)} VNĐ`
                       tr.summary-subtotal
-                        td Subtotal:
+                        td Tổng phụ:
                         td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0)} VNĐ`
                       tr
-                        td Shipping:
-                        td Free shipping
+                        td Vận chuyển:
+                        td Miễn phí 
                       tr.summary-total
-                        td Total:
+                        td Tổng cộng:
                         td= `${carts.reduce((total, cart) => total + (cart.product.price * cart.quantity), 0)} VNĐ`
                     #accordion-payment.accordion-summary
                       .card.mb-1
@@ -74,17 +74,17 @@ block content
                           h2.card-title
                             .form-check
                               input#cashOnDelivery.form-check-input(type='radio' name='paymentMethod' value='cod' checked)
-                              label.form-check-label.mx-2(for='cashOnDelivery') Cash on delivery
+                              label.form-check-label.mx-2(for='cashOnDelivery') Thanh toán khi nhận hàng
                       .card.mb-1
                         #heading-5.card-header
                           h2.card-title
                             .form-check
                               input#creditCard.form-check-input(type='radio' name='paymentMethod' value='vnpay')
-                              label.form-check-label.mx-2(for='creditCard') Vnpay
+                              label.form-check-label.mx-2(for='creditCard') VNPAY
                             img.mt-1(src='images/payments-summary.png' alt='payments cards')
                     button.btn.btn-outline-primary-2.btn-order.btn-block(type='submit')
                       span.btn-text Thanh toán
-                      span.btn-hover-text Proceed to Checkout
+                      span.btn-hover-text Tiến hành thanh toán
 
   include ../partials/footer
   script.

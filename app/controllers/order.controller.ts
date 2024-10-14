@@ -162,7 +162,6 @@ export class OrderController extends ApplicationController {
         0
       ) ;
 
-    // Xóa giỏ hàng trước khi redirect hoặc render
     await prisma.cart.deleteMany({ where: { userId } });
 
     if (paymentMethod === "cod") {

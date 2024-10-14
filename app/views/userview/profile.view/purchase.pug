@@ -24,6 +24,12 @@ block content
                 .container-fluid.px-4
                   .border.p-4.mb-4.rounded.shadow-lg.bg-white
                     h2.mb-4.text-primary.text-center Đơn mua của tôi
+
+                    if !orders.length
+                      .no-orders.text-center
+                        p Bạn chưa có đơn hàng nào.
+                        a.btn.btn-primary(href="/") Tiếp tục mua sắm
+
                     each order in orders
                       .order-summary.border.p-4.mb-4.rounded.shadow-sm.bg-light.position-relative
                         span.badge.badge-pill.position-absolute.top-0.end-0.mt-2.me-3(
@@ -31,22 +37,24 @@ block content
                         ) #{order.status}
 
                         h4.text-secondary
-                          | Order ID: 
+                          | Order ID:
                           span.text-primary= order.id
                         table.table.table-bordered.shadow-sm
                           thead.thead-light
-                            tr 
-                              th.text-center Người nhận 
+                            tr
+                              th.text-center Người nhận
                               th.text-center Địa chỉ
-                              th.text-center Số điện thoại 
+                              th.text-center Số điện thoại
                               th.text-center Ngày mua
-                          tbody 
-                            tr 
+                          tbody
+                            tr
                               td.text-center.text-info= order.recipientName
                               td.text-center.text-info= order.recipientAddress
                               td.text-center.text-info= order.recipientNumberPhone
                               td.text-center.text-info= new Date(order.createdAt).toLocaleDateString()
+
                         h5.text-primary.mt-4.mb-3.text-center Sản phẩm trong đơn hàng
+
                         table.table
                           thead
                             tr
@@ -71,9 +79,10 @@ block content
                                       span.text-muted Đã đánh giá
                                   else
                                     span.text-muted Chưa thể đánh giá
+
                         h5.mt-4.text-end
                           span Tổng giá trị đơn hàng: 
-                          span.text-danger #{order.OrdersDetail.reduce((total, detail) => total + (detail.unitPrice * detail.quantity), 0)} VNĐ
+                          span.text-danger  #{order.OrdersDetail.reduce((total, detail) => total + (detail.unitPrice * detail.quantity), 0)} VNĐ
 
     include ../partials/footer
 

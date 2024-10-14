@@ -74,7 +74,6 @@ export class CartController extends ApplicationController {
     console.log("Request body:", req.body);
 
     if (action === "update") {
-
       // lỗi 1 product
 
       const updates = productId.map((id: string, index: number) => {

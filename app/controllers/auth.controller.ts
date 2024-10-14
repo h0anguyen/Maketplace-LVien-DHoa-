@@ -45,7 +45,7 @@ export class AuthController extends ApplicationController {
           numberPhone: googleUser.numberPhone,
           fullName: googleUser.name,
           email: googleUser.email,
-          avatar: undefined,
+          avatar: googleUser.avatar,
           password: null,
           roleUsers: {
             create: [
@@ -84,7 +84,6 @@ export class AuthController extends ApplicationController {
         });
         return res.render("adminview/admin.home.view/index");
       }
-    
 
       const checkBan = await prisma.roleUser.findFirst({
         where: {

@@ -63,7 +63,7 @@ export class HomeController extends ApplicationController {
   
     const products = await prisma.products.findMany({
       skip,
-      take: limit,
+      take: 2,
       orderBy: {
         createdAt: 'desc'
       },
@@ -71,7 +71,8 @@ export class HomeController extends ApplicationController {
         categories: true
       }
     });
-  
+    console.log(products);
+    
     res.json(products);
   }
 }
