@@ -13,11 +13,11 @@ export class CartRoute {
       .route("/")
       .post(this.cartController.isAuthenticated, this.cartController.create);
     this.path
-      .route("/handleCartActions")
-      .post(this.cartController.handleCartActions);
-    // Route.resource(this.path, this.cartController, {
-    //   only: [RestActions.Create],
-    // });
+      .route("/update")
+      .post(this.cartController.isAuthenticated, this.cartController.update);
+    this.path
+      .route("/remove")
+      .post(this.cartController.isAuthenticated, this.cartController.remove);
 
     return this.path;
   }
