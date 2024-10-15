@@ -67,45 +67,102 @@ export class CartController extends ApplicationController {
       res.redirect("back");
     }
   }
+  //   public async handleCartActions(req: Request, res: Response) {
+  //     const userId = req.session.userId;
+  //     let { action, productId, quantity } = req.body;
+  //     console.log(productId);
 
-  public async handleCartActions(req: Request, res: Response) {
+  //     productId = Array.isArray(productId) ? productId : [productId];
+  //     console.log(productId);
+
+  //     try {
+  //         if (action === "update") {
+  //             const updates = productId.map((id: string, index: number) => {
+  //                 return prisma.cart.updateMany({
+  //                     where: {
+  //                         userId: userId,
+  //                         productId: parseInt(id),
+  //                     },
+  //                     data: {
+  //                         quantity: Array.isArray(quantity) ? parseInt(quantity[index]) : parseInt(quantity),
+  //                     },
+  //                 });
+  //             });
+
+  //             await Promise.all(updates);
+
+  //             req.flash("success", { msg: "Số lượng sản phẩm đã được cập nhật" });
+  //         } else if (action === "remove") {
+  //             const deletions = productId.map((id: string) => {
+  //                 return prisma.cart.delete({
+  //                     where: {
+  //                       userId_productId: {
+  //                         userId: userId,
+  //                         productId: parseInt(id),
+  //                     },
+  //                     },
+  //                 });
+  //             });
+
+  //             await Promise.all(deletions);
+
+  //             req.flash("success", { msg: productId.length > 1 ? "Các sản phẩm đã được xóa khỏi giỏ hàng" : "Sản phẩm đã được xóa khỏi giỏ hàng" });
+  //         } else {
+  //             req.flash("error", { msg: "Hành động không hợp lệ" });
+  //         }
+  //     } catch (error) {
+  //         console.error("Error handling cart action:", error);
+  //         req.flash("error", { msg: "Đã xảy ra lỗi khi xử lý giỏ hàng" });
+  //     }
+
+  //     res.redirect("/cart");
+  // }
+  public async update(req: Request, res: Response) {
     const userId = req.session.userId;
-    const { action, productId, quantity } = req.body;
-    console.log("Request body:", req.body);
+    const { productId, quantity } = req.body;
 
-    if (action === "update") {
-      // lỗi 1 product
+    try {
+      productId.shift();
+      const productIds = Array.isArray(productId) ? productId : [productId];
+      const quantities = Array.isArray(quantity) ? quantity : [quantity];
 
-      const updates = productId.map((id: string, index: number) => {
-        return prisma.cart.updateMany({
+      for (let i = 0; i < productId.length; i++) {
+        await prisma.cart.updateMany({
           where: {
             userId: userId,
-            productId: parseInt(id),
+            productId: parseInt(productIds[i]),
           },
           data: {
-            quantity: parseInt(quantity[index]),
+            quantity: parseInt(quantities[i]),
           },
         });
-      });
+      }
 
-      await Promise.all(updates);
+      res.redirect("/cart");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("An error occurred while updating the cart");
+    }
+  }
 
-      req.flash("success", { msg: "Số lượng sản phẩm đã được cập nhật" });
-    } else if (action === "remove") {
-      const productIdToRemove = Array.isArray(productId)
-        ? productId[0]
-        : productId;
+  public async remove(req: Request, res: Response) {
+    const userId = req.session.userId;
+    const { productId } = req.body;
 
+    try {
       await prisma.cart.deleteMany({
         where: {
           userId: userId,
-          productId: parseInt(productIdToRemove),
+          productId: parseInt(productId),
         },
       });
-      req.flash("success", { msg: "Sản phẩm đã được xóa khỏi giỏ hàng" });
-    } else {
-      req.flash("error", { msg: "Hành động không hợp lệ" });
+
+      res.redirect("/cart");
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send("An error occurred while removing the item from the cart");
     }
-    res.redirect("/cart");
   }
 }

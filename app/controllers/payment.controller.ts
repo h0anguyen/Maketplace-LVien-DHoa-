@@ -27,11 +27,16 @@ export class PaymentController extends ApplicationController {
       },
       select: {
         createdAt: true,
+        status: true,
       },
     });
 
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
+    }
+
+    if (order.status !== "PENDING") {
+      return res.status(400).json({ message: "Order is not in a payable state" });
     }
 
     if (!orderId || !totalAmount) {
@@ -78,7 +83,7 @@ export class PaymentController extends ApplicationController {
       }
 
       // Nếu đơn hàng đã được xác nhận trước đó
-      if (order.status === "ACCEPTED") {
+      if (order.status === "PENDING") {
         return res.json(InpOrderAlreadyConfirmed);
       }
 

@@ -10,17 +10,14 @@ block content
           p.text-muted.mb-4 Quý khách vui lòng đợi trong giây lát, chúng tôi đang chuyển hướng bạn đến trang thanh toán.
           i.fas.fa-spinner.fa-spin.fa-3x.text-info  //- Icon loading animation
           
-          // Tự động submit form khi trang load
           script.
             setTimeout(function() {
               document.forms['paymentForm'].submit();
             },1000);
 
-          // Form tự động gửi thông tin đơn hàng đến server xử lý thanh toán
           form(name='paymentForm' method='post' action='/payment')
             input(type='hidden' name='orderId' value=orderId)
             input(type='hidden' name='totalAmount' value=totalAmount)
 
-          // Thêm nút dự phòng nếu tự động không hoạt động
           button.btn.btn-primary(type='submit') Nhấn vào đây nếu không được chuyển hướng tự động
     include ../partials/footer

@@ -217,7 +217,6 @@ export class ProductController extends ApplicationController {
     const skip = (page - 1) * limit;
     const searchQuery = req.query.q as string;
     const sortBy = (req.query.sortby as string) || "rating";
-    console.log(sortBy);
 
     try {
       let whereClause = {};

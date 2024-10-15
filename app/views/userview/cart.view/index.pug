@@ -12,7 +12,7 @@ block content
           .container
             .row
               .col-lg-9
-                form(action='/cart/handleCartActions' method='post')
+                form#updateForm(action='/cart/update' method='post')
                   table.table.table-cart.table-mobile
                     thead
                       tr
@@ -38,10 +38,12 @@ block content
                               input.form-control(type='number' name='quantity' value=cart.quantity min='1' max=cart.product.inventory step='1' data-decimals='0' required='')
                           td.total-col= `${(Math.round(cart.product.price * cart.quantity * 10) / 10)} đ`
                           td.remove-col
-                               button.btn-remove(type='submit' name='action' value='remove')
+                            form(action='/cart/remove' method='post')
+                              input(type='hidden' name='productId' value=cart.productId)
+                              button.btn-remove(type='submit')
                                 i.icon-close
                   .cart-bottom
-                    button.btn.btn-outline-dark-2(type='submit' name='action' value='update')
+                    button.btn.btn-outline-dark-2(type='submit')
                       span CẬP NHẬT GIỎ HÀNG
                       i.icon-refresh
               aside.col-lg-3
