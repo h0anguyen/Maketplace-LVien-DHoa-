@@ -100,6 +100,9 @@ block content
                           - if(order.status=="ACCEPTED")
                               form(action="", method="post") 
                                 button(type="submit" disabled).badge.bg-warning Đang chuyển giao vận chuyển
+                          - if(order.status=="DELIVERED")
+                              form(action="", method="post") 
+                                button(type="submit" disabled).badge.bg-success Đã nhận hàng
                           - if(order.status=="CANCELLED")
                               form(action="", method="post") 
                                 button(type="submit" disabled).badge.bg-danger Đã hủy

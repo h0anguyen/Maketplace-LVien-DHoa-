@@ -389,7 +389,7 @@ blockquote.text-white cite span {
 }
 
 .container {
-    width: 1188px;
+    width: 90%;
     max-width: 100%;
     padding-left: 10px;
     padding-right: 10px
@@ -497,9 +497,9 @@ blockquote.text-white cite span {
 }
 
 @media screen and (min-width: 1280px) {
-    .container {
+    /* .container {
         max-width: 1200px
-    }
+    */
 }
 
 @media screen and (min-width: 1600px) {

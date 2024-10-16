@@ -1,7 +1,8 @@
+import { convertFileToBase64 } from "@configs/fileUpload";
 import prisma from "@models";
 import { Request, Response } from "express";
-import { convertFileToBase64 } from "../../configs/fileUpload";
 const moment = require("moment-timezone");
+const { startOfMonth } = require("date-fns");
 export class AdminController {
   public async index(req: Request, res: Response) {
     if (req.session.userId != null) {
@@ -26,6 +27,28 @@ export class AdminController {
     try {
       const userId = req.session.userId;
 
+      const getUserNew = await prisma.user.findMany({
+        where: {
+          createdAt: {
+            gte: startOfMonth(new Date()),
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+      let array = [];
+      for (let index = 0; index < getUserNew.length; index++) {
+        array.push(
+          moment
+            .tz(
+              getUserNew[index].createdAt,
+              "ddd MMM DD YYYY HH:mm:ss ZZ",
+              "Asia/Ho_Chi_Minh"
+            )
+            .format("YYYY-MM-DD")
+        );
+      }
       let data: number[] = [1];
       const ttUsers = await prisma.user.count({
         where: {
@@ -42,6 +65,8 @@ export class AdminController {
         data,
         countUser: ttUsers,
         countProducts: ttProducts,
+        users: getUserNew,
+        array,
       });
     } catch {
       req.flash("errors", {
@@ -142,7 +167,6 @@ export class AdminController {
           id: "asc",
         },
       });
-      products.shift();
       let array = [];
       for (let index = 0; index < products.length; index++) {
         array.push(
@@ -170,7 +194,6 @@ export class AdminController {
 
   public async update(req: Request, res: Response) {
     try {
-      const userId = 0;
       const { id } = req.params;
       const deleteUser = await prisma.roleUser.deleteMany({
         where: {
@@ -192,8 +215,28 @@ export class AdminController {
   }
 
   public async listCategories(req: Request, res: Response) {
+    if (req.session.userId != null) {
+      console.log(req.session.userId);
+
+      const checkRole = await prisma.roleUser.findFirst({
+        where: {
+          userId: +req.session.userId,
+          rolesId: 0,
+        },
+      });
+      if (!checkRole) {
+        req.flash("errors", {
+          msg: "Không đủ vai trò để truy cập ",
+        });
+        return res.render("userview/auth.view/signin");
+      }
+    } else {
+      req.flash("errors", {
+        msg: "Vui lòng đăng nhập ",
+      });
+      return res.render("userview/auth.view/signin");
+    }
     try {
-      const userId = 0;
       const categories = await prisma.categories.findMany();
       let array = [];
       for (let index = 0; index < categories.length; index++) {
@@ -208,7 +251,6 @@ export class AdminController {
         );
       }
       res.render("adminview/admin.manages.view/categories", {
-        userId,
         categories,
         array,
       });
@@ -246,8 +288,28 @@ export class AdminController {
   }
 
   public async listRoles(req: Request, res: Response) {
+    if (req.session.userId != null) {
+      console.log(req.session.userId);
+
+      const checkRole = await prisma.roleUser.findFirst({
+        where: {
+          userId: +req.session.userId,
+          rolesId: 0,
+        },
+      });
+      if (!checkRole) {
+        req.flash("errors", {
+          msg: "Không đủ vai trò để truy cập ",
+        });
+        return res.render("userview/auth.view/signin");
+      }
+    } else {
+      req.flash("errors", {
+        msg: "Vui lòng đăng nhập ",
+      });
+      return res.render("userview/auth.view/signin");
+    }
     try {
-      const userId = 0;
       const roles = await prisma.roles.findMany();
       let array = [];
       for (let index = 0; index < roles.length; index++) {
@@ -262,7 +324,6 @@ export class AdminController {
         );
       }
       res.render("adminview/admin.manages.view/roles", {
-        userId,
         roles,
         array,
       });
@@ -299,6 +360,27 @@ export class AdminController {
   }
 
   public async listBanner(req: Request, res: Response) {
+    if (req.session.userId != null) {
+      console.log(req.session.userId);
+
+      const checkRole = await prisma.roleUser.findFirst({
+        where: {
+          userId: +req.session.userId,
+          rolesId: 0,
+        },
+      });
+      if (!checkRole) {
+        req.flash("errors", {
+          msg: "Không đủ vai trò để truy cập ",
+        });
+        return res.render("userview/auth.view/signin");
+      }
+    } else {
+      req.flash("errors", {
+        msg: "Vui lòng đăng nhập ",
+      });
+      return res.render("userview/auth.view/signin");
+    }
     try {
       const userId = 0;
       const banners = await prisma.images.findMany({
