@@ -45,7 +45,7 @@ export class AuthController extends ApplicationController {
           numberPhone: googleUser.numberPhone,
           fullName: googleUser.name,
           email: googleUser.email,
-          avatar: googleUser.avatar,
+          avatar: googleUser.picture,
           password: null,
           roleUsers: {
             create: [
