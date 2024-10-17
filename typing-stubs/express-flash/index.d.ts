@@ -1,11 +1,12 @@
-declare namespace Express {
-  export interface Request {
-    flash(event: string, message: any): any;
-  }
-}
+declare module "express-flash";
 
 interface Flash {
   flash(type: string, message: any): void;
 }
-
-declare module "express-flash";
+declare namespace Express {
+  export interface Request {
+    flash: (typeErr: string, mess: any) => void;
+    // flash(message?: string): { [key: string]: string[] | string };
+    // flash(event: string, message: string | string[]): any;
+  }
+}
