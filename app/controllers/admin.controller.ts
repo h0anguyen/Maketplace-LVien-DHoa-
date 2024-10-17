@@ -4,6 +4,7 @@ import { convertFileToBase64 } from "../../configs/fileUpload";
 const moment = require("moment-timezone");
 export class AdminController {
   public async index(req: Request, res: Response) {
+    console.log(req.session.userId);
     if (req.session.userId != null) {
       const checkRole = await prisma.roleUser.findFirst({
         where: {
@@ -142,7 +143,6 @@ export class AdminController {
           id: "asc",
         },
       });
-      products.shift();
       let array = [];
       for (let index = 0; index < products.length; index++) {
         array.push(

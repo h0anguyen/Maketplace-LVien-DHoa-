@@ -33,7 +33,7 @@ export class ApplicationController {
 
     return res.redirect("/auth/signin");
   }
-  
+
   public async checkBan(req: Request, res: Response, next: NextFunction) {
     const checkBan = await prisma.roleUser.findFirst({
       where: {
@@ -87,6 +87,5 @@ export class ApplicationController {
     } else {
       res.redirect("/auth/signin");
     }
-    
   }
 }

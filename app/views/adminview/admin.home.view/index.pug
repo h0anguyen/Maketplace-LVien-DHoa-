@@ -66,7 +66,7 @@ block content
               .sb-nav-link-icon
                 i.fas.fa-chart-area
               |                                 Banner
-            a.nav-link(href='tables.html')
+            a.nav-link(href='###')
               .sb-nav-link-icon
                 i.fas.fa-table
               |                                 Phiếu giảm giá
@@ -86,7 +86,7 @@ block content
                   .card-body 
                     b= countUser
                 .card-footer.d-flex.align-items-center.justify-content-between
-                  a.small.text-white.stretched-link(href='#') Xem chi tiết
+                  a.small.text-white.stretched-link(href='/admin/users') Xem chi tiết
                   .small.text-white
                     i.fas.fa-angle-right
             .col-xl-6.col-md-6
@@ -95,7 +95,7 @@ block content
                   .card-body
                     b= countProducts
                 .card-footer.d-flex.align-items-center.justify-content-between
-                  a.small.text-white.stretched-link(href='#') Xem chi tiết
+                  a.small.text-white.stretched-link(href='/admin/producs') Xem chi tiết
                   .small.text-white
                     i.fas.fa-angle-right
             
@@ -157,22 +157,24 @@ block content
           .card.mb-4
             .card-header
               i.fas.fa-table.me-1
-              |  Sản phẩm mới 
+              | Người tham gia gần đây
             .card-body
               table#datatablesSimple
                 thead
                   tr
-                    th Name
-                    th Position
-                    th Office
-                    th Age
-                    th Start date
-                    th Salary
-                tfoot
-                  tr
-                    th Name
-                    th Position
-                    th Office
-                    th Age
-                    th Start date
-                    th Salary
+                    th STT
+                    th Họ và tên
+                    th Số điện thoại
+                    th Email
+                    th Địa chỉ
+                    th Ngày tham gia
+                //- tbody 
+                //-   - let STT=0
+                //-   each user in users
+                //-         tr  
+                //-           td= STT=STT+1
+                //-           td= user.fullName
+                //-           td= user.numberPhone
+                //-           td= user.email
+                //-           td= user.Address
+                //-           td= array[STT-1]
