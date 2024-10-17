@@ -103,11 +103,11 @@ async function main() {
         productName: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
         information: faker.commerce.productMaterial(),
-        price: parseInt(faker.commerce.price()),
+        price: parseInt(faker.commerce.price( {min: 2, max: 4000}))* 1000,
         inventory: faker.number.int({ min: 1, max: 1000 }),
         mainImage,
         view: faker.number.int({ min: 1, max: 10000 }),
-        sold: faker.number.int({ min: 1, max: 1000 }) * 1000,
+        sold: faker.number.int({ min: 1, max: 1000 }),
         categories: {
           connect: {
             id: allCategories[
