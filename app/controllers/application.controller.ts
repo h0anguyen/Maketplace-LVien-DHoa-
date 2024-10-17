@@ -33,16 +33,7 @@ export class ApplicationController {
 
     return res.redirect("/auth/signin");
   }
-
-  public verifyToken(req: Request, res: Response, next: NextFunction) {
-    const token = req.headers["x-access-token"] as string;
-
-    if (!token) {
-      return res.status(403).json({
-        message: "Forbidden! Requires a token to access.",
-      });
-    }
-  }
+  
   public async checkBan(req: Request, res: Response, next: NextFunction) {
     const checkBan = await prisma.roleUser.findFirst({
       where: {
