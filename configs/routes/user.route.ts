@@ -10,7 +10,7 @@ export class UserRoute {
 
   public static draw() {
     this.path.route("/editPassword").get(this.userController.editPassword);
-    this.path.route("/purchase").get(this.userController.purchase);
+    this.path.route("/purchase").get(this.userController.isAuthenticated,this.userController.purchase);
     this.path
       .route("/")
       .post(this.userController.validateSignUp, this.userController.create);
