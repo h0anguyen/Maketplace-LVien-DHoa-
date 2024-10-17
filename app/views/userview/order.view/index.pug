@@ -86,7 +86,7 @@ block content
                       span.btn-text Thanh toán
                       span.btn-hover-text Tiến hành thanh toán
 
-  include ../partials/footer
+    include ../partials/footer
   script.
     document.querySelector("#checkoutForm").addEventListener("submit", function(event) {
       const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;

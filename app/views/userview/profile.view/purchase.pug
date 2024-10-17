@@ -80,7 +80,10 @@ block content
                                   else
                                     span.text-muted Chưa thể đánh giá
 
-                        h5.mt-4.text-end
+                        span.mt-4.text-start
+                          a.btn.btn-primary(href="/order/cancel/:id") Huỷ đơn hàng
+
+                        span.mt-4.text-end
                           span Tổng giá trị đơn hàng: 
                           span.text-danger  #{order.OrdersDetail.reduce((total, detail) => total + (detail.unitPrice * detail.quantity), 0)} VNĐ
 

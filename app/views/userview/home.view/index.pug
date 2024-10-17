@@ -265,9 +265,7 @@ block content
       loadMoreBtn.addEventListener('click', async () => {
         currentPage++;
         const response = await fetch(`/api/products?page=${currentPage}&limit=20`);
-        console.log(response);
         const newProducts = await response.json();
-        console.log(newProducts);
 
         newProducts.forEach(product => {
           const productElement = document.createElement('div');

@@ -8,10 +8,10 @@ header.header.header-14.border-bottom-0
           .account.user-info.text-end(type='button' data-toggle='dropdown' aria-expanded='false')
             .rounded-circle.bg-primary.p-1.d-inline-block.overflow-hidden.dropdown(style='width: 45px; height: 45px;')
               - if(user.avatar)
-                  img.img-fluid.rounded-circle(src=`data:image/png;base64,${user.avatar.toString('base64')}` alt='Ảnh đại diện' style='object-fit: cover; width: 100%; height: 100%;')
+                  img.img-fluid.rounded-circle(src=`${user.avatar}` alt='Ảnh đại diện' style='object-fit: cover; width: 100%; height: 100%;')
               - else
                   img.img-fluid.rounded-circle(src='/images/avatar_user_null.png' alt='Ảnh đại diện' style='object-fit: cover; width: 100%; height: 100%;')
-            a.text-decoration-none(href='')
+            a.text-decoration-none(href='/user')
               span.user-name.fw-bold.text-primary=user.fullName
           .dropdown-menu
             a.dropdown-item.inforuser(href='/user') Thông tin tài khoản
@@ -38,7 +38,7 @@ header.header.header-14.border-bottom-0
             form.d-none.d-lg-block(action='/product/search' method='get')
               .header-search-wrapper.search-wrapper-wide
                 label.sr-only(for='q') Tìm kiếm
-                input#q.form-control(type='text' name='q' placeholder='Tìm kiếm sản phẩm ...')
+                input#q.form-control(type='text' name='q' required placeholder='Tìm kiếm sản phẩm ...')
                 button.btn.btn-primary(type='submit')
                   i.icon-search
 

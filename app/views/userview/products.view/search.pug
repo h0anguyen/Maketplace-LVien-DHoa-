@@ -11,7 +11,6 @@ block content
                 .toolbox
                   .toolbox-left
                     .toolbox-info
-                      
                   .toolbox-right
                     .toolbox-sort
                       label(for='sortby') Sắp xếp theo:
@@ -22,13 +21,39 @@ block content
                           option(value='desc') Giá: cao - thấp
                 .products.mb-3
                   .row.justify-content-start#productContainer
-                    if products.length > 0
+                    if products.length < 1
+                      .col-md-12.text-center
+                        h3.text-dark.text-center Không tìm thấy sản phẩm nào phù hợp với từ khóa "#{searchQuery}"
+                    else if products.length < 21
                       each product in products
                         .col-md-4.col-lg-3.shadow-sm.mb-2.px-2
                           .product.product-7.text-center
                             figure.product-media
                               a(href=`/product/${product.id}`)
-                                 img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
+                                  img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
+                              .product-action
+                                form(action='/cart' method='POST').addtocart
+                                  input(type='hidden' name='productId' value=product.id)
+                                  input(type='hidden' name='quantity' value='1')
+                                  button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
+                                    span Thêm vào giỏ hàng
+                            .product-body
+                              .product-cat
+                                a(href=product.categories) #{product.categories}
+                              h3.product-title
+                                a(href=`/product/${product.id}`)
+                                  | #{product.productName}
+                              .product-price
+                                | #{product.price} đ
+                              .sold.text-warning
+                                | Đã bán: #{product.sold}
+                    else
+                      each product in products
+                        .col-md-4.col-lg-3.shadow-sm.mb-2.px-2
+                          .product.product-7.text-center
+                            figure.product-media
+                              a(href=`/product/${product.id}`)
+                                  img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
                               .product-action
                                 form(action='/cart' method='POST').addtocart
                                   input(type='hidden' name='productId' value=product.id)
@@ -47,9 +72,7 @@ block content
                                 | Đã bán: #{product.sold}
                       .text-center.mt-4
                         button#loadMoreBtn.btn.btn-outline-primary-2 Xem thêm
-                    else
-                      .col-md-12.text-center
-                        h3.text-dark.text-center Không tìm thấy sản phẩm nào phù hợp với từ khóa "#{searchQuery}"
+                        
               aside.col-lg-3.order-lg-first
                 .sidebar.sidebar-shop
                   .widget.widget-clean
@@ -166,7 +189,4 @@ block content
             loadMoreBtn.style.display = 'none'; // Ẩn nút nếu gặp lỗi
           }
         }
-
-        // Gọi hàm lần đầu để tải sản phẩm khi trang được tải
-        loadProducts();
       });
