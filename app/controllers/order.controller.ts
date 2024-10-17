@@ -1,7 +1,7 @@
 import prisma from "@models";
-import axios from "axios";
 import Decimal from "decimal.js";
 import { Request, Response } from "express";
+import subVn from "sub-vn";
 import { ApplicationController } from ".";
 // checkout
 export class OrderController extends ApplicationController {
@@ -12,10 +12,8 @@ export class OrderController extends ApplicationController {
     }
 
     try {
-      const response = await axios.get(
-        `https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`
-      );
-      const districts = response.data.districts;
+      const districts = subVn.getDistrictsByProvinceCode(provinceCode);
+
       if (!districts) {
         return res.status(404).json({ message: "Districts not found" });
       }
@@ -33,10 +31,8 @@ export class OrderController extends ApplicationController {
     }
 
     try {
-      const response = await axios.get(
-        `https://provinces.open-api.vn/api/d/${districtCode}?depth=2`
-      );
-      const wards = response.data.wards;
+      const wards = subVn.getWardsByDistrictCode(districtCode);
+
       if (!wards) {
         return res.status(404).json({ message: "Wards not found" });
       }
@@ -76,16 +72,13 @@ export class OrderController extends ApplicationController {
         },
       });
 
-      const provincesResponse = await axios.get(
-        "https://provinces.open-api.vn/api/p/"
-      );
-      const provinces = provincesResponse.data;
+      const provinces = subVn.getProvinces();
 
       res.render("userview/order.view/index", {
         user,
         carts,
-        provinces,
         groups,
+        provinces,
       });
     }
   }
@@ -101,23 +94,20 @@ export class OrderController extends ApplicationController {
       paymentMethod,
     } = req.body;
 
-    const [provinceData, districtData, wardData] = await Promise.all([
-      axios.get(`https://provinces.open-api.vn/api/p/${province}`),
-      axios.get(`https://provinces.open-api.vn/api/d/${district}`),
-      axios.get(`https://provinces.open-api.vn/api/w/${ward}`),
-    ]);
+    const MainAddress = subVn.getWardsByCode(ward);
 
-    const provinceName = provinceData.data.name;
-    const districtName = districtData.data.name;
-    const wardName = wardData.data.name;
-
-    const fullAddress = `${recipientAddress}, ${wardName}, ${districtName}, ${provinceName}`;
-
+    const fullAddress = `${recipientAddress}, ${MainAddress.name}, ${MainAddress.district_name}, ${MainAddress.province_nam}`;
+    console.log(fullAddress);
+    
     const cart = await prisma.cart.findMany({
       where: { userId },
-      include: { product: true },
+      include: {
+        product: true,
+        user: {
+          select: { email: true },
+        },
+      },
     });
-
     if (cart.length === 0) {
       return res.status(400).json({ message: "Giỏ hàng trống" });
     }
@@ -132,7 +122,7 @@ export class OrderController extends ApplicationController {
       },
     });
 
-    const orderDetail = await prisma.orderDetail.createMany({
+    await prisma.orderDetail.createMany({
       data: cart.map((item) => ({
         orderId: order.id,
         quantity: item.quantity,
@@ -155,12 +145,11 @@ export class OrderController extends ApplicationController {
       });
     }
 
-    const totalAmount =
-      cart.reduce(
-        (total, item) =>
-          total + new Decimal(item.product.price).mul(item.quantity).toNumber(),
-        0
-      ) ;
+    const totalAmount = cart.reduce(
+      (total, item) =>
+        total + new Decimal(item.product.price).mul(item.quantity).toNumber(),
+      0
+    );
 
     await prisma.cart.deleteMany({ where: { userId } });
 
