@@ -106,13 +106,13 @@ export class ProductController extends ApplicationController {
     }
     const { q } = req.query;
     const products = await prisma.products.findMany({
+      take: 20,
       where: {
         productName: { contains: q as string },
       },
       orderBy: {
         productName: "asc",
       },
-      take: 12,
     });
     const categories = await prisma.categories.findMany();
     res.render("userview/products.view/search", {
