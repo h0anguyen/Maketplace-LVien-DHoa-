@@ -104,14 +104,6 @@ export class ProductController extends ApplicationController {
       });
     }
     const { q } = req.query;
-    const productSearchs = await prisma.products.findMany({
-      where: {
-        productName: {
-          contains: q as string,
-        }
-      },
-      take: 5 // Giới hạn số lượng sản phẩm trả về
-    });;
     const products = await prisma.products.findMany({
       take: 20,
       where: {
@@ -125,7 +117,6 @@ export class ProductController extends ApplicationController {
     res.render("userview/products.view/search", {
       products,
       user,
-      productSearchs,
       searchTerm: q,
       categories,
     });
