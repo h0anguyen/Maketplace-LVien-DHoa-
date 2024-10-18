@@ -96,8 +96,8 @@ export class OrderController extends ApplicationController {
 
     const MainAddress = subVn.getWardsByCode(ward);
 
-    const fullAddress = `${recipientAddress}, ${MainAddress.name}, ${MainAddress.district_name}, ${MainAddress.province_nam}`;
-    
+    const fullAddress = `${recipientAddress}, ${MainAddress.name}, ${MainAddress.district_name}, ${MainAddress.province_name}`;
+
     const cart = await prisma.cart.findMany({
       where: { userId },
       include: {

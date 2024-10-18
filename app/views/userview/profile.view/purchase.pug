@@ -36,7 +36,7 @@ block content
                     each order in orders
                       .order-summary.border.p-4.mb-4.rounded.shadow-sm.bg-light.position-relative
                         span.badge.badge-pill.position-absolute.top-0.end-0.mt-2.me-3(
-                          class=`badge-${order.status === 'PENDING' ? 'warning' : (order.status === 'COMPLETED' ? 'secondary' : 'success')}`
+                          class=`badge-${order.status === 'PENDING' ? 'warning' : (order.status === 'ACCEPTED' ? 'secondary' : 'success')}`
                         ) #{order.status}
 
                         h4.text-secondary
@@ -82,11 +82,7 @@ block content
                                       span.text-muted Đã đánh giá
                                   else
                                     span.text-muted Chưa thể đánh giá
-
-                        span.mt-4.text-start
-                          a.btn.btn-primary(href="/order/cancel/:id") Huỷ đơn hàng
-
-                        span.mt-4.text-end
+                        h5.mt-4.text-end
                           span Tổng giá trị đơn hàng: 
                           span.text-danger  #{order.OrdersDetail.reduce((total, detail) => total + (detail.unitPrice * detail.quantity), 0)} VNĐ
 
@@ -108,7 +104,6 @@ block content
               .mb-4
                 label.form-label.fw-bold(for='rating') Chất lượng sản phẩm
                 select#rating.form-select(name='rating' required)
-                  option(value='') Chọn đánh giá
                   option(value='1') 1 sao
                   option(value='2') 2 sao
                   option(value='3') 3 sao
