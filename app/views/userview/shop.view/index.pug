@@ -56,7 +56,7 @@ block content
                 h3.product-title
                   a(href=`/product/${product.id}`)= product.productName
                 .product-price
-                  span= `${product.price.toLocaleString('vi-VN')} đ`
+                  span= `${product.price} đ`
                 .sold.text-warning
                   | Đã bán: #{product.sold}
       nav(aria-label='Page navigation')
