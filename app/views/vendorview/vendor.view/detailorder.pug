@@ -65,52 +65,22 @@ block content
           | 2024
     #layoutSidenav_content
       main
-        .container-fluid.px-4
-          h1.mt-4 Sản phẩm
-          ol.breadcrumb.mb-4
-            li.breadcrumb-item.active Toàn bộ sản phẩm 
-          .card.mb-4
-            .card-header
-              i.fas.fa-table.me-1
-              | Tất cả sản phẩm 
-            .card-body
-              table#datatablesSimple
+        .container
+          h2.text-center.mb-4.text-primary Chi tiết đơn hàng
+              h5.text-primary.mt-4.mb-3.text-center Sản phẩm trong đơn hàng
+              table.table
                 thead
                   tr
-                    th Id
-                    th Người nhận
-                    th Địa chỉ
-                    th Số điện thoại
-                    th Trạng thái
-                    th Thời gian đặt hàng
-                    th 
-                    th
-                tbody 
-                  - let STT=0
-                    each order in orders
-                      tr.text-center
-                        td= order.id
-                        td= order.recipientName
-                        td= order.recipientAddress
-                        td= order.recipientNumberPhone
-                        td
-                          - if(order.status=="PENDING")
-                            form(action=`/vendor/orders/${order.id}?_method=PUT`, method="post") 
-                              button(type="submit" ).badge.bg-warning Chờ xác nhận
-                          - if(order.status=="ACCEPTED")
-                              form(action="", method="post") 
-                                button(type="submit" disabled).badge.bg-warning Đang chuyển giao vận chuyển
-                          - if(order.status=="CANCELLED")
-                              form(action="", method="post") 
-                                button(type="submit" disabled).badge.bg-danger Đã hủy
-                        td= array[STT]
-                        - STT=STT+1
-                        td
-                          form(action=`/vendor/orders/${order.id}` method="get") 
-                            button(type="submit").btn.btn-info.btn-sm
-                              i.fas.fa-eye.me-1
-                              | Chi tiết
-                        td
-                          form(action=`/vendororder/${order.id}/cancel?_method=PUT`, method="post") 
-                            button(type="submit").btn.btn-danger.btn-sm
-                              | Hủy đơn hàng
+                    th Tên sản phẩm
+                    th.text-center Giá
+                    th.text-center Số lượng
+                    th.text-right Thành tiền
+                tbody
+                  each detail in orders
+                    tr
+                      td.text-decoration-none.text-dark= detail.product.productName
+                      td.text-center.text-success= detail.unitPrice + ' VNĐ'
+                      td.text-center= detail.quantity
+                      td.text-right.text-primary= (detail.unitPrice * detail.quantity) + ' VNĐ'
+                    
+        // End .container
