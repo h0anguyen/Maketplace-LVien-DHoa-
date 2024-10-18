@@ -46,7 +46,7 @@ export class PaymentController extends ApplicationController {
     }
 
     const data: BuildPaymentUrl = {
-      vnp_Amount: totalAmount * 1000,
+      vnp_Amount: totalAmount,
       vnp_IpAddr:
         req.headers.forwarded ||
         req.ip ||
