@@ -25,8 +25,9 @@ export class HomeController extends ApplicationController {
       });
     }
     const productsDatabase = await prisma.products.findMany({
+      take: 50,
       orderBy: {
-        id: "asc",
+        sold: "desc",
       },
     });
     productsDatabase.shift();

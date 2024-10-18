@@ -181,17 +181,11 @@ block content
                   "margin": 20,\
                   "loop": false,\
                   "responsive": {\
-                  "0": {\
-                  "items":1\
-                  },\
                   "480": {\
-                  "items":2\
+                  "items":1\
                   },\
                   "768": {\
                   "items":3\
-                  },\
-                  "992": {\
-                  "items":5\
                   },\
                   "1200": {\
                   "items":6,\
@@ -201,32 +195,29 @@ block content
                   }')
                     each product in productsSold
                       .product.product-7.text-center
-                            figure.product-media
-                              a(href=`/product/${product.id}`)
-                                 img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
-                              .product-action
-                                form(action='/cart' method='POST').addtocart
-                                  input(type='hidden' name='productId' value=product.id)
-                                  input(type='hidden' name='quantity' value='1')
-                                  button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
-                                    span Thêm vào giỏ hàng
-                            .product-body
-                              .product-cat
-                                a(href=product.categories) #{product.categories}
-                              h3.product-title
-                                a(href=`/product/${product.id}`)
-                                  | #{product.productName}
-                              .product-price
-                                | #{product.price} đ
-                              .sold.text-warning
-                                | Đã bán: #{product.sold}
+                        figure.product-media
+                          a(href=`/product/${product.id}`)
+                              img.product-image.hover-effect(src=`data:image/png;base64,${product.mainImage.toString('base64')}`, alt=`${product.productName}`)
+                          .product-action
+                            form(action='/cart' method='POST').addtocart
+                              input(type='hidden' name='productId' value=product.id)
+                              input(type='hidden' name='quantity' value='1')
+                              button.btn-product.btn-cart(type='submit' title='Thêm vào giỏ hàng')
+                                span Thêm vào giỏ hàng
+                        .product-body
+                          .product-cat
+                            a(href=product.categories) #{product.categories}
+                          h3.product-title
+                            a(href=`/product/${product.id}`)
+                              | #{product.productName}
+                          .product-price
+                            | #{product.price} đ
+                          .sold.text-warning
+                            | Đã bán: #{product.sold}
             .mb-3
-            // End .mb-3
             .container
               .heading.heading-center.mb-3
                 h2.title Gợi ý cho bạn
-                // End .title
-              // End .heading
               .tab-content.mb-5
                 #top-all-tab.tab-pane.p-0.fade.show.active(role='tabpanel' aria-labelledby='top-all-link')
                   .products
