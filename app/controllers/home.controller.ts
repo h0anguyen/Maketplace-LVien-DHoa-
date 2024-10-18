@@ -25,14 +25,13 @@ export class HomeController extends ApplicationController {
       });
     }
     const productsDatabase = await prisma.products.findMany({
-      take: 50,
+      take: 30,
       orderBy: {
         sold: "desc",
       },
     });
-    productsDatabase.shift();
     const shuffledProducts = _.shuffle(productsDatabase);
-    const products = shuffledProducts.slice(0, 50);
+    const products = shuffledProducts.slice(0, 30);
 
     const productsSold = await prisma.products.findMany({
       take: 30,
@@ -72,7 +71,6 @@ export class HomeController extends ApplicationController {
         categories: true
       }
     });
-    console.log(products);
     
     res.json(products);
   }

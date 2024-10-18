@@ -18,7 +18,6 @@ export class ProductController extends ApplicationController {
   public async show(req: Request, res: Response) {
     const { id } = req.params;
     let user;
-    console.log(req.session.userId);
     if (req.session.userId) {
       user = await prisma.user.findFirst({
         where: {
@@ -105,6 +104,14 @@ export class ProductController extends ApplicationController {
       });
     }
     const { q } = req.query;
+    const productSearchs = await prisma.products.findMany({
+      where: {
+        productName: {
+          contains: q as string,
+        }
+      },
+      take: 5 // Giới hạn số lượng sản phẩm trả về
+    });;
     const products = await prisma.products.findMany({
       take: 20,
       where: {
@@ -118,7 +125,8 @@ export class ProductController extends ApplicationController {
     res.render("userview/products.view/search", {
       products,
       user,
-      searchQuery: q,
+      productSearchs,
+      searchTerm: q,
       categories,
     });
   }
@@ -178,7 +186,6 @@ export class ProductController extends ApplicationController {
       const { productId, orderId, rating, reviewTitle, reviewContent } =
         req.body;
       const userId = req.session.userId;
-      console.log(req.body);
 
       const newReview = await prisma.comments.create({
         data: {
@@ -248,6 +255,25 @@ export class ProductController extends ApplicationController {
     } catch (error) {
       console.error("Error fetching products:", error);
       res.status(500).json({ products: [], error: "An error occurred" });
+    }
+  }
+  public async getSuggestions(req: Request, res: Response) {
+    const searchQuery = req.query.q as string;
+
+    try {
+      const products = await prisma.products.findMany({
+        where: {
+          productName: {
+            contains: searchQuery,
+          },
+        },
+        take: 5, // Giới hạn số lượng gợi ý trả về
+      });
+
+      res.json(products);
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+      res.status(500).json({ error: "An error occurred while fetching suggestions." });
     }
   }
 }

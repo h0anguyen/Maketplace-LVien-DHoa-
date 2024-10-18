@@ -53,7 +53,6 @@ export class AdminController {
 
   public async listUsers(req: Request, res: Response) {
     if (req.session.userId != null) {
-      console.log(req.session.userId);
 
       const checkRole = await prisma.roleUser.findFirst({
         where: {
@@ -112,7 +111,6 @@ export class AdminController {
 
   public async listProducts(req: Request, res: Response) {
     if (req.session.userId != null) {
-      console.log(req.session.userId);
 
       const checkRole = await prisma.roleUser.findFirst({
         where: {
