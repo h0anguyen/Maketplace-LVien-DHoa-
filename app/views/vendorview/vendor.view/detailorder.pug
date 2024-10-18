@@ -3,7 +3,7 @@ extends ../layout
 block content
   nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
     // Navbar Brand
-    a.navbar-brand.ps-3(href='/admin') Molla
+    a.navbar-brand.ps-3(href='/vendor') Molla
     // Sidebar Toggle
     button#sidebarToggle.btn.btn-link.btn-sm.order-1.order-lg-0.me-4.me-lg-0(href='#!')
       i.fas.fa-bars
@@ -20,12 +20,6 @@ block content
           i.fas.fa-user.fa-fw
         ul.dropdown-menu.dropdown-menu-end(aria-labelledby='navbarDropdown')
           li
-            a.dropdown-item(href='#!') Settings
-          li
-            a.dropdown-item(href='#!') Activity Log
-          li
-            hr.dropdown-divider
-          li
             form(action=`/auth/${userId}?_method=DELETE`, method="post") 
               button(type="submit").dropdown-item Đăng xuất
   #layoutSidenav
@@ -33,69 +27,60 @@ block content
       nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark
         .sb-sidenav-menu
           .nav
-            .sb-sidenav-menu-heading Tổng quát
-            a.nav-link(href='/admin')
+            .sb-sidenav-menu-heading Tổng quan
+            a.nav-link(href='/vendor')
               .sb-nav-link-icon
                 i.fas.fa-tachometer-alt
-              |                                 Tổng quát
-            .sb-sidenav-menu-heading Thành phần
+              |                                 Tổng quan
+            .sb-sidenav-menu-heading Quản lí
             a.nav-link.collapsed(href='#' data-bs-toggle='collapse' data-bs-target='#collapseLayouts' aria-expanded='false' aria-controls='collapseLayouts')
               .sb-nav-link-icon
                 i.fas.fa-columns
-              |                                 Quản lý
+              |                                 Đơn hàng
               .sb-sidenav-collapse-arrow
                 i.fas.fa-angle-down
             #collapseLayouts.collapse(aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion')
               nav.sb-sidenav-menu-nested.nav
-                a.nav-link(href='/admin/users') Người dùng
-                a.nav-link(href='/admin/categorys') Sản phẩm
+                a.nav-link(href='/vendor/orders') Đơn hàng
+                a.nav-link(href='###') Đơn hàng đã hủy
             a.nav-link.collapsed(href='#' data-bs-toggle='collapse' data-bs-target='#collapsePages' aria-expanded='false' aria-controls='collapsePages')
               .sb-nav-link-icon
                 i.fas.fa-book-open
-              |                                 Phân loại
+              |                                 Sản phẩm
               .sb-sidenav-collapse-arrow
                 i.fas.fa-angle-down
             #collapsePages.collapse(aria-labelledby='headingTwo' data-bs-parent='#sidenavAccordion')
               nav#sidenavAccordionPages.sb-sidenav-menu-nested.nav.accordion
-                a.nav-link.collapsed(href='/admin/categories' )
-                  | Doanh mục
-                a.nav-link.collapsed(href='/admin/roles')
-                  | Role
+                a.nav-link.collapsed(href='/vendor/products')
+                  | Sản phẩm
+                a.nav-link.collapsed(href='/vendor/product/new')
+                  | Thêm sản phẩm
             .sb-sidenav-menu-heading Thành phần khác
-            a.nav-link(href='/admin/banner')
-              .sb-nav-link-icon
-                i.fas.fa-chart-area
-              |                                 Banner
-            a.nav-link(href='###')
+            a.nav-link(href='#')
               .sb-nav-link-icon
                 i.fas.fa-table
-              |                                 Phiếu giảm giá
+              |                                 Phiếu giảm giá(Đang nguyên cứu thêm)
         .sb-sidenav-footer
-          .small 
-          |                         
+          .small
+          | 2024
     #layoutSidenav_content
       main
-        .container-fluid.px-4
-          .row.newitem
-            .col-6
-              h1.mt-4 Roles
-              ol.breadcrumb.mb-4
-                li.breadcrumb-item.active Toàn bộ roles
-            .col-6.btn-newitem
-              a.btn.btn-primary(href="/admin/role/new") Tạo role mới
-          .card.mb-4
-            .card-header
-              i.fas.fa-table.me-1
-              | Tất cả Roles
-            .card-body
-              table#datatablesSimple
+        .container
+          h2.text-center.mb-4.text-primary Chi tiết đơn hàng
+              h5.text-primary.mt-4.mb-3.text-center Sản phẩm trong đơn hàng
+              table.table
                 thead
                   tr
-                    th Id
-                    th Chức năng
-                tbody 
-                  - let STT=0
-                    each role in roles
-                      tr  
-                        td= role.id 
-                        td= role.value
+                    th Tên sản phẩm
+                    th.text-center Giá
+                    th.text-center Số lượng
+                    th.text-right Thành tiền
+                tbody
+                  each detail in orders
+                    tr
+                      td.text-decoration-none.text-dark= detail.product.productName
+                      td.text-center.text-success= detail.unitPrice + ' VNĐ'
+                      td.text-center= detail.quantity
+                      td.text-right.text-primary= (detail.unitPrice * detail.quantity) + ' VNĐ'
+                    
+        // End .container

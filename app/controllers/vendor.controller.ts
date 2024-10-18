@@ -51,7 +51,30 @@ export class VendorController extends ApplicationController {
           },
         },
       });
+      const ordersSum = await prisma.orders.findMany({
+        where: {
+          OrdersDetail: {
+            some: {
+              product: {
+                userId: req.session.userId,
+              },
+            },
+          },
+        },
+        include: {
+          OrdersDetail: {
+            include: {
+              product: true,
+            },
+          },
+        },
+      });
       const productsCount = await prisma.products.count({
+        where: {
+          userId: req.session.userId,
+        },
+      });
+      const orderCount = await prisma.orders.count({
         where: {
           userId: req.session.userId,
         },
@@ -64,6 +87,7 @@ export class VendorController extends ApplicationController {
             .format("DD-MM-YYYY HH:mm:ss")
         );
       }
+      console.log(orders.length);
       if (checkRole) {
         res.render("vendorview/vendor.view/index", {
           user,
@@ -71,6 +95,7 @@ export class VendorController extends ApplicationController {
           orders,
           array,
           groups,
+          ordersSum,
         });
       } else {
         res.render("vendorview/vendor.view/new", { user, groups });
@@ -193,6 +218,7 @@ export class VendorController extends ApplicationController {
             .format("HH:mm:ss DD-MM-YYYY")
         );
       }
+      // console.log("tong so sp", orders.length);
       res.render("vendorview/vendor.view/orders", {
         orders,
         user,
@@ -305,6 +331,7 @@ export class VendorController extends ApplicationController {
   public async orderDetail(req: Request, res: Response) {
     let groups = null;
     if (req.session.userId) {
+      const userId = req.session.userId;
       groups = await prisma.participants.findMany({
         where: {
           userId: req.session.userId,
@@ -320,10 +347,18 @@ export class VendorController extends ApplicationController {
       });
       const { id } = req.params;
 
-      const orderDetail = await prisma.orderDetail.findMany({
-        where: {
-          orderId: parseInt(id),
+      const orders = await prisma.orderDetail.findMany({
+        where: { orderId: +id },
+        include: {
+          product: true,
         },
+      });
+      // console.log(orders);
+      res.render("vendorview/vendor.view/detailorder", {
+        orders,
+        user,
+        groups,
+        userId,
       });
     }
   }

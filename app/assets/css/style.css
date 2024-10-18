@@ -20112,3 +20112,10 @@ button:focus {
 .active_group {
     background-color: rgba(234, 234, 234, 0.925);
 }
+
+.modal-open{
+    overflow: auto !important;
+}
+.modal{
+    position:relative;
+}

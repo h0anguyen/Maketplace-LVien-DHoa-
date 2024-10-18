@@ -5,7 +5,7 @@ block content
     include ../partials/header
     main
       .my-5
-      .container.pd
+      .contain
         #layoutSidenav.rounded-3.overflow-hidden
           #layoutSidenav_nav
             nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark.border.rounded.shadow-sm(style='font-size: 1.8rem;')
@@ -19,6 +19,10 @@ block content
                     .sb-nav-link-icon
                       i.fas.fa-shopping-cart.fa-fw
                     |                                         Đơn hàng
+                  form(action=`/auth/${user.id}?_method=DELETE`, method='post').logout.d-flex.justify-content-center
+                    div
+                    button(type='submit').btn.rounded-pill.btn-danger.mt-5 Đăng xuất
+                    
                  
           #layoutSidenav_content
             main

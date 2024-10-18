@@ -7,6 +7,24 @@ const moment = require("moment-timezone");
 
 export class ProductController extends ApplicationController {
   public async index(req: Request, res: Response) {
+    let user = null;
+    let groups = null;
+
+    if (req.session.userId) {
+      user = await prisma.user.findFirst({
+        where: {
+          id: req.session.userId,
+        },
+      });
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
+    }
     const products = await prisma.products.findMany({
       take: 12,
       orderBy: {
@@ -16,6 +34,18 @@ export class ProductController extends ApplicationController {
     res.render("userview/products.view/index", { products });
   }
   public async show(req: Request, res: Response) {
+    let groups = null;
+
+    if (req.session.userId) {
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
+    }
     const { id } = req.params;
     let user;
     if (req.session.userId) {
@@ -92,11 +122,22 @@ export class ProductController extends ApplicationController {
       productsCate,
       user,
       reviews,
+      groups,
     });
   }
   public async search(req: Request, res: Response) {
+    let groups = null;
     let user = null;
+
     if (req.session.userId) {
+      groups = await prisma.participants.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+        include: {
+          groud: true,
+        },
+      });
       user = await prisma.user.findFirst({
         where: {
           id: req.session.userId,
@@ -119,6 +160,7 @@ export class ProductController extends ApplicationController {
       user,
       searchTerm: q,
       categories,
+      groups,
     });
   }
 
@@ -233,7 +275,7 @@ export class ProductController extends ApplicationController {
       };
 
       // Kiểm tra xem sortBy có nằm trong sortOptions không
-      const orderBy = sortOptions[sortBy] || sortOptions['rating'];
+      const orderBy = sortOptions[sortBy] || sortOptions["rating"];
 
       const products = await prisma.products.findMany({
         where: whereClause,

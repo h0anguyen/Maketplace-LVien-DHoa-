@@ -54,7 +54,7 @@ export class VendorRoute {
         this.vendorController.checkRoleVendor,
         this.vendorController.editProduct
       );
-    
+
     this.path
       .route("/")
       .get(this.vendorController.checkRoleVendor, this.vendorController.index);

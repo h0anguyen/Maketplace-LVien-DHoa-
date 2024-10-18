@@ -162,7 +162,13 @@ export class AuthController extends ApplicationController {
             req.flash("errors", { msg: "Tài khoản của bạn đã bị khóa" });
             return res.redirect("/auth/signin");
           }
-          if (req.session.userId == 0) {
+          const checkAdmin = await prisma.roleUser.findFirst({
+            where: {
+              userId: req.session.userId,
+              rolesId: 0,
+            },
+          });
+          if (checkAdmin) {
             req.flash("success", { msg: "Đăng nhập Admin thành công!" });
             res.redirect("/admin");
           } else {
